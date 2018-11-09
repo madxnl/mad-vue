@@ -1,8 +1,8 @@
 <template>
-  <div class="row space-sm">
-    <mad-button @click="showInfo" class="bg-blue">Info</mad-button>
-    <mad-button @click="showSuccess" class="bg-green">Success</mad-button>
-    <mad-button @click="showError" class="bg-red">Error</mad-button>
+  <div>
+    <mad-button @click="showInfo" color="blue">Info</mad-button>
+    <mad-button @click="showSuccess" color="green">Success</mad-button>
+    <mad-button @click="showError" color="red">Error</mad-button>
   </div>
 </template>
 

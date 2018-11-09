@@ -4,18 +4,12 @@
       <slot></slot>
     </div>
 
-    <textarea v-if="rows > 1"
+    <component :is="rows > 1 ? 'textarea' : 'input'"
       class="mad-input__input"
       :type="type" :rows="rows"
-      v-bind="$attrs" v-on="listeners"
-      :value="value" @input="onInput">
-    </textarea>
-
-    <input v-else
-      class="mad-input__input"
-      :type="type"
-      v-bind="$attrs" v-on="listeners"
-      :value="value" @input="onInput">
+      v-on="listeners"
+      :value="value">
+    </component>
 
     <div class="mad-input__right">
       <slot name="right"></slot>
@@ -42,7 +36,7 @@ export default {
   
   methods: {
     onInput(event) {
-      this.$emit('input', event)
+      this.$emit('input', event.target.value)
     }
   }
 }

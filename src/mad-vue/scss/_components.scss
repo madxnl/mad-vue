@@ -10,8 +10,11 @@
   cursor: pointer;
   border-radius: 3px;
   position: relative;
-  background: transparent;
+  box-shadow: 0 1px 2px rgba(black, 0.35);
+  background: white;
+
   &::after {
+    content: '';
     display: block;
     width: 100%;
     height: 100%;
@@ -19,10 +22,11 @@
     position: absolute;
     border-radius: inherit;
     background: white;
+    transition: all 0.1s;
+    opacity: 0;
   }
   &:hover::after {
-    content: '';
-    opacity: 0.25;
+    opacity: 0.15;
   }
   &:active {
     top: 1px;
@@ -30,38 +34,49 @@
       content: none;
     }
   }
+  &.-flat {
+    background: transparent;
+    color: black;
+    box-shadow: none;
+    &::after {
+      background: $muted;
+    }
+  }
+
+  @each $name, $color in $colors {
+    &.-color-#{$name} {
+      background: $color;
+      color: $white;
+      &.-flat {
+        background: transparent;
+        color: $color;
+      }
+    }
+  }
+
   &:disabled {
     pointer-events: none;
     cursor: default;
-    &::after {
-      content: '';
-      opacity: 0.5;
-    }
-  }
-  &.--raised {
-    box-shadow: 0 1px 2px rgba(black, 0.35);
-    background: white;
-  }
-  &.--busy {
-    cursor: progress !important;
+    opacity: 0.5;
+    &.-flat { color: $muted !important }
+    &:not(.-flat) { background: $muted !important }
   }
 }
 
 
 .mad-form-item {
-  &.--haserror & {
-    color: $red;
-  }
-  &.--required &::after {
-    // font-weight: bold;
-    content: '*';
+  &.-haserror {
     color: $red;
   }
 }
 .mad-form-item__label {
   display: block;
-  font-weight: normal;
   margin-bottom: 0.25em;
+  .-required &::after {
+    // font-weight: bold;
+    content: '*';
+    color: $red;
+  }
 }
 
 
@@ -179,7 +194,7 @@
   flex-grow: 1;
   background: transparent;
   // font-size: 110%;
-  .--haserror & {
+  .-haserror & {
     border-color: $red;
     color: $red;
   }

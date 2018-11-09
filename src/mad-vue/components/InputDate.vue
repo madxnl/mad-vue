@@ -25,8 +25,8 @@
             {{new Date(day).toLocaleString('en', { weekday: 'short' }).slice(0, 2)}}
           </p>
           <mad-button v-for="(day,i) in monthDays" :key="'date'+i" @click="selectDate(day)"
-            :bg="isCurrentDay(day) ? 'primary' : 'white'"
-            :color="isCurrentDay(day) ? 'white' : isCurrentMonth(day) ? 'text' : 'muted'">
+            :flat="!isCurrentDay(day)"
+            :color="isCurrentDay(day) ? 'primary' : isCurrentMonth(day) ? 'black' : 'muted'">
             {{day.getDate()}}
           </mad-button>
         </div>

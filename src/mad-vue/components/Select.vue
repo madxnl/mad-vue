@@ -16,8 +16,8 @@
 
         <div class="mad-select__grid">
           <mad-button v-if="multiple" v-for="(value,i) in selectedValues" :key="i"
-            bg="lightprimary" color="primary"
-            class="size-sm select__multi-item"
+            bg="primary-light" color="primary" size="sm"
+            class="select__multi-item"
             title="Click to remove from selection"
             @click.stop="toggleSelectValue(value)">
             <div v-html="getValueHtml(value)"></div>

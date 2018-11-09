@@ -3,7 +3,10 @@
     v-bind="$attrs" v-on="$listeners">
     <label v-if="label || error" class="mad-form-item__label"
       :title="required && 'This field is required'">
-      {{label || 'Field'}} {{error}}
+      <slot name="label">
+        {{label || 'This field'}}
+      </slot>
+      {{error}}
     </label>
     <slot></slot>
   </p>
@@ -16,6 +19,7 @@ export default {
     value: {},
     required: Boolean,
     validator: Function,
+    // for: String,
   },
 
   data: () => ({
@@ -29,9 +33,8 @@ export default {
     
     classes() {
       return [
-        'space-sm',
-        this.error && '--haserror',
-        this.required && '--required',
+        this.error && '-haserror',
+        this.required && '-required',
       ]
     },
   },

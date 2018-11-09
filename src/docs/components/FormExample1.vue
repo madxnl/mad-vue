@@ -1,13 +1,13 @@
 <template>
   <mad-form @submit="onSubmit">
-    <mad-form-item label="Message">
+    <mad-form-item label="Message" required>
       <mad-input v-model="message"/>
     </mad-form-item>
-    <mad-form-item label="Date and time" required>
+    <mad-form-item label="Date and time" :value="datetime" required>
       <mad-input-date time seconds v-model="datetime"/>
     </mad-form-item>
     <p>
-      <mad-button type="submit" class="bg-blue">Submit</mad-button>
+      <mad-button type="submit" color="primary">Submit</mad-button>
     </p>
   </mad-form>
 </template>
@@ -22,6 +22,9 @@ export default {
     onSubmit() {
       this.$mad.message.success(`Submitted message "${this.message}"`)
       this.message = ''
+    },
+    validator(x) {
+      return 'nope'
     },
   },
 }
