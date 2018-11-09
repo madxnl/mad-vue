@@ -1,0 +1,371 @@
+
+.mad-button {
+  border: 0;
+  font: inherit;
+  // height: 2.5em;
+  padding: .5em 1em;
+  flex-shrink: 0;
+  color: $text;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+  position: relative;
+  background: transparent;
+  &::after {
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    position: absolute;
+    border-radius: inherit;
+    background: white;
+  }
+  &:hover::after {
+    content: '';
+    opacity: 0.25;
+  }
+  &:active {
+    top: 1px;
+    &::after {
+      content: none;
+    }
+  }
+  &:disabled {
+    pointer-events: none;
+    cursor: default;
+    &::after {
+      content: '';
+      opacity: 0.5;
+    }
+  }
+  &.--raised {
+    box-shadow: 0 1px 2px rgba(black, 0.35);
+    background: white;
+  }
+  &.--busy {
+    cursor: progress !important;
+  }
+}
+
+
+.mad-form-item {
+  &.--haserror & {
+    color: $red;
+  }
+  &.--required &::after {
+    // font-weight: bold;
+    content: '*';
+    color: $red;
+  }
+}
+.mad-form-item__label {
+  display: block;
+  font-weight: normal;
+  margin-bottom: 0.25em;
+}
+
+
+
+
+.mad-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+.mad-dropdown__content {
+  background: white !important;
+  border-radius: 1px;
+  position: absolute;
+  z-index: 20;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  // margin: .5rem 0;
+  box-shadow: 0 2px 5px rgba(black, 0.2);
+  max-height: 320px;
+  overflow-y: auto;
+  &.--direction-up {
+    top: auto;
+    bottom: 100%;
+  }
+  &.--align-right {
+    right: 0;
+    left: auto;
+  }
+  &.--match-width {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+.mad-menu {
+  padding: $margin/4 0;
+  color: $text;
+}
+.mad-menu-item {
+  display: block;
+  padding: $margin/4 $margin;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &.--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  &.--clickable {
+    cursor: pointer;
+  }
+  &:hover, &:focus, &.--hover {
+    color: white;
+    background: $primary;
+  }
+  &.--active {
+    color: white;
+    background: $primary;
+  }
+}
+
+
+.mad-messages {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  pointer-events: none;
+  & > * {
+    max-width: 600px;
+    pointer-events: auto;
+    margin-left: auto;
+    margin-right: auto;
+    background: $text;
+    color: white;
+    cursor: default;
+    border-radius: 2px;
+    font-weight: bold;
+    max-height: 200px;
+    overflow: hidden;
+    &._info {
+      background: $blue;
+    }
+    &._success {
+      background: $green;
+    }
+    &._warn {
+      background: $yellow;
+    }
+    &._error {
+      background: $red;
+    }
+  }
+  ._close {
+    cursor: pointer;
+  }
+}
+
+
+.mad-input {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  background: white;
+  border: 1px solid rgba($text, 0.35);
+  box-shadow: 0 1px 1px rgba(black, 0.15) inset;
+  border-radius: 2px;
+  padding: .5rem;
+}
+.mad-input__input {
+  height: 100%;
+  flex-grow: 1;
+  background: transparent;
+  // font-size: 110%;
+  .--haserror & {
+    border-color: $red;
+    color: $red;
+  }
+  &:disabled {
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    cursor: default;
+  }
+  &:focus {
+    border-color: $primary;
+  }
+}
+.mad-input__left,
+.mad-input__right {
+}
+  // .mad-input__input:focus {
+//   outline: 2px solid $primary;
+// }
+.mad-input:focus-within {
+  border-color: $primary;
+  // .mad-input__input {
+  //   outline: ;
+  // }
+}
+
+
+.mad-input-date {
+  display: block;
+}
+.mad-input-date__columns {
+  display: flex;
+  align-items: flex-start;
+  & > * {
+    padding: $margin-sm;
+  }
+}
+.mad-input-date__grid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  text-align: center;
+  width: 16em;
+  & > * {
+    width: 14%;
+    margin: 0;
+    padding: .5rem;
+  }
+}
+.mad-input-date__time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+
+
+.mad-select {
+  width: 100%;
+  position: relative;
+  &.--search-active {
+    .mad-select__grid {
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+  &:not(.--search-active) {
+    .mad-input__input {
+      pointer-events: none;
+      color: transparent;
+    }
+  }
+  .mad-input__left {
+    flex-grow: 1;
+  }
+  .mad-input__input {
+    position: absolute;
+    left: .5rem;
+    right: 1.5rem;
+    height: 100%;
+    background: transparent;
+  }
+}
+.mad-select__grid {
+  display: flex;
+  flex-wrap: wrap;
+  // padding: .25rem 0;
+  margin: -.25rem;
+  & > * {
+    margin: .25rem;
+  }
+}
+
+.select__multi-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 1;
+  text-align: left;
+}
+
+
+
+
+.mad-icon {
+  font-size: 135%;
+  line-height: 80%;
+  vertical-align: -15%;
+}
+
+.loading {
+  position: fixed;
+  height: 4px;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  background: mix($primary, white);
+}
+.loading__bar {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: loading-bar 3s ease-in-out infinite;
+  animation-fill-mode: both;
+  background: $primary;
+}
+@keyframes loading-bar {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 50;
+  background: rgba($darkgray, 0.8);
+  overflow-y: auto; // width: $width-max;
+  padding: $margin*2;
+  margin: 0 !important;
+}
+.modal__window {
+  margin: 0 auto;
+  max-width: 800px;
+  background: white;
+  border-radius: 1px;
+  box-shadow: 0 10px 30px rgba($darkgray, 0.5);
+}
+
+
+
+// .mad-loading {
+//   color: $blue;
+//   font-size: 250%;
+// .ui-spinner {
+//   z-index: 50;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   height: 4px;
+//   overflow: hidden;
+//   // background: $darkgray;
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     background: $blue;
+//     animation: ui-spinner 3s linear infinite;
+//     animation-fill-mode: forwards;
+//   }
+// }
+
+// @keyframes ui-spinner {
+//   from {
+//     left: -100%;
+//   }
+//   to {
+//     left: 100%;
+//   }
+// }

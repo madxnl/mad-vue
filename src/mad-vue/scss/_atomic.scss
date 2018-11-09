@@ -1,0 +1,55 @@
+
+
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background: $color !important;
+    color: white !important;
+  }
+}
+@each $name, $color in $colors {
+  .color-#{$name} {
+    color: $color !important;
+  }
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+
+$margins-map: (
+  '': $margin,
+  -xs: $margin-xs,
+  -sm: $margin-sm,
+  -lg: $margin-lg,
+  -xl: $margin-xl,
+  -0: 0,
+);
+
+@each $key, $value in $margins-map {
+  .pad#{$key} { padding: $value; }
+}
+
+.row {
+  display: flex;
+  flex-flow: row;
+}
+.column {
+  display: flex;
+  flex-flow: column;
+}
+.wrap { flex-wrap: wrap; }
+.grow { flex-grow: 1; }
+
+@each $t in (baseline, center, stretch, flex-start, flex-end) {
+  .align-items-#{$t} { align-items: $t }
+}
+@each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
+  .justify-content-#{$t} { justify-content: $t }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.capitalize::first-letter { text-transform: uppercase }

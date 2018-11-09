@@ -1,0 +1,65 @@
+
+$yellow: #ffcc00 !default;
+$blue: #7348eb !default;
+$green: #40bd93 !default;
+$red: #e43f3f !default;
+$purple: #7348eb !default;
+$orange: #fb7e5c !default;
+
+$facebook: #3b5998 !default;
+$twitter: #00aced !default;
+
+$white: #ffffff !default;
+$gray: #888888 !default;
+$darkgray: #222222 !default;
+
+$text: $darkgray !default;
+$muted: $gray;
+$primary: $blue !default;
+$lightprimary: mix($primary, white, 25%) !default;
+
+
+$colors: (
+  yellow: $yellow,
+  blue: $blue,
+  green: $green,
+  red: $red,
+  purple: $purple,
+  orange: $orange,
+
+  facebook: $facebook,
+  twitter: $twitter,
+
+  white: $white,
+  darkgray: $darkgray,
+  
+  text: $text,
+  muted: $muted,
+  primary: $primary,
+  lightprimary: $lightprimary,
+) !default;
+
+
+
+$margin: 1.5rem !default;
+$margin-xs: $margin * 0.25 !default;
+$margin-sm: $margin * 0.5 !default;
+$margin-lg: $margin * 1.5 !default;
+$margin-xl: $margin * 3 !default;
+
+
+// $text-sizes: (
+//   h1: 1.8rem,
+//   h2: 1.35rem,
+//   h3: 1.15rem,
+//   h4: 1rem,
+//   h5: 1rem,
+//   h6: 1rem,
+//   display: 3rem,
+//   xl: 1.8rem,
+//   lg: 1.35rem,
+//   md: 1rem,
+//   sm: 0.85rem,
+//   xs: 0.7rem,
+// );
+
