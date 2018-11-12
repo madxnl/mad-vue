@@ -24,6 +24,8 @@ export default {
     const components = [
       'Button',
       'Dropdown',
+      'Flex',
+      'FlexItem',
       'Form',
       'FormItem',
       'Icon',

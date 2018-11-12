@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import cssVars from '../scss/vars.scss'
+// import cssVars from '../scss/vars.scss'
 
 export default {
   props: {
@@ -66,3 +66,6 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

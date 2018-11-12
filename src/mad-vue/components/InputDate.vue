@@ -7,9 +7,9 @@
       <mad-icon mdi="chevron-down" slot="right" />
     </mad-input>
     
-    <div slot="dropdown" class="inputDate_columns">
+    <div slot="dropdown" class="mad-input-date__columns">
       <div>
-        <div class="row align-items-center">
+        <mad-flex align="center" justify="space-between">
           <mad-button @click.stop="addMonths(-1)">
             <mad-icon mdi="chevron-left" />
           </mad-button>
@@ -19,21 +19,21 @@
           <mad-button @click.stop="addMonths(1)">
             <mad-icon mdi="chevron-right" />
           </mad-button>
-        </div>
+        </mad-flex>
         <div class="mad-input-date__grid">
           <p v-for="(day,i) in monthDays.slice(0, 7)" :key="'weekday'+i" class="muted">
             {{new Date(day).toLocaleString('en', { weekday: 'short' }).slice(0, 2)}}
           </p>
           <mad-button v-for="(day,i) in monthDays" :key="'date'+i" @click="selectDate(day)"
             :flat="!isCurrentDay(day)"
-            :color="isCurrentDay(day) ? 'primary' : isCurrentMonth(day) ? 'black' : 'muted'">
+            :color="isCurrentDay(day) ? 'primary' : isCurrentMonth(day) ? null : 'muted'">
             {{day.getDate()}}
           </mad-button>
         </div>
       </div>
 
       <div v-if="time" class="mad-input-date__time">
-        <div>
+        <div class="column spacing-sm">
           <mad-button @click.stop="addHours(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
@@ -45,7 +45,7 @@
           </mad-button>
         </div>
         <div>:</div>
-        <div>
+        <div class="column spacing-sm">
           <mad-button @click.stop="addMinutes(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
@@ -58,7 +58,7 @@
         </div>
         <template v-if="seconds">
           <div>:</div>
-          <div>
+          <div class="column spacing-sm">
             <mad-button @click.stop="addSeconds(1)">
               <mad-icon mdi="chevron-up" />
             </mad-button>

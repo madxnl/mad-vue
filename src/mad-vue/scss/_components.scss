@@ -1,4 +1,10 @@
 
+
+.mad-flex {
+  display: flex;
+}
+
+
 .mad-button {
   border: 0;
   font: inherit;
@@ -228,6 +234,7 @@
 .mad-input-date__columns {
   display: flex;
   align-items: flex-start;
+  // justify-content: space-around;
   & > * {
     padding: $margin-sm;
   }
@@ -249,7 +256,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 1.2em;
+  // font-size: 1.2em;
 }
 
 
