@@ -1,10 +1,5 @@
 <template>
-  <div class="pad space">
-    <h1>Installation</h1>
-    <br>
-    <p>
-      <img src="../assets/mad-vue-logo.png" height="150"/>
-    </p>
+  <div>
     <p>To begin using Mad-Vue, simply add the following lines to your <code>main.js</code> file:</p>
     <code-block>
       import MadVue from '@madxnl/mad-vue'

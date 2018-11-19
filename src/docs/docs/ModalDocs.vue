@@ -1,7 +1,5 @@
 <template>
-  <div class="pad space">
-    <h1>Modal</h1>
-    <br>
+  <div>
     <p>Todo</p>
     <code-example name="ModalExample" />
   </div>

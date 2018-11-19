@@ -1,36 +1,36 @@
 <template>
-  <div class="space-sm">
-    <mad-button @click="$refs.modal.toggle()" class="bg-blue">
-      Toggle by modal reference
-    </mad-button>
+  <div>
+    <p>
+      <mad-button @click="$refs.modal.toggle()" color="primary">
+        Toggle by modal reference
+      </mad-button>
+    </p>
 
-    <br>
-    
-    <label>
-      <input type="checkbox" v-model="modalShown">
-      Toggle v-model value
-    </label>
+    <p>
+      <label>
+        <input type="checkbox" v-model="modalShown">
+        Toggle v-model value
+      </label>
+    </p>
 
     <mad-modal v-model="modalShown" ref="modal">
-      <div class="pad space">
         <h1>Modal</h1>
         <p>Example modal</p>
-        <p class="row space-sm">
-          <mad-button @click="$refs.modal2.toggle()" class="bg-blue">
+        <mad-flex spacing="sm" tag="p">
+          <mad-button @click="$refs.modal2.toggle()" color="primary">
             Toggle nested modal
           </mad-button>
-          <mad-button @click="closeModal" bg="blue">
+          <mad-button @click="closeModal" color="primary">
             Close
           </mad-button>
-        </p>
-      </div>
+        </mad-flex>
     </mad-modal>
     
     <mad-modal ref="modal2">
       <div class="pad space">
         <h1>Modal 2</h1>
         <p>Example modal</p>
-        <mad-button @click="$refs.modal2.toggle()" bg="blue">
+        <mad-button @click="$refs.modal2.toggle()" color="primary">
           Close
         </mad-button>
       </div>

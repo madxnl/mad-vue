@@ -1,3 +1,4 @@
+
 $text: #35495d;
 $green: #3bb983;
 $blue: #4296e6;
@@ -9,22 +10,4 @@ $blue: #4296e6;
 html {
   font-family: 'Lato', sans-serif;
 }
-// h1, h2, h3, h4, h5, h6 {
-// }
 
-
-.app {
-  display: flex;
-}
-main {
-  width: 800px;
-  margin: 50px auto;
-}
-nav {
-  top: 0;
-  position: sticky;
-  align-self: flex-start;
-  a {
-    display: block;
-  }
-}

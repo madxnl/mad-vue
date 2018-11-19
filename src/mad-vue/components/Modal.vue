@@ -1,9 +1,11 @@
 <template>
-  <div class="modal" @click.self="toggle(false)" v-if="visible">
-    <div class="modal__window" v-bind="$attrs" v-on="$listeners">
-      <slot></slot>
+  <mad-transition>
+    <div class="mad-modal" @click.self="toggle(false)" v-if="visible">
+      <div class="mad-modal_window" v-bind="$attrs" v-on="$listeners">
+        <slot></slot>
+      </div>
     </div>
-  </div>
+  </mad-transition>
 </template>
 
 <script>

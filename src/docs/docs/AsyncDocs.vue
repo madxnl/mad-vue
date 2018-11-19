@@ -1,7 +1,5 @@
 <template>
-  <div class="pad space">
-    <h1>Async loading</h1>
-    <br>
+  <div>
     <p>
       todo
     </p>

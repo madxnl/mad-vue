@@ -192,7 +192,7 @@
   background: white;
   border: 1px solid rgba($text, 0.35);
   box-shadow: 0 1px 1px rgba(black, 0.15) inset;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: .5rem;
 }
 .mad-input__input {
@@ -341,21 +341,22 @@
 }
 
 
-.modal {
+.mad-modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 50;
-  background: rgba($darkgray, 0.8);
-  overflow-y: auto; // width: $width-max;
+  background: rgba(black, 0.5);
+  overflow-y: auto;
   padding: $margin*2;
-  margin: 0 !important;
+  margin: 0 calc(100% - 100vw) 0 0 !important;
 }
-.modal__window {
+.mad-modal_window {
   margin: 0 auto;
   max-width: 800px;
   background: white;
-  border-radius: 1px;
+  border-radius: 4px;
   box-shadow: 0 10px 30px rgba($darkgray, 0.5);
+  padding: $margin;
 }
 
 
