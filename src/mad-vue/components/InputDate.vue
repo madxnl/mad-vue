@@ -9,7 +9,7 @@
     
     <div slot="dropdown" class="mad-input-date__columns">
       <div>
-        <mad-flex align="center" justify="space-between">
+        <div>
           <mad-button @click.stop="addMonths(-1)">
             <mad-icon mdi="chevron-left" />
           </mad-button>
@@ -19,7 +19,7 @@
           <mad-button @click.stop="addMonths(1)">
             <mad-icon mdi="chevron-right" />
           </mad-button>
-        </mad-flex>
+        </div>
         <div class="mad-input-date__grid">
           <p v-for="(day,i) in monthDays.slice(0, 7)" :key="'weekday'+i" class="muted">
             {{new Date(day).toLocaleString('en', { weekday: 'short' }).slice(0, 2)}}

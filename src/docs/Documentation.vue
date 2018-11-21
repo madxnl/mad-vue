@@ -1,14 +1,16 @@
 <template>
   <div class="_app">
     <nav class="_nav">
-      <p class="_nav-brand">
-        <a :href="'#' + getSectionId(sections[0])">
-          <img src="./assets/mad-vue-logo.png" height="150"/>
-        </a>
-      </p>
+      <a class="_nav-brand" :href="'#' + getSectionId(sections[0])">
+        <img src="./assets/mad-vue-logo.png" height="100"/>
+        <h2>Mad-Vue</h2>
+      </a>
       <a v-for="(section,i) in sections" :key="i"
         :href="'#' + getSectionId(section)"
-        class="_nav-link" :class="{'-active':activeSection==section}">
+        class="_nav-link" :class="{
+          '-active':activeSection==section,
+          '-subitem':section.subitem,
+        }">
         {{section.name}}
       </a>
     </nav>
@@ -40,16 +42,26 @@ export default {
   data: () => ({
     sections: [
       { name: 'Installation', component: require('./docs/InstallationDocs').default },
-      // { name: 'Layout', component: require('./docs/LayoutDocs').default },
+      { name: 'Styling' },
       // { name: 'Typography', component: require('./docs/TypographyDocs').default },
-      { name: 'Form', component: require('./docs/FormDocs').default },
-      { name: 'Select', component: require('./docs/SelectDocs').default },
-      { name: 'Button', component: require('./docs/ButtonDocs').default },
-      { name: 'Icon', component: require('./docs/IconDocs').default },
-      { name: 'Modal', component: require('./docs/ModalDocs').default },
-      // { name: 'Validation', component: require('./docs/ValidationDocs').default },
-      { name: 'Messages', component: require('./docs/MessagesDocs').default },
-      { name: 'Async loading', component: require('./docs/AsyncDocs').default },
+      { name: 'Components', component: require('./docs/ComponentsDocs').default },
+
+      { name: 'Button', component: require('./docs/ButtonDocs').default, subitem: true },
+      { name: 'Datatable', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Dropdown', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Form', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'FormItem', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Icon', component: require('./docs/IconDocs').default, subitem: true },
+      { name: 'Input', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Input Date', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Input File', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Loading', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Messages', component: require('./docs/MessagesDocs').default, subitem: true },
+      { name: 'Menu', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Modal', component: require('./docs/ModalDocs').default, subitem: true },
+      { name: 'Select', component: require('./docs/SelectDocs').default, subitem: true },
+      { name: 'Tabs', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Transition', component: require('./docs/FormDocs').default, subitem: true },
     ],
     activeSection: null,
   }),
@@ -87,16 +99,18 @@ export default {
 @import './docs';
 
 
-$navWidth: 300px;
+$navWidth: 240px;
+$sectionWidth: 800px;
 
 ._app {
+  justify-content: stretch;
+  height: 100vh;
   padding-left: $navWidth;
 }
 ._section {
-  max-width: 800px;
-  min-height: 60vh;
-  margin: 0 auto 0 auto;
+  max-width: $sectionWidth;
   padding: 50px $margin;
+  margin: 0 auto;
 }
 ._section-title {
   // background: $text;
@@ -108,18 +122,20 @@ $navWidth: 300px;
 ._main {
 }
 ._nav {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  border-right: 1px solid rgba($text, 0.25);
   background: rgba($text, 0.1);
   width: $navWidth;
   padding: 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
 }
 ._nav-brand {
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
   img {
     margin: 0 auto;
     display: block;
+    margin-bottom: .5rem;
   }
 }
 ._nav-link {
@@ -129,15 +145,15 @@ $navWidth: 300px;
   text-decoration: none;
   padding: .25em .5em;
   transition: all .2s;
-  &:not(:last-child) {
-    border-bottom: 1px solid rgba($text, 0.2);
-  }
   &:hover {
-    background: rgba(white, 0.1);
+    background: rgba($text, 0.1);
   }
   &.-active {
     background: rgba($text, 0.75);
     color: white;
+  }
+  &.-subitem {
+    margin-left: 1em;
   }
 }
 </style>

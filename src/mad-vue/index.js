@@ -25,8 +25,6 @@ export default {
       'Button',
       'Datatable',
       'Dropdown',
-      'Flex',
-      'FlexItem',
       'Form',
       'FormItem',
       'Icon',
@@ -41,6 +39,8 @@ export default {
       'Modal',
       'Option',
       'Select',
+      'Tab',
+      'Tabs',
       'Transition',
     ]
 

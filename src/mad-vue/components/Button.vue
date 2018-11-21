@@ -10,8 +10,6 @@
 </template>
 
 <script>
-// import cssVars from '../scss/vars.scss'
-
 export default {
   props: {
     type: { type: String, default: 'button' },
@@ -66,6 +64,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

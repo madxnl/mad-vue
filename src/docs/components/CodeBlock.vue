@@ -31,3 +31,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.hljs {
+  background: none;
+  padding: 0;
+}
+</style>
