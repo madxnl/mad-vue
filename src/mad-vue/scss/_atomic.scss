@@ -29,7 +29,10 @@
 }
 
 @each $key, $value in $margins-map {
-  .pad#{$key} { padding: $value; }
+  .padded#{$key} {
+    padding: $value;
+    & > :last-child { margin-bottom: 0; }
+  }
   .spacing#{$key} {
     margin: -$value / 2;
     & > * { margin: $value / 2; }
@@ -49,7 +52,7 @@
 }
 @each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
   .justify-#{$t} { justify-content: $t }
-  .justify-self-#{$t} { justify-content: $t }
+  .justify-self-#{$t} { justify-self: $t }
 }
 
 // .cursor-pointer { cursor: pointer; }

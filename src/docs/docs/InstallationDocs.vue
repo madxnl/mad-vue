@@ -1,12 +1,14 @@
 <template>
   <div>
     <p>To begin using Mad-Vue, simply add the following lines to your <code>main.js</code> file:</p>
-    <code-block>
-      import MadVue from '@madxnl/mad-vue'
-      import '@madxnl/mad-vue/scss/mad-vue.scss'
+    <figure>
+      <code-block>
+        import MadVue from '@madxnl/mad-vue'
+        import '@madxnl/mad-vue/scss/mad-vue.scss'
 
-      Vue.use(MadVue)
-    </code-block>
+        Vue.use(MadVue)
+      </code-block>
+    </figure>
   </div>
 </template>
 

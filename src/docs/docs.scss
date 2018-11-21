@@ -11,3 +11,12 @@ html {
   font-family: 'Lato', sans-serif;
 }
 
+code {
+  font-size: 13px;
+  // line-height: 0.8;
+}
+
+figure {
+  background: rgba($text, 0.05);
+  border: 1px solid rgba($text, 0.25);
+}

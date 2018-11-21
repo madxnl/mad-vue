@@ -360,6 +360,19 @@
 }
 
 
+.mad-datatable {
+  th {
+    // color: white;
+    // background: $blue;
+    vertical-align: top;
+    text-align: center;
+  }
+  th.-sortable {
+    cursor: pointer
+  }
+}
+
+
 
 // .mad-loading {
 //   color: $blue;

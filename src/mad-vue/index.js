@@ -23,6 +23,7 @@ export default {
 
     const components = [
       'Button',
+      'Datatable',
       'Dropdown',
       'Flex',
       'FlexItem',

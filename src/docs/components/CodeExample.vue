@@ -1,14 +1,15 @@
 <template>
-  <figure class="-example">
-    <div class="pad">
-      <component :is="component" />
-    </div>
+  <figure>
     <div @click="toggled=!toggled" class="-bar">
-      <mad-icon mdi="code-braces" />
-      {{toggled ? 'Hide' : 'Show'}} code
+      <mad-icon mdi="code-tags" />
     </div>
-    <div class="pad" v-if="toggled">
-      <pre><code>{{source}}</code></pre>
+    <div class="padded">
+      <div v-if="toggled">
+        <code-block>{{source}}</code-block>
+      </div>
+      <div v-else>
+        <component :is="component" />
+      </div>
     </div>
   </figure>
 </template>
@@ -34,14 +35,11 @@ export default {
 @import '~@/mad-vue/scss/vars';
 
 .-bar {
-  // background: $blue;
+  // background: rgba($text, 0.75);
   // color: white;
-  // padding: .5em;
+  padding: .5em;
+  text-align: right;
   cursor: pointer;
-}
-.-example {
-  border: 1px solid $blue;
-  padding: 1em;
 }
 
 </style>
