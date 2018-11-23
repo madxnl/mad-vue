@@ -1,4 +1,8 @@
 module.exports = {
+  // configureWebpack: config => {
+  //   config.output.chunkFilename = '[name].bundle.js'
+  //   config.optimization = { splitChunks: { chunks: 'all' } }
+  // },
   chainWebpack: config => {
     config.module
     .rule("vue")

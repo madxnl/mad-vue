@@ -41,27 +41,21 @@ Vue.component('CodeBlock', CodeBlock)
 export default {
   data: () => ({
     sections: [
-      { name: 'Installation', component: require('./docs/InstallationDocs').default },
-      { name: 'Styling' },
-      // { name: 'Typography', component: require('./docs/TypographyDocs').default },
-      { name: 'Components', component: require('./docs/ComponentsDocs').default },
-
+      { name: 'Quick start', component: require('./docs/InstallationDocs').default },
       { name: 'Button', component: require('./docs/ButtonDocs').default, subitem: true },
-      { name: 'Datatable', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Dropdown', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Icons', component: require('./docs/IconDocs').default, subitem: true },
       { name: 'Form', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'FormItem', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Icon', component: require('./docs/IconDocs').default, subitem: true },
-      { name: 'Input', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Input Date', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Input File', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Loading', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Messages', component: require('./docs/MessagesDocs').default, subitem: true },
+      { name: 'Input', component: require('./docs/InputDocs').default, subitem: true },
+      { name: 'Select', component: require('./docs/SelectDocs').default, subitem: true },
+      { name: 'Dropdown', component: require('./docs/FormDocs').default, subitem: true },
       { name: 'Menu', component: require('./docs/FormDocs').default, subitem: true },
       { name: 'Modal', component: require('./docs/ModalDocs').default, subitem: true },
-      { name: 'Select', component: require('./docs/SelectDocs').default, subitem: true },
       { name: 'Tabs', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Loading', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Messages', component: require('./docs/MessagesDocs').default, subitem: true },
+      { name: 'Datatable', component: require('./docs/DatatableDocs').default, subitem: true },
       { name: 'Transition', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Custom styling', component: require('./docs/StylingDocs').default },
     ],
     activeSection: null,
   }),
@@ -76,7 +70,7 @@ export default {
         const id = this.getSectionId(section)
         const el = document.getElementById(id)
         const bounds = el.getBoundingClientRect()
-        if (bounds.top < window.innerHeight / 2 && bounds.bottom > window.innerHeight / 2) {
+        if (bounds.top < window.innerHeight / 2 && bounds.bottom > window.innerHeight / 4) {
           return section
         }
       })
@@ -152,8 +146,6 @@ $sectionWidth: 800px;
     background: rgba($text, 0.75);
     color: white;
   }
-  &.-subitem {
-    margin-left: 1em;
-  }
+  // &.-subitem { margin-left: 1em; }
 }
 </style>

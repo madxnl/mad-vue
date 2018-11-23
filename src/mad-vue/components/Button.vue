@@ -4,8 +4,8 @@
     :disabled="disabled"
     :class="classes" :style="styles"
     v-bind="$attrs" v-on="$listeners">
-    <slot></slot>
-    <!-- <mad-loading v-if="busy"/> -->
+    <div class="mad-button_content"><slot></slot></div>
+    <mad-loading v-if="loading"/>
   </button>
 </template>
 
@@ -17,23 +17,25 @@ export default {
     // secondary: Boolean,
     flat: Boolean,
     size: String,
-    // click: Function,
+    loading: Boolean,
     disabled: Boolean,
+    active: Boolean,
     // square: Boolean,
   },
 
   data: () => ({
-    // busy: false,
+    // loading: false,
   }),
 
   computed: {
     classes() {
       return [
         this.flat && '-flat',
-        // this.busy && '--busy',
         this.color && `-color-${this.color}`,
         // this.bg && !this.color && `color-white`,
         this.size && `fontsize-${this.size}`,
+        this.active && `-active`,
+        this.loading && `-loading`,
         // this.square && '_square'
       ]
     },
@@ -49,18 +51,6 @@ export default {
       }
       return style
     },
-  },
-
-  methods: {
-    // onClick(e) {
-    //   if (this.click && !this.busy) {
-    //     const result = this.click()
-    //     if (result && typeof result.then == 'function') {
-    //       this.busy = true
-    //       result.finally(() => this.busy = false)
-    //     }
-    //   }
-    // },
   },
 }
 </script>

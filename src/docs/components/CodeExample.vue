@@ -1,9 +1,11 @@
 <template>
   <figure>
-    <div @click="toggled=!toggled" class="-bar">
-      <mad-icon mdi="code-tags" />
+    <div class="-top">
+      <mad-button @click="toggled=!toggled" size="sm" flat>
+        <mad-icon mdi="code-tags" />
+      </mad-button>
     </div>
-    <div class="padded">
+    <div class="container">
       <div v-if="toggled">
         <code-block>{{source}}</code-block>
       </div>
@@ -34,10 +36,10 @@ export default {
 <style lang="scss" scoped>
 @import '~@/mad-vue/scss/vars';
 
-.-bar {
+.-top {
   // background: rgba($text, 0.75);
   // color: white;
-  padding: .5em;
+  padding: .5em .5em 0;
   text-align: right;
   cursor: pointer;
 }

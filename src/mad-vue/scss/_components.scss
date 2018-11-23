@@ -30,10 +30,13 @@
   &:hover::after {
     opacity: 0.15;
   }
-  &:active {
+  &.-active, &:active {
     top: 1px;
+    box-shadow: inset 0 1px 2px rgba(black, 0.35);
     &::after {
-      content: none;
+      // background: transparent;
+      opacity: 0.25;
+      // color: black;
     }
   }
   &.-flat {
@@ -56,12 +59,15 @@
     }
   }
 
-  &:disabled {
+  &:disabled, &.-loading {
     pointer-events: none;
     cursor: default;
     opacity: 0.5;
     &.-flat { color: $muted !important }
     &:not(.-flat) { background: $muted !important }
+  }
+  &.-loading {
+    .mad-button_content { visibility: hidden; }
   }
 }
 
@@ -309,30 +315,53 @@
   vertical-align: -15%;
 }
 
-.loading {
-  position: fixed;
-  height: 4px;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  z-index: 50;
-  background: mix($primary, white);
-}
-.loading__bar {
-  content: '';
+
+.mad-loading {
+  width: 1em;
+  height: 1em;
   position: absolute;
-  width: 100%;
-  height: 100%;
-  animation: loading-bar 3s ease-in-out infinite;
-  animation-fill-mode: both;
-  background: $primary;
+  top: 50%; left: 50%; transform:translate(-50%,-50%);
+  .mad-loading_inner {
+    width: 1em;
+    height: 1em;
+    background: currentColor;
+    display: block;
+    animation: spin 3s linear infinite;
+    animation-fill-mode: both;
+  }
 }
-@keyframes loading-bar {
+// .mad-loading {
+//   position: fixed;
+//   height: 4px;
+//   width: 100vw;
+//   top: 0;
+//   left: 0;
+//   z-index: 50;
+//   background: mix($primary, white);
+// }
+// .mad-loading_inner {
+//   content: '';
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   animation: loading-bar 3s ease-in-out infinite;
+//   animation-fill-mode: both;
+//   background: $primary;
+// }
+// @keyframes loading-bar {
+//   from {
+//     left: -100%;
+//   }
+//   to {
+//     left: 100%;
+//   }
+// }
+@keyframes spin {
   from {
-    left: -100%;
+    transform: rotate(0deg);
   }
   to {
-    left: 100%;
+    transform: rotate(360deg);
   }
 }
 

@@ -12,11 +12,35 @@ html {
 }
 
 code {
-  font-size: 13px;
+  font-size: 85%;
   // line-height: 0.8;
 }
 
 figure {
   background: rgba($text, 0.05);
   border: 1px solid rgba($text, 0.25);
+}
+
+.container {
+  padding: 1rem;
+  & > :last-child { margin-bottom: 0; }
+}
+
+@import '~highlight.js/styles/github.css';
+
+.hljs {
+  background: none !important;
+  padding: 0 !important;
+}
+
+.component-api-table {
+  width: 100%;
+  
+  td:not(:last-child) {
+    font-family: monospace;
+    font-size: 85%;
+  }
+  td:first-child {
+    font-weight: bold;
+  }
 }

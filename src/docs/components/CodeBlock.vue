@@ -1,17 +1,22 @@
 <template>
-  <pre><code ref="code"><slot></slot></code></pre>
+  <pre><code ref="code" :class="language"><slot></slot></code></pre>
 </template>
 
 <script>
 import hljs from 'highlight.js/lib/highlight'
 import javascript from 'highlight.js/lib/languages/javascript'
 import xml from 'highlight.js/lib/languages/xml'
-import 'highlight.js/styles/github.css'
+import scss from 'highlight.js/lib/languages/scss'
 
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('xml', xml)
+hljs.registerLanguage('scss', scss)
 
 export default {
+  props: {
+    language: String,
+  },
+
   methods: {
     applyHighlight() {
       hljs.highlightBlock(this.$refs.code)
@@ -32,9 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.hljs {
-  background: none;
-  padding: 0;
+<style lang="scss" scoped>
+._filename {
 }
 </style>
