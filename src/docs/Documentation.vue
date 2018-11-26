@@ -31,17 +31,10 @@
 <script>
 import './docs.scss'
 
-import CodeExample from './components/CodeExample'
-import CodeBlock from './components/CodeBlock'
-
-import Vue from 'vue'
-Vue.component('CodeExample', CodeExample)
-Vue.component('CodeBlock', CodeBlock)
-
 export default {
   data: () => ({
     sections: [
-      { name: 'Quick start', component: require('./docs/InstallationDocs').default },
+      { name: 'Installation', component: require('./docs/InstallationDocs').default },
       { name: 'Button', component: require('./docs/ButtonDocs').default, subitem: true },
       { name: 'Icons', component: require('./docs/IconDocs').default, subitem: true },
       { name: 'Form', component: require('./docs/FormDocs').default, subitem: true },

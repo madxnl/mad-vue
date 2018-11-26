@@ -6,11 +6,9 @@
 
     <slot></slot>
 
-    <mad-transition>
       <div v-if="active" class="mad-dropdown__content">
         <slot name="dropdown"></slot>
       </div>
-    </mad-transition>
   </div>
 </template>
 

@@ -1,46 +1,44 @@
 <template>
-  <component :is="tag" class="mad-flex">
-    <div :class="classes" :style="styles">
-      <slot></slot>
+  <div class="mad-tabs">
+    <div v-for="(tab,i) in tabs" v-if="tab != null" :key="i"
+      @click="activate(tab)"
+      class="mad-tab"
+      ref="tabs"
+      :class="{'-active':tab==value}">
+      {{tab}}
     </div>
-  </component>
+    <div ref="line" class="mad-tabs_line"></div>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    column: Boolean,
-    direction: String,
-    wrap: [String,Boolean],
-    tag: { type: String, default: 'div' },
-    justify: { type: String, default: 'flex-start' },
-    align: { type: String, default: 'stretch' },
-    spacing: String,
+    tabs: { type: Array, required: true },
+    value: true,
   },
 
   data: () => ({
   }),
 
-  computed: {
-    classes() {
-      return {
-        row: !this.column,
-        column: this.column,
-        [this.direction]: this.direction,
-        wrap: this.wrap == true,
-        [this.wrap]: typeof this.wrap == 'string',
-        [`justify-${this.justify}`]: this.justify,
-        [`align-${this.align}`]: this.align,
-        spacing: !this.spacing,
-        [`spacing-${this.spacing}`]: this.spacing,
-      }
-    },
-
-    styles() {
+  watch: {
+    value() {
+      this.setLine()
     },
   },
 
   methods: {
+    activate(tab) {
+      this.$emit('input', tab)
+    },
+
+    setLine() {
+      const line = this.$refs.line
+      const i = this.tabs.filter(t => t != null).indexOf(this.value)
+      const tab = this.$refs.tabs[i]
+      line.style.marginLeft = tab.offsetLeft + 'px'
+      line.style.width = tab.offsetWidth + 'px'
+    },
     // onClick(e) {
     //   if (this.click && !this.busy) {
     //     const result = this.click()
@@ -50,6 +48,10 @@ export default {
     //     }
     //   }
     // },
+  },
+
+  mounted() {
+    this.setLine()
   },
 }
 </script>

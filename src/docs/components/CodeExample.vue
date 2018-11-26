@@ -6,12 +6,10 @@
       </mad-button>
     </div>
     <div class="container">
-      <div v-if="toggled">
-        <code-block>{{source}}</code-block>
-      </div>
-      <div v-else>
-        <component :is="component" />
-      </div>
+      <mad-transition>
+        <code-block v-if="toggled">{{source}}</code-block>
+        <component v-else-if="component" :is="component" />
+      </mad-transition>
     </div>
   </figure>
 </template>

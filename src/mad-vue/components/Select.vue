@@ -17,11 +17,12 @@
         <div class="mad-select__grid">
           <mad-button v-if="multiple" v-for="(value,i) in selectedValues" :key="i"
             bg="primary-light" color="primary" size="sm"
-            class="select__multi-item"
             title="Click to remove from selection"
             @click.stop="toggleSelectValue(value)">
-            <div v-html="getValueHtml(value)"></div>
-            <mad-icon mdi="close"></mad-icon>
+            <div class="select__multi-item">
+              <div v-html="getValueHtml(value)"></div>
+              <mad-icon mdi="close"></mad-icon>
+            </div>
           </mad-button>
           <div v-else v-html="getValueHtml(selectedValues[0])"></div>
         </div>
