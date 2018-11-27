@@ -1,5 +1,6 @@
 <template>
-  <div class="mad-loading">
+  <div class="mad-loading"
+    :class="computedClass">
     <div class="mad-loading_inner">
     </div>
   </div>
@@ -13,6 +14,21 @@
 // let loadingCount = 0
 
 export default {
+  props: {
+    bar: Boolean,
+    position: String,
+  },
+
+  computed: {
+    computedClass() {
+      return {
+        '-bar': this.bar,
+        '-fixed': this.position == 'fixed',
+        '-absolute': this.position == 'absolute',
+      }
+    },
+  },
+  
   created() {
     // loadingCount++
     // document.body.style.cursor = 'progress'

@@ -1,9 +1,13 @@
 <template>
-  <transition-group name="_transition" class="mad-messages pad-xs space-xs" tag="div">
+  <transition-group name="_transition" class="mad-messages" tag="div">
     <div v-for="msg in $mad.message.messages.slice(0).reverse()" :key="msg.id"
-      :class="`pad-sm row space-sm align-start _${msg.type}`">
-      <p class="grow">{{msg.text}}</p>
-      <p class="_close"><mad-icon mdi="close" @click="$mad.message.close(msg)" /></p>
+      :class="`mad-messages_message -${msg.type}`">
+      <div class="mad-messages_text">
+        {{msg.text}}
+      </div>
+      <mad-button flat class="mad-messages_close" @click="$mad.message.close(msg)">
+        <mad-icon mdi="close"/>
+      </mad-button>
     </div>
   </transition-group>
 </template>

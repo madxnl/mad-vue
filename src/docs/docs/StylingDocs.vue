@@ -1,59 +1,59 @@
 <template>
   <div>
     <p>
-      To customize colors and other variables it is recommended to create at least two scss files, one for scss variable declarations and one for actual styling rules.
+      Colors and other SCSS variables can be customized before importing component styling.
+      It is recommended to create at least two separate SCSS files, one for variables and one for global styling.
+      This is so you can import SCSS variables in your own components later. Here's an example:
     </p>
     <figure class="container">
       <code-block>
-        // scss/vars.scss
+        // src/scss/vars.scss
 
         $red: #4296e6; // override shade of red
         $primary: $red; // override primary theme color
-        $custom-var: 200px; // custom variables
 
         @import '~@madxnl/mad-vue/src/scss/vars.scss';
       </code-block>
     </figure>
     <figure class="container">
       <code-block language="scss">
-        // scss/my-app.scss
+        // src/scss/my-app.scss
 
         @import './vars.scss';
         @import '~@madxnl/mad-vue/src/scss/mad-vue.scss';
 
-        // Custom styling goes here
+        // Your styling goes here
       </code-block>
     </figure>
     <p>
-      Remove the Mad-Vue style import from your <code>main.js</code> and instead import your new main scss file:
+      Change the style import in <code>main.js</code> to point to your new main scss file instead:
     </p>
     <figure class="container">
       <code-block>
-        // main.js
+        // src/main.js
         
         import './scss/my-app.scss'
       </code-block>
     </figure>
     <p>
-      See <a href="https://github.com/madxnl/mad-vue/blob/develop/src/mad-vue/scss/vars.scss"><code>vars.scss</code></a> for a full list of variables that can be overridden.
-    </p>
-    <p>
-      You can also import scss variables in your custom components:
+      Be sure to import only the SCSS variables for use inside your components, or you will end up duplicating CSS rules.
     </p>
     <figure class="container">
       <code-block>
-        // components/some-component.vue
+        // my-component.vue
         
         &lt;style lang="scss" scoped&gt;
         @import 'src/scss/vars';
 
-        .some-component {
+        .my-component {
           color: $primary;
-          width: $custom-var;
         }
         &lt;&#47;style&gt;
       </code-block>
     </figure>
+    <p>
+      See <a href="https://github.com/madxnl/mad-vue/blob/master/src/mad-vue/scss/vars.scss"><code>vars.scss</code></a> for a full list of variables that can be overridden.
+    </p>
   </div>
 </template>
 

@@ -44,7 +44,7 @@ export default {
       { name: 'Menu', component: require('./docs/FormDocs').default, subitem: true },
       { name: 'Modal', component: require('./docs/ModalDocs').default, subitem: true },
       { name: 'Tabs', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Loading', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Loading', component: require('./docs/LoadingDocs').default, subitem: true },
       { name: 'Messages', component: require('./docs/MessagesDocs').default, subitem: true },
       { name: 'Datatable', component: require('./docs/DatatableDocs').default, subitem: true },
       { name: 'Transition', component: require('./docs/FormDocs').default, subitem: true },
