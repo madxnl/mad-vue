@@ -1,0 +1,46 @@
+
+$text: #35495d;
+$green: #3bb983;
+$blue: #4296e6;
+
+@import '../mad-vue/scss/mad-vue';
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+html {
+  font-family: 'Lato', sans-serif;
+}
+
+code {
+  font-size: 85%;
+  // line-height: 0.8;
+}
+
+figure {
+  background: rgba($text, 0.05);
+  border: 1px solid rgba($text, 0.25);
+}
+
+.container {
+  padding: 1rem;
+  & > :last-child { margin-bottom: 0; }
+}
+
+@import '~highlight.js/styles/github.css';
+
+.hljs {
+  background: none !important;
+  padding: 0 !important;
+}
+
+.component-api-table {
+  width: 100%;
+  
+  td:not(:last-child) {
+    font-family: monospace;
+    font-size: 85%;
+  }
+  td:first-child {
+    font-weight: bold;
+  }
+}
