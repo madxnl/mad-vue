@@ -15,7 +15,7 @@
     <figure class="container">
       <code-block filename="main.js">
         import MadVue from '@madxnl/mad-vue'
-        import '@madxnl/mad-vue/scss/mad-vue.scss'
+        import '@madxnl/mad-vue/src/mad-vue/scss/mad-vue.scss'
 
         Vue.use(MadVue)
       </code-block>
