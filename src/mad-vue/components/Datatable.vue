@@ -1,6 +1,9 @@
 <template>
   <div>
-    <table class="mad-datatable">
+    <table class="mad-datatable"
+      :class="{
+        '-clickable': rowLink || rowClick,
+      }">
       <tr>
         <th v-if="value">
           <input type="checkbox" :checked="value.length == items.length"
@@ -29,9 +32,7 @@
         </th>
       </tr>
       <tr v-for="(item,i) in currentItems" :key="i"
-        :class="{
-          '-clickable': itemIsClickable(item)
-        }">
+        :class="rowClass ? rowClass(item) : ''">
         <td v-if="value" width="20" @click="selectItem(item)">
           <input type="checkbox" :checked="value.includes(item)">
         </td>
@@ -69,6 +70,7 @@ export default {
     clickItem: { type: [String, Function] },
     rowLink: Function,
     rowClick: Function,
+    rowClass: Function,
   },
 
   data: () => ({
