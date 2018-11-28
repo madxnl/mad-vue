@@ -21,12 +21,26 @@
 .text-right { text-align: right; }
 .text-left { text-align: left; }
 
-// @each $direction in (row, column, row-reverse, column-reverse) {
-//   .#{$direction} {
-//     display: flex;
-//     flex-flow: $direction;
-//   }
-// }
+@each $direction in (row, column, row-reverse, column-reverse) {
+  .#{$direction} {
+    display: flex;
+    flex-flow: $direction;
+  }
+}
+
+.wrap { flex-wrap: wrap; }
+.wrap-reverse { flex-wrap: wrap-reverse; }
+.grow { flex-grow: 1; }
+@each $t in (baseline, center, stretch, flex-start, flex-end) {
+  .align-#{$t} { align-items: $t }
+  .align-self-#{$t} { align-self: $t }
+}
+@each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
+  .justify-#{$t} { justify-content: $t }
+  .justify-self-#{$t} { justify-self: $t }
+}
+
+.faded { opacity: 0.5 }
 
 // @each $key, $value in $margins-map {
 //   .padded#{$key} {
@@ -42,18 +56,6 @@
 //   // .margin#{$key} { margin: $value; }
 // }
 
-// .wrap { flex-wrap: wrap; }
-// .wrap-reverse { flex-wrap: wrap-reverse; }
-// .grow { flex-grow: 1; }
-
-// @each $t in (baseline, center, stretch, flex-start, flex-end) {
-//   .align-#{$t} { align-items: $t }
-//   .align-self-#{$t} { align-self: $t }
-// }
-// @each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
-//   .justify-#{$t} { justify-content: $t }
-//   .justify-self-#{$t} { justify-self: $t }
-// }
 
 // .cursor-pointer { cursor: pointer; }
 

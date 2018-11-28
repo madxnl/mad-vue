@@ -35,22 +35,24 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      selectedValue: null,
-      selectedMulti: ['a', 'b'],
-      selectedObjects: { name: 'foo' },
-      selectedCountry: null,
-      countries: [],
-    }),
-    methods: {
-      async searchCountries(searchText) {
-        this.countries = []
-        if (searchText) {
-          const response = await fetch('https://restcountries.eu/rest/v2/name/' + searchText)
-          this.countries = response.status == 200 ? await response.json() : []
-        }
-      },
+import fetch from 'unfetch'
+
+export default {
+  data: () => ({
+    selectedValue: null,
+    selectedMulti: ['a', 'b'],
+    selectedObjects: { name: 'foo' },
+    selectedCountry: null,
+    countries: [],
+  }),
+  methods: {
+    async searchCountries(searchText) {
+      this.countries = []
+      if (searchText) {
+        const response = await fetch('https://restcountries.eu/rest/v2/name/' + searchText)
+        this.countries = response.status == 200 ? await response.json() : []
+      }
     },
-  }
+  },
+}
 </script>

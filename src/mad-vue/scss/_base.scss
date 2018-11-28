@@ -19,59 +19,11 @@
 }
 
 
-//////////////////////////////////// LAYOUT ////////////////////////////////////
-
 p, ul, ol, table,
 hr, blockquote, pre, figure,
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: $margin;
 }
-
-
-
-//   .padding#{$key} {
-//     padding: $value;
-//   }
-//   :not(.row).space#{$key} > :not(:last-child) {
-//     margin-bottom: $value;
-//   }
-//   .row.space#{$key} > :not(:last-child) {
-//     margin-right: $value;
-//   }
-//   .grid#{$key} {
-//     display: flex;
-//     align-items: center;
-//     flex-wrap: wrap;
-//     & > * {
-//       margin: $value / 2;
-//     }
-//   }
-// }
-
-
-// .grow {
-//   flex-grow: 1
-// }
-// .wrap {
-//   flex-wrap: wrap;
-// }
-// .align-start {
-//   align-items: flex-start;
-// }
-// .muted, .faded {
-//   opacity: 0.65;
-// }
-// .disabled {
-//   opacity: 0.65;
-//   pointer-events: none;
-// }
-// .busy {
-//   opacity: 0.65;
-//   pointer-events: none;
-// }
-// .hidden {
-//   visibility: hidden;
-// }
 
 
 
@@ -127,7 +79,6 @@ table {
     font-weight: normal;
     font-weight: bold;
     font-size: 90%;
-    color: rgba($text, 0.5);
   }
   // tr.clickable:hover {
     // background: rgba($text, 0.1);
