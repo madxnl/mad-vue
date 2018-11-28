@@ -12,7 +12,7 @@
         $red: #4296e6; // override shade of red
         $primary: $red; // override primary theme color
 
-        @import '~@madxnl/mad-vue/src/scss/vars.scss';
+        @import '~@madxnl/mad-vue/src/mad-vue/scss/vars.scss';
       </code-block>
     </figure>
     <figure class="container">
@@ -20,7 +20,7 @@
         // src/scss/my-app.scss
 
         @import './vars.scss';
-        @import '~@madxnl/mad-vue/src/scss/mad-vue.scss';
+        @import '~@madxnl/mad-vue/src/mad-vue/scss/mad-vue.scss';
 
         // Your styling goes here
       </code-block>
