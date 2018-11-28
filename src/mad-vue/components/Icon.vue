@@ -16,8 +16,8 @@ export default {
     computedClass() {
       return [
         'mad-icon',
-        this.mdi && `mdi mdi-${this.mdi}`,
-        this.flag && `flag-icon flag-icon-${this.flag}`,
+        this.mdi && `mdi mdi-${this.mdi.toLowerCase()}`,
+        this.flag && `flag-icon flag-icon-${this.flag.toLowerCase()}`,
       ]
     },
   },

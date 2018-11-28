@@ -8,7 +8,7 @@
         Flag
       </template>
       <template slot="flag" slot-scope="{item}">
-        <mad-icon :flag="item.alpha2Code.toLowerCase()"/>
+        <mad-icon :flag="item.alpha2Code"/>
       </template>
     </mad-datatable>
   </div>
