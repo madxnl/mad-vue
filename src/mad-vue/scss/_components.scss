@@ -77,7 +77,7 @@
     color: $red;
   }
 }
-.mad-form-item__label {
+.mad-form-item_label {
   display: block;
   margin-bottom: 0.25em;
   .-required &::after {
@@ -95,7 +95,7 @@
   display: inline-block;
   vertical-align: middle;
 }
-.mad-dropdown__content {
+.mad-dropdown_content {
   background: white !important;
   border-radius: 1px;
   position: absolute;
@@ -242,18 +242,19 @@
   border: 1px solid rgba($text, 0.35);
   box-shadow: 0 1px 1px rgba(black, 0.15) inset;
   border-radius: 3px;
-  padding: .5rem;
 }
-.mad-input__input {
+.mad-input_input {
   height: 100%;
   flex-grow: 1;
   background: transparent;
+  padding: .5rem;
   // font-size: 110%;
   .-haserror & {
     border-color: $red;
     color: $red;
   }
-  &:disabled {
+  &:disabled,
+  &:read-only {
     background: rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.8);
     pointer-events: none;
@@ -263,15 +264,16 @@
     border-color: $primary;
   }
 }
-.mad-input__left,
-.mad-input__right {
+.mad-input_left,
+.mad-input_right {
+  padding: .5rem;
 }
-  // .mad-input__input:focus {
+  // .mad-input_input:focus {
 //   outline: 2px solid $primary;
 // }
 .mad-input:focus-within {
   border-color: $primary;
-  // .mad-input__input {
+  // .mad-input_input {
   //   outline: ;
   // }
 }
@@ -280,7 +282,7 @@
 .mad-input-date {
   display: block;
 }
-.mad-input-date__columns {
+.mad-input-date_columns {
   display: flex;
   align-items: flex-start;
   // justify-content: space-around;
@@ -288,7 +290,7 @@
     padding: $margin-sm;
   }
 }
-.mad-input-date__grid {
+.mad-input-date_grid {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -300,14 +302,14 @@
     padding: .5rem;
   }
 }
-.mad-input-date__time {
+.mad-input-date_time {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   // font-size: 1.2em;
 }
-.mad-input-date__row {
+.mad-input-date_row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -318,29 +320,29 @@
   width: 100%;
   position: relative;
   &.--search-active {
-    .mad-select__grid {
+    .mad-select_grid {
       visibility: hidden;
       pointer-events: none;
     }
   }
   &:not(.--search-active) {
-    .mad-input__input {
+    .mad-input_input {
       pointer-events: none;
-      color: transparent;
+      opacity: 0;
     }
   }
-  .mad-input__left {
-    flex-grow: 1;
-  }
-  .mad-input__input {
-    position: absolute;
-    left: .5rem;
-    right: 1.5rem;
-    height: 100%;
-    background: transparent;
-  }
+  // .mad-input_left {
+  //   flex-grow: 1;
+  // }
+  // .mad-input_input {
+  //   position: absolute;
+  //   left: .5rem;
+  //   right: 1.5rem;
+  //   height: 100%;
+  //   background: transparent;
+  // }
 }
-.mad-select__grid {
+.mad-select_grid {
   display: flex;
   flex-wrap: wrap;
   // padding: .25rem 0;
@@ -351,7 +353,7 @@
   }
 }
 
-.select__multi-item {
+.select_multi-item {
   display: flex;
   align-items: center;
   flex-shrink: 1;

@@ -3,23 +3,23 @@
     :class="classes">
 
 
-    <!-- <div class="mad-select__field"> -->
+    <!-- <div class="mad-select_field"> -->
 
       <!-- @click.stop="()=>{}" @mousedown="onClickInside" @touchstart="onClickInside" -->
-    <!-- <div class="mad-select__field form-field" -->
+    <!-- <div class="mad-select_field form-field" -->
 
-      <mad-input class="mad-select__input"
+      <mad-input class="mad-select_input"
         :value="searchText"
         :placeholder="!selectedValues.length && placeholder"
         @focus="onFocus" @blur="onBlur"
         @keydown="onKeydown" @input="onInput">
 
-        <div class="mad-select__grid">
+        <div class="mad-select_grid" v-if="selectedValues.length && !searchText">
           <mad-button v-if="multiple" v-for="(value,i) in selectedValues" :key="i"
             bg="primary-light" color="primary" size="sm"
             title="Click to remove from selection"
             @click.stop="toggleSelectValue(value)">
-            <div class="select__multi-item">
+            <div class="select_multi-item">
               <div v-html="getValueHtml(value)"></div>
               <mad-icon mdi="close"></mad-icon>
             </div>
@@ -31,7 +31,7 @@
         <mad-icon mdi="chevron-down" slot="right"/>
       </mad-input>
 
-      <!-- <div class="mad-select__current"></div> -->
+      <!-- <div class="mad-select_current"></div> -->
 
     <!-- </div> -->
       <!-- <i v-if="selectedValues && clearable" @click="clearSelection" class="mdi mdi-close"></i> -->
@@ -172,9 +172,9 @@ export default {
       this.value = null
     },
 
-    onInput(event) {
+    onInput(text) {
       this.highlight = 0
-      this.searchText = event.target.value
+      this.searchText = text
       this.dropdownActive = true
       this.updateOptions(400)
     },

@@ -1,17 +1,21 @@
 <template>
   <div class="mad-input">
-    <div class="mad-input__left">
+    <div class="mad-input_left" v-if="$slots.default">
       <slot></slot>
     </div>
 
-    <component :is="rows > 1 ? 'textarea' : 'input'"
-      class="mad-input__input"
-      :type="type" :rows="rows"
-      v-on="listeners"
-      :value="value">
-    </component>
+    <textarea v-if="rows>1"
+      class="mad-input_input"
+      :type="type"
+      :value="value"
+      v-bind="$attrs" v-on="listeners">
+    </textarea>
+    <input v-else
+      class="mad-input_input"
+      :value="value"
+      v-bind="$attrs" v-on="listeners">
 
-    <div class="mad-input__right">
+    <div class="mad-input_right" v-if="$slots.right">
       <slot name="right"></slot>
     </div>
   </div>
@@ -22,7 +26,7 @@ export default {
   props: {
     value: { type: String },
     type: { default: 'text' },
-    rows: { type: [String, Number], default: 1 }
+    rows: { type: [String, Number], default: 1 },
   },
 
   computed: {

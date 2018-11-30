@@ -6,7 +6,7 @@
 
     <slot></slot>
 
-      <div v-if="active" class="mad-dropdown__content">
+      <div v-if="active" class="mad-dropdown_content">
         <slot name="dropdown"></slot>
       </div>
   </div>

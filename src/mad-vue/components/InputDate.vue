@@ -1,15 +1,15 @@
 <template>
   <mad-dropdown class="mad-input-date">
 
-    <mad-input class="mad-input-date__field"
-      :value="localeDateString"
+    <mad-input class="mad-input-date_field"
+      :value="inputText || displayFormat(value)"
       v-bind="$attrs" v-on="listeners">
       <mad-icon mdi="chevron-down" slot="right" />
     </mad-input>
     
-    <div slot="dropdown" class="mad-input-date__columns">
+    <div slot="dropdown" class="mad-input-date_columns">
       <div>
-        <div class="mad-input-date__row">
+        <div class="mad-input-date_row">
           <mad-button @click.stop="addMonths(-1)" flat size="sm">
             <mad-icon mdi="chevron-left" />
           </mad-button>
@@ -20,7 +20,7 @@
             <mad-icon mdi="chevron-right" />
           </mad-button>
         </div>
-        <div class="mad-input-date__grid">
+        <div class="mad-input-date_grid">
           <p v-for="(day,i) in monthDays.slice(0, 7)" :key="'weekday'+i" class="muted">
             {{new Date(day).toLocaleString('en', { weekday: 'short' }).slice(0, 2)}}
           </p>
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div v-if="time" class="mad-input-date__time">
+      <div v-if="time" class="mad-input-date_time">
         <div class="column spacing-sm">
           <mad-button @click.stop="addHours(1)" flat size="sm">
             <mad-icon mdi="chevron-up" />
@@ -87,15 +87,14 @@ export default {
 
     time: Boolean,
     seconds: Boolean,
-    disabled: Boolean,
     stepMinutes: { type: Number, default: 15 },
     stepSeconds: { type: Number, default: 10 },
     // min: String,
   },
 
   data: () => ({
-    active: true,
     currentMonth: new Date(),
+    inputText: null,
   }),
 
   computed: {
@@ -104,44 +103,24 @@ export default {
       return {
         ...this.$listeners,
         input: e => {
-        //   if (!e.data) {
-        //   } else if (e.data.match(/^\w+$/)) {
-        //     // const date = dateFns.parse(e.target.value)
-        //     // if (isNaN(date)) {
-        //     //   e.target.value = prevValue || this.localeDateString
-        //     // } else {
-        //     //   // this.selectDate(date)
-        //     // }
-        //     // this.updateInputSelection()
-        //   } else {
-        //     const date = dateFns.parse(e.target.value)
-        //     if (isNaN(date)) {
-        //       const start = e.target.selectionStart
-        //       e.target.value = this.localeDateString
-        //       e.target.setSelectionRange(start, start)
-        //     } else {
-        //       // this.selectDate(date)
-        //       const start = e.target.selectionStart
-        //       this.selectDate(date)
-        //       this.$nextTick().then(() => {
-        //         e.target.setSelectionRange(start, start)
-        //         this.updateInputSelection(e.target)
-        //       })
-        //     }
-        //     // e.target.value = this.localeDateString
-        //     // this.updateInputSelection(e.target)
-        //   }
-        //   prevValue = e.target.value
+          this.inputText = e
+          const date = dateFns.parse(e)
+          if (!isNaN(date)) {
+            this.selectDate(date)
+          }
         },
         blur: e => {
-          const date = dateFns.parse(e.target.value)
-          this.selectDate(date)
+          // const date = dateFns.parse(e.target.value)
+          // this.selectDate(date)
+          this.inputText = null
+          // setTimeout(() => {
+          //   this.$emit('input', new Date())
+          // }, 500)
+          // this.$nextTick().then(() => this.selectDate(date))
         },
-        // focus: e => {
-        //   this.$nextTick().then(() => {
-        //     this.updateInputSelection(e.target)
-        //   })
-        // },
+        focus: e => {
+          this.$nextTick().then(() => e.target.select())
+        },
         keyup: e => {
           if (e.keyCode == 37) {// left
           } else if (e.keyCode == 39) {//right
@@ -153,21 +132,10 @@ export default {
       }
     },
     
-    parsedValue() {
-      return dateFns.parse(this.value)
-    },
-    
-    localeDateString() {
-      return this.parsedValue.toLocaleDateString(navigator.language, {
-        hour: this.time ? 'numeric' : undefined,
-        minute: this.time ? 'numeric' : undefined,
-        second: this.seconds ? 'numeric' : undefined,
-      })
-    },
-    
     localeTimeString() {
-      if (isNaN(this.parsedValue)) return '00:00:00'
-      return this.parsedValue.toLocaleTimeString(navigator.language, {
+      const date = dateFns.parse(this.value)
+      if (isNaN(date)) return '00:00:00'
+      return date.toLocaleTimeString(navigator.language, {
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
@@ -179,7 +147,8 @@ export default {
     },
 
     monthDays() {
-      const firstDay = dateFns.startOfWeek(dateFns.startOfMonth(this.currentMonth))
+      const firstOfMonth = dateFns.setDate(this.currentMonth, 1)
+      const firstDay = dateFns.setDay(firstOfMonth, 1)
       return [...Array(6*7).keys()].map(i => dateFns.addDays(firstDay, i))
     },
   },
@@ -188,33 +157,15 @@ export default {
     value: {
       immediate: true,
       handler(value) {
-        if (!isNaN(value)) this.currentMonth = this.parsedValue
+        const date = dateFns.parse(value)
+        if (!isNaN(date)) this.currentMonth = date
       },
     },
   },
 
   methods: {
-    updateInputSelection(input) {
-      // const parts = e.target.value.split(/([\/: ,]+)/)
-      // e.target.setSelectionRange(
-      const closest = { i: 0, dist: 999 }
-      for (let i = 0; i < input.value.length; i++) {
-        const dist = Math.abs(input.selectionStart - 1 - i)
-        if (!input.value[i].match(/\w/) || dist > closest.dist) continue
-        Object.assign(closest, { i, dist })
-      }
-      let end = closest.i
-      let start = closest.i
-      while (input.value[end + 1] && input.value[end + 1].match(/\w/)) end++
-      while (input.value[start - 1] && input.value[start - 1].match(/\w/)) start--
-      input.setSelectionRange(start, end + 1)
-      // e.preventDefault()
-      // this.$nextTick().then(() => e.target.setSelectionRange(10, 10))
-      // console.log(start, end)
-      
-    },
-
     selectDate(date) {
+      // if (isNaN(date)) date = 'Invalid date!'
       this.$emit('input', date)
     },
 
@@ -239,11 +190,20 @@ export default {
     },
 
     isCurrentDay(date) {
-      return dateFns.isSameDay(this.parsedValue, date)
+      return dateFns.isSameDay(this.value, date)
     },
 
     isCurrentMonth(date) {
       return dateFns.isSameMonth(this.currentMonth, date)
+    },
+    
+    displayFormat(value) {
+      const date = dateFns.parse(value)
+      return date.toLocaleDateString(navigator.language, {
+        hour: this.time ? 'numeric' : undefined,
+        minute: this.time ? 'numeric' : undefined,
+        second: this.seconds ? 'numeric' : undefined,
+      })
     },
   },
 }

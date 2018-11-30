@@ -3,6 +3,7 @@
     <mad-form-item label="Message" required>
       <mad-input v-model="message"/>
     </mad-form-item>
+
     <mad-form-item label="Date and time" :value="datetime" required>
       <mad-input-date time seconds v-model="datetime"/>
     </mad-form-item>
@@ -24,7 +25,7 @@ export default {
       this.message = ''
     },
     validator(x) {
-      return 'nope'
+      // return 'nope'
     },
   },
 }

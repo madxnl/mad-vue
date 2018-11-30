@@ -1,7 +1,7 @@
 <template>
   <p class="mad-form-item" :class="classes"
     v-bind="$attrs" v-on="$listeners">
-    <label v-if="label || error" class="mad-form-item__label"
+    <label v-if="label || error" class="mad-form-item_label"
       :title="required && 'This field is required'">
       <slot name="label">
         {{label || 'This field'}}
