@@ -44,15 +44,19 @@ export default {
       if (this.error) this.validate()
     },
   },
+  
   methods: {
-    validate() {
-      this.error = this.getErrorMessage(this.value)
+    async validate() {
+      this.error = await this.getValidationError(this.value)
       return !this.error
     },
     
-    getErrorMessage(value) {
-      if (this.required && (value == null || value === '')) return 'is required'
-      if (this.validator) return this.validator(value)
+    async getValidationError(value) {
+      if (this.required && (value == null || value === '')) {
+        return 'is required'
+      } else if (this.validator) {
+        return await this.validator(value)
+      }
     },
   },
 
