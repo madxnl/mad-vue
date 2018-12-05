@@ -14,7 +14,7 @@
         @focus="onFocus" @blur="onBlur"
         @keydown="onKeydown" @input="onInput">
 
-        <div class="mad-select_grid" v-if="selectedValues.length && !searchText">
+        <div class="mad-select_grid" v-if="displaySelected">
           <mad-button v-if="multiple" v-for="(value,i) in selectedValues" :key="i"
             bg="primary-light" color="primary" size="sm"
             title="Click to remove from selection"
@@ -97,10 +97,10 @@ export default {
   computed: {
     classes() {
       return {
-        '--dropdown-active': this.dropdownActive,
-        '--search-active': !!this.searchText,
+        // '--dropdown-active': this.dropdownActive,
+        '--input-hide': !this.searchText && this.selectedValues.length,
         '--disabled': this.disabled,
-        '--has-focus': this.hasFocus,
+        // '--has-focus': this.hasFocus,
       }
     },
     
@@ -115,11 +115,10 @@ export default {
         const text = tokenize(option.$el.textContent)
         return terms.every(term => text.includes(term))
       })
-      // const words = slugify(this.searchText).toLowerCase().split('-')
-      // return this.optionComponents.filter((option, i) => {
-      //   const searchText = '-' + slugify(option.$el.textContent).toLowerCase()
-      //   return words.every(word => searchText.includes('-' + word))
-      // })
+    },
+
+    displaySelected() {
+      return this.multiple || (this.selectedValues.length && !this.searchText)
     },
   },
 
@@ -168,10 +167,6 @@ export default {
       this.searchText = ''
     },
     
-    clearSelection() {
-      this.value = null
-    },
-
     onInput(text) {
       this.highlight = 0
       this.searchText = text

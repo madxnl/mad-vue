@@ -319,28 +319,9 @@
 .mad-select {
   width: 100%;
   position: relative;
-  &.--search-active {
-    .mad-select_grid {
-      visibility: hidden;
-      pointer-events: none;
-    }
+  &.--input-hide input {
+    opacity: 0;
   }
-  &:not(.--search-active) {
-    .mad-input_input {
-      pointer-events: none;
-      opacity: 0;
-    }
-  }
-  // .mad-input_left {
-  //   flex-grow: 1;
-  // }
-  // .mad-input_input {
-  //   position: absolute;
-  //   left: .5rem;
-  //   right: 1.5rem;
-  //   height: 100%;
-  //   background: transparent;
-  // }
 }
 .mad-select_grid {
   display: flex;
