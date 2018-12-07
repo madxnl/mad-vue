@@ -1,11 +1,16 @@
 <template>
   <div class="space">
-    <mad-form-item label="Simple select">
+    <mad-form-item label="test">
+      <mad-select v-model="selectedValue" :options="['awda', 'aerge aerg ae']">
+      </mad-select>
+    </mad-form-item>
+
+    <mad-form-item label="Simple select" style="max-width:120px">
       <mad-select v-model="selectedValue" :options="[
         { value: 'a', label: 'Option A' },
         { value: 'b', label: 'Option B' },
         { value: 'c', label: 'Option C' },
-        { value: 'd', label: 'Option D' },
+        { value: 'd', label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' },
       ]">
       </mad-select>
     </mad-form-item>
