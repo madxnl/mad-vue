@@ -1,34 +1,38 @@
 <template>
   <div class="space">
     <mad-form-item label="Simple select">
-      <mad-select v-model="selectedValue">
-        <mad-option value="a">Option A</mad-option>
-        <mad-option value="b">Option B</mad-option>
-        <mad-option value="c">Option C</mad-option>
-        <mad-option value="d">Option D</mad-option>
+      <mad-select v-model="selectedValue" :options="[
+        { value: 'a', label: 'Option A' },
+        { value: 'b', label: 'Option B' },
+        { value: 'c', label: 'Option C' },
+        { value: 'd', label: 'Option D' },
+      ]">
       </mad-select>
     </mad-form-item>
     <mad-form-item label="Multiple select">
-      <mad-select v-model="selectedMulti" multiple>
-        <mad-option value="a">Option A</mad-option>
-        <mad-option value="b">Option B</mad-option>
-        <mad-option value="c">Option C</mad-option>
-        <mad-option value="d">Option D</mad-option>
-        <mad-option value="dd">Option DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption DOption D</mad-option>
+      <mad-select v-model="selectedMulti" multiple :options="[
+        { value: 'a', label: 'Option A' },
+        { value: 'b', label: 'Option B' },
+        { value: 'c', label: 'Option C' },
+        { value: 'd', label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' },
+      ]">
       </mad-select>
     </mad-form-item>
     <mad-form-item label="Objects">
-      <mad-select v-model="selectedObjects" :compare="(a,b) => a.name==b.name">
-        <mad-option :value="{ name: 'foo' }">Foo</mad-option>
-        <mad-option :value="{ name: 'bar' }">Bar</mad-option>
+      <mad-select v-model="selectedObjects" multiple pk="name" :options="[
+        { name: 'Foo' },
+        { name: 'Bar' },
+      ]">
+        <template slot-scope="{option}">
+          {{option.name}}
+        </template>
       </mad-select>
     </mad-form-item>
     <mad-form-item label="Async search country">
-      <mad-select v-model="selectedCountry" :search="searchCountries">
-        <mad-option v-for="option in countries"
-          :key="option.alpha2Code" :value="option.alpha2Code">
+      <mad-select v-model="selectedCountry" :search="searchCountries" :options="countries">
+        <template slot-scope="{option}">
           {{option.name}}
-        </mad-option>
+        </template>
       </mad-select>
     </mad-form-item>
   </div>
@@ -41,7 +45,7 @@ export default {
   data: () => ({
     selectedValue: null,
     selectedMulti: ['a', 'b'],
-    selectedObjects: { name: 'foo' },
+    selectedObjects: { name: 'Foo', __foo: 0.1 },
     selectedCountry: null,
     countries: [],
   }),

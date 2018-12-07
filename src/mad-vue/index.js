@@ -37,7 +37,6 @@ export default {
       'Menu',
       'MenuItem',
       'Modal',
-      'Option',
       'Select',
       'Tab',
       'Tabs',

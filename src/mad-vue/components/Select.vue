@@ -2,12 +2,6 @@
   <mad-dropdown v-model="dropdownActive" class="mad-select"
     :class="classes">
 
-
-    <!-- <div class="mad-select_field"> -->
-
-      <!-- @click.stop="()=>{}" @mousedown="onClickInside" @touchstart="onClickInside" -->
-    <!-- <div class="mad-select_field form-field" -->
-
       <mad-input class="mad-select_input"
         :value="searchText"
         :placeholder="!selectedValues.length && placeholder"
@@ -15,40 +9,41 @@
         @keydown="onKeydown" @input="onInput">
 
         <div class="mad-select_grid" v-if="displaySelected">
-          <mad-button v-if="multiple" v-for="(value,i) in selectedValues" :key="i"
-            bg="primary-light" color="primary" size="sm"
-            title="Click to remove from selection"
-            @click.stop="toggleSelectValue(value)">
-            <div class="select_multi-item">
-              <div v-html="getValueHtml(value)"></div>
-              <mad-icon mdi="close"></mad-icon>
+          <template v-if="multiple">
+            <mad-button v-for="(value,i) in selectedValues" :key="i"
+              bg="primary-light" color="primary" size="sm"
+              title="Click to remove from selection"
+              @click.stop="toggleValue(value)">
+              <div class="select_multi-item">
+                <div>
+                  <slot v-if="getOption(value)" :option="getOption(value)">
+                    {{getLabel(getOption(value))}}
+                  </slot>
+                  <template v-else>{{value}}</template>
+                </div>
+                <mad-icon mdi="close"></mad-icon>
+              </div>
+            </mad-button>
+          </template>
+          <template v-else>
+            <div v-for="(value,i) in selectedValues" :key="i">
+              <slot v-if="getOption(value)" :option="getOption(value)">
+                {{getLabel(getOption(value))}}
+              </slot>
+              <template v-else>{{value}}</template>
             </div>
-          </mad-button>
-          <div v-else v-html="getValueHtml(selectedValues[0])"></div>
+          </template>
         </div>
-        <!-- <span v-if="!selectedValues.length" class="faded">{{placeholder}}</span> -->
 
         <mad-icon mdi="chevron-down" slot="right"/>
       </mad-input>
-
-      <!-- <div class="mad-select_current"></div> -->
-
-    <!-- </div> -->
-      <!-- <i v-if="selectedValues && clearable" @click="clearSelection" class="mdi mdi-close"></i> -->
-      <!-- <input type="text" :value="value" v-bind="$attrs" class="_validator"> -->
-    <!-- </div> -->
-
-    <!-- render all options but hide them, so we can duplicate and display the option in multiple places as needed -->
-    <div style="visibility:hidden;position:absolute">
-      <slot></slot>
-    </div>
 
     <mad-menu slot="dropdown">
       <mad-menu-item v-if="searching">
         <em>Searching...</em>
       </mad-menu-item>
       <mad-menu-item v-else-if="filteredOptions.length == 0">
-        <template v-if="!search && optionComponents.length == 0">
+        <template v-if="!search && options.length == 0">
           <em>No options available</em>
         </template>
         <template v-else-if="searchText">
@@ -60,10 +55,10 @@
       </mad-menu-item>
 
       <mad-menu-item v-for="(option,i) in filteredOptions" :key="i"
-        @click="toggleSelectValue(option.value)"
-        :active="selectedValues.some(v => JSON.stringify(v) == JSON.stringify(option.value))"
-        :hover="highlight==i"
-        v-html="option.$el.outerHTML">
+        @click="toggleValue(getValue(option))"
+        :active="valueIsSelected(getValue(option))"
+        :hover="highlight==i">
+        <slot :option="option">{{getLabel(option)}}</slot>
       </mad-menu-item>
 
     </mad-menu>
@@ -75,22 +70,23 @@ const slugify = require('slugify')
 
 export default {
   props: {
+    options: { type: Array, required: true },
     value: {},
     placeholder: { type: String, default: 'Please select' },
     // clearable: Boolean,
     disabled: Boolean,
     search: Function,
     multiple: Boolean,
+    pk: String,
   },
 
   data: () => ({
     selectedValues: [],
-    optionElementClone: {},
+    cachedOptions: [],
     searchText: '',
     dropdownActive: false,
     searching: false,
     highlight: -1,
-    optionComponents: [], // registered from option component
     hasFocus: false,
   }),
 
@@ -107,13 +103,15 @@ export default {
     filteredOptions() {
       if (this.search) {
         if (this.searching || !this.searchText) return []
-        return this.optionComponents
+        return this.options
       }
       const tokenize = s => slugify(s.replace('/',' ')).toLowerCase()
       const terms = tokenize(this.searchText).split('-')
-      return this.optionComponents.filter((option, i) => {
-        const text = tokenize(option.$el.textContent)
-        return terms.every(term => text.includes(term))
+      return this.options.filter((option, i) => {
+        const optionText = option && option.label ?
+          `${option.value} ${option.label}` : JSON.stringify(option)
+        const words = tokenize(optionText)
+        return terms.every(term => words.includes(term))
       })
     },
 
@@ -126,7 +124,22 @@ export default {
     value: {
       immediate: true,
       handler(value) {
-        this.selectedValues = value == null ? [] : [].concat(value)
+        const allowNull = this.cachedOptions.some(o => (o ? o.value : o) == null)
+        if (value == null && !allowNull) {
+          this.selectedValues = []
+        } else {
+          this.selectedValues = [].concat(value)
+        }
+      },
+    },
+
+    options: {
+      immediate: true,
+      handler(options) {
+        this.cachedOptions = options.concat(this.cachedOptions.filter(a => {
+          const value = this.getValue(a)
+          return !options.some(b => this.valuesEqual(this.getValue(b), value))
+        }))
       },
     },
 
@@ -141,28 +154,43 @@ export default {
         const input = this.$el.getElementsByTagName('input')[0]
         input[dropdownActive ? 'focus' : 'blur']()
       }
-      // await this.$nextTick()
-      // this.searchText = ''
     },
   },
 
   methods: {
-    toggleSelectValue(value) {
+    getOption(value) {
+      return this.cachedOptions.find(o => this.valuesEqual(this.getValue(o), value)) || value
+    },
+
+    getLabel(option) {
+      return option && option.label || JSON.stringify(option)
+    },
+
+    valueIsSelected(value) {
+      return this.selectedValues.some(v => this.valuesEqual(value, v))
+    },
+
+    getValue(option) {
+      return option && 'value' in option ? option.value : option
+    },
+
+    valuesEqual(a, b) {
+      if (this.pk && a && b && a[this.pk] == b[this.pk]) return true
+      return a == b || JSON.stringify(a) == JSON.stringify(b)
+    },
+    
+    toggleValue(value) {
       if (this.multiple) {
-        const withoutValue = this.selectedValues.filter(v => {
-          return this.getValueKey(v) != this.getValueKey(value)
-        })
-        if (withoutValue.length < this.selectedValues.length) {
-          this.selectedValues = withoutValue
+        if (this.valueIsSelected(value)) {
+          this.selectedValues = this.selectedValues.filter(v => !this.valuesEqual(v, value))
         } else {
-          this.selectedValues.push(value)
+          this.selectedValues = [...this.selectedValues, value]
         }
-        this.$emit('input', this.selectedValues.slice(0))
+        this.$emit('input', this.selectedValues.slice())
       } else {
         this.selectedValues = [value]
         this.$emit('input', value)
       }
-
       this.dropdownActive = false
       this.searchText = ''
     },
@@ -175,18 +203,12 @@ export default {
     },
 
     onFocus(event) {
-      // this.dropdownActive = true
       this.hasFocus = true
       this.updateOptions(0)
     },
 
     onBlur(event) {
       this.hasFocus = false
-      // await this.$nextTick()
-      // this.searchText = ''
-      // if (event.relatedTarget) {
-        // this.dropdownActive = false
-      // }
     },
 
     onKeydown(event) {
@@ -200,7 +222,7 @@ export default {
           this.highlight = (this.highlight + 1) % this.filteredOptions.length
         } else if (event.keyCode == 13) { // enter
           const highlighted = this.filteredOptions[this.highlight]
-          if (highlighted) this.toggleSelectValue(highlighted.value)
+          if (highlighted) this.toggleValue(this.getValue(highlighted))
           event.preventDefault()
         }
       }
@@ -218,37 +240,6 @@ export default {
           }
         }, debounceMs)
       }
-    },
-
-    registerOptionComponent(optionComponent) {
-      this.optionComponents.push(optionComponent)
-      const key = this.getValueKey(optionComponent.value)
-      this.optionElementClone[key] = optionComponent.$el.cloneNode(true)
-    },
-
-    unregisterOptionComponent(optionComponent) {
-      this.optionComponents = this.optionComponents.filter(o => o != optionComponent)
-    },
-
-    getValueHtml(value) {
-      const option = this.optionComponents.find(o => this.getValueKey(o.value) == this.getValueKey(value))
-      if (option) return option.$el.outerHTML
-
-      const key = this.getValueKey(value)
-      const element = this.optionElementClone[key]
-      if (!element) {
-        try {
-          return JSON.stringify(value)
-        } catch (e) {
-          return value == null ? 'null' : value.toString()
-        }
-      }
-      return element.outerHTML
-    },
-
-    getValueKey(value) {
-      if (typeof value == 'string') return value
-      return JSON.stringify(value)
     },
   },
 }
