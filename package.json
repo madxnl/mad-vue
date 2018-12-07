@@ -1,6 +1,6 @@
 {
   "name": "@madxnl/mad-vue",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "Common ui components and more for Vue.js projects by MadX",
   "main": "index.js",
   "scripts": {
