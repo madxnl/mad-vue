@@ -171,7 +171,7 @@ export default {
     },
 
     getValue(option) {
-      return option && 'value' in option ? option.value : option
+      return option && option.value !== undefined ? option.value : option
     },
 
     valuesEqual(a, b) {
