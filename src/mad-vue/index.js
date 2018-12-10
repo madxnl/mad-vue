@@ -23,6 +23,7 @@ export default {
 
     const components = [
       'Button',
+      'Checkbox',
       'Datatable',
       'Dropdown',
       'Form',

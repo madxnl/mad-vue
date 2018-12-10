@@ -14,16 +14,16 @@
     </p>
 
     <mad-modal v-model="modalShown" ref="modal">
-        <h1>Modal</h1>
-        <p>Example modal</p>
-        <p>
-          <mad-button @click="$refs.modal2.toggle()" color="primary">
-            Toggle nested modal
-          </mad-button>
-          <mad-button @click="closeModal" color="primary">
-            Close
-          </mad-button>
-        </p>
+      <h1>Modal</h1>
+      <p>Example modal</p>
+      <p>
+        <mad-button @click="$refs.modal2.toggle()" color="primary">
+          Toggle nested modal
+        </mad-button>
+        <mad-button @click="closeModal" color="primary">
+          Close
+        </mad-button>
+      </p>
     </mad-modal>
     
     <mad-modal ref="modal2">
