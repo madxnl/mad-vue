@@ -5,7 +5,7 @@
     :class="classes" :style="styles"
     v-bind="$attrs" v-on="$listeners">
     <div class="mad-button_content"><slot></slot></div>
-    <mad-loading v-if="loading" position="absolute"/>
+    <mad-loading v-if="loading" absolute/>
   </button>
 </template>
 

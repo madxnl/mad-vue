@@ -242,12 +242,14 @@
   border: 1px solid rgba($text, 0.35);
   box-shadow: 0 1px 1px rgba(black, 0.15) inset;
   border-radius: 3px;
+  padding: .5rem;
 }
 .mad-input_input {
   height: 100%;
-  flex-grow: 1;
+  width: 100%;
+  flex: 1 1 120px;
   background: transparent;
-  padding: .5rem;
+  // padding: .5rem;
   // font-size: 110%;
   .-haserror & {
     border-color: $red;
@@ -266,7 +268,7 @@
 }
 .mad-input_left,
 .mad-input_right {
-  padding: .5rem;
+  // padding: .5rem;
 }
   // .mad-input_input:focus {
 //   outline: 2px solid $primary;
