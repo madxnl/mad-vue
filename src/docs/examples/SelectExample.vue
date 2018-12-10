@@ -1,8 +1,10 @@
 <template>
   <div class="space">
     <mad-form-item label="test">
-      <mad-select v-model="selectedValue" :options="['awda', 'aerge aerg ae']">
-      </mad-select>
+      <mad-select v-model="selectedValue" :options="[{ value: 'awda', label: 'asd'}, {value:null,label:'NULL'}]"/>
+      <mad-select v-model="selectedValue" :options="[{ value: 'awda', label: 'asd'}, {value:'awaad',label:'NULL'}]"/>
+      <mad-select v-model="selectedValue" :options="['asd',null]"/>
+      <mad-select v-model="selectedValue" :options="['asd',0]"/>
     </mad-form-item>
 
     <mad-form-item label="Simple select" style="max-width:120px">

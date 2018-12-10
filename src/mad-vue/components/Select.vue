@@ -4,7 +4,7 @@
 
       <mad-input class="mad-select_input"
         :value="searchText"
-        :placeholder="!selectedValues.length && placeholder"
+        :placeholder="placeholder"
         @focus="onFocus" @blur="onBlur"
         @keydown="onKeydown" @input="onInput">
 
@@ -27,10 +27,9 @@
           </template>
           <template v-else>
             <div v-for="(value,i) in selectedValues" :key="i">
-              <slot v-if="getOption(value)" :option="getOption(value)">
+              <slot :option="getOption(value)">
                 {{getLabel(getOption(value))}}
               </slot>
-              <template v-else>{{value}}</template>
             </div>
           </template>
         </div>
@@ -94,9 +93,18 @@ export default {
     classes() {
       return {
         // '--dropdown-active': this.dropdownActive,
-        '--input-hide': !this.searchText && this.selectedValues.length,
+        '--input-hide': !this.searchText && !this.isEmpty,
         '--disabled': this.disabled,
         // '--has-focus': this.hasFocus,
+      }
+    },
+
+    isEmpty() {
+      if (this.multiple) {
+        return this.selectedValues.length == 0
+      } else {
+        const hasNullOption = this.cachedOptions.some(o => this.getValue(o) == null)
+        return this.selectedValues[0] == null && !hasNullOption
       }
     },
     
@@ -116,7 +124,7 @@ export default {
     },
 
     displaySelected() {
-      return this.multiple || (this.selectedValues.length && !this.searchText)
+      return this.multiple || (!this.isEmpty && !this.searchText)
     },
   },
 
@@ -124,12 +132,7 @@ export default {
     value: {
       immediate: true,
       handler(value) {
-        const allowNull = this.cachedOptions.some(o => (o ? o.value : o) == null)
-        if (value == null && !allowNull) {
-          this.selectedValues = []
-        } else {
-          this.selectedValues = [].concat(value)
-        }
+        this.selectedValues = [].concat(value)
       },
     },
 
@@ -163,7 +166,9 @@ export default {
     },
 
     getLabel(option) {
-      return option && option.label || option
+      if (option && option.label) return option.label
+      if (option != null) return option
+      return 'null'
     },
 
     valueIsSelected(value) {
