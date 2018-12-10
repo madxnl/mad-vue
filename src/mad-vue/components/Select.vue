@@ -163,7 +163,7 @@ export default {
     },
 
     getLabel(option) {
-      return option && option.label || JSON.stringify(option)
+      return option && option.label || option
     },
 
     valueIsSelected(value) {

@@ -357,13 +357,14 @@
   height: 1.5em;
   display: inline-block;
   position: relative;
-  .mad-loading_inner {
+  &::after {
+    content: '';
+    display: block;
     width: 100%;
     height: 100%;
     border: solid .125em;
     border-color: currentColor transparent transparent transparent;
     border-radius: 50%;
-    display: block;
     animation: loading-spin 1s linear infinite;
     animation-fill-mode: both;
   }
@@ -375,44 +376,34 @@
     position: absolute;
     bottom: 50%; left: 50%; transform:translate(-50%,50%);
   }
-  &.-linear {
+  &.-bar {
     width: 100%;
     height: 5px;
     display: block;
     overflow: hidden;
-    .mad-loading_inner {
+    &::after {
       position: absolute;
       border-radius: 0;
       border: 0;
       animation: loading-bar 3s ease-in-out infinite;
       animation-fill-mode: both;
-      background: $primary;
+      background: currentColor;
     }
     &.-fixed {
-      position: fixed;
-      bottom: 0; left: 0;
+      top: 0; left: 0;
     }
     &.-absolute {
-      position: absolute;
-      bottom: 0; left: 0;
+      top: 0; left: 0;
     }
   }
 }
 @keyframes loading-bar {
-  from {
-    left: -100%;
-  }
-  to {
-    left: 100%;
-  }
+  from { left: -100%; }
+  to { left: 100%; }
 }
 @keyframes loading-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 

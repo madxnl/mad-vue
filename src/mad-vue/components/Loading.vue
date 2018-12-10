@@ -1,8 +1,7 @@
 <template>
   <div class="mad-loading"
     :class="computedClass">
-    <div class="mad-loading_inner">
-    </div>
+    <!-- <div class="mad-loading_inner"></div> -->
   </div>
   <!-- <h1 class="mad-loading text-center"
     v-bind="$attrs" v-on="$listeners">
@@ -16,16 +15,19 @@
 export default {
   props: {
     bar: Boolean,
-    position: String,
+    fixed: Boolean,
+    absolute: Boolean,
+    color: String,
   },
 
   computed: {
     computedClass() {
-      return {
-        '-bar': this.bar,
-        '-fixed': this.position == 'fixed',
-        '-absolute': this.position == 'absolute',
-      }
+      return [
+        this.bar && '-bar',
+        this.fixed && '-fixed',
+        this.absolute && '-absolute',
+        this.color && `color-${this.color}`,
+      ]
     },
   },
   

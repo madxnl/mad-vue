@@ -10,7 +10,7 @@
       <mad-button @click="toggleLoading(1)">
         Loading
       </mad-button>
-      <mad-loading v-if="loading[1]" position="fixed"/>
+      <mad-loading v-if="loading[1]" fixed/>
     </p>
     <p>
       <mad-button @click="toggleLoading(2)">
@@ -22,7 +22,7 @@
       <mad-button @click="toggleLoading(3)">
         Loading
       </mad-button>
-      <mad-loading v-if="loading[3]" position="fixed" bar/>
+      <mad-loading v-if="loading[3]" fixed bar color="red"/>
     </p>
   </div>
 </template>

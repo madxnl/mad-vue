@@ -24,8 +24,8 @@
 <script>
 export default {
   props: {
-    value: { type: String },
-    type: { default: 'text' },
+    value: [String, Number],
+    type: { type: String, default: 'text' },
     rows: { type: [String, Number], default: 1 },
   },
 
