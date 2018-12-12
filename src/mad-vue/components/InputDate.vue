@@ -10,13 +10,13 @@
     <div slot="dropdown" class="mad-input-date_columns">
       <div>
         <div class="mad-input-date_row">
-          <mad-button @click.stop="addMonths(-1)" flat size="sm">
+          <mad-button @click.stop="addMonths(-1)" flat class="small">
             <mad-icon mdi="chevron-left" />
           </mad-button>
           <div class="grow text-center">
             {{calMonthDisplay}}
           </div>
-          <mad-button @click.stop="addMonths(1)" flat size="sm">
+          <mad-button @click.stop="addMonths(1)" flat class="small">
             <mad-icon mdi="chevron-right" />
           </mad-button>
         </div>
@@ -34,38 +34,38 @@
 
       <div v-if="time" class="mad-input-date_time">
         <div class="column spacing-sm">
-          <mad-button @click.stop="addHours(1)" flat size="sm">
+          <mad-button @click.stop="addHours(1)" flat class="small">
             <mad-icon mdi="chevron-up" />
           </mad-button>
           <div>
             {{localeTimeString.split(':')[0]}}
           </div>
-          <mad-button @click.stop="addHours(-1)" flat size="sm">
+          <mad-button @click.stop="addHours(-1)" flat class="small">
             <mad-icon mdi="chevron-down" />
           </mad-button>
         </div>
         <div>:</div>
         <div class="column spacing-sm">
-          <mad-button @click.stop="addMinutes(1)" flat size="sm">
+          <mad-button @click.stop="addMinutes(1)" flat class="small">
             <mad-icon mdi="chevron-up" />
           </mad-button>
           <div>
             {{localeTimeString.split(':')[1]}}
           </div>
-          <mad-button @click.stop="addMinutes(-1)" flat size="sm">
+          <mad-button @click.stop="addMinutes(-1)" flat class="small">
             <mad-icon mdi="chevron-down" />
           </mad-button>
         </div>
         <template v-if="seconds">
           <div>:</div>
           <div class="column spacing-sm">
-            <mad-button @click.stop="addSeconds(1)" flat size="sm">
+            <mad-button @click.stop="addSeconds(1)" flat class="small">
               <mad-icon mdi="chevron-up" />
             </mad-button>
             <div>
               {{localeTimeString.split(':')[2].split(' ')[0]}}
             </div>
-            <mad-button @click.stop="addSeconds(-1)" flat size="sm">
+            <mad-button @click.stop="addSeconds(-1)" flat class="small">
               <mad-icon mdi="chevron-down" />
             </mad-button>
           </div>

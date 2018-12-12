@@ -1,21 +1,14 @@
 
 
 @each $name, $color in $colors {
-  .bg-#{$name} {
-    background: $color !important;
-  }
-}
-@each $name, $color in $colors {
-  .color-#{$name} {
-    color: $color !important;
-  }
+  .color-#{$name} { color: $color !important; }
+  .bg-#{$name} { background-color: $color !important; }
+  .border-#{$name} { border-color: $color !important; }
 }
 
-@each $key, $size in $fontsizes {
-  .fontsize-#{$key} {
-    font-size: $size !important;
-  }
-}
+// @each $key, $size in $fontsizes {
+//   .fontsize-#{$key} { font-size: $size !important; }
+// }
 
 .text-center { text-align: center; }
 .text-right { text-align: right; }

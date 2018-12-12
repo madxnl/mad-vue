@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import './docs.scss'
+import './scss/docs.scss'
 
 export default {
   data: () => ({
@@ -83,8 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './docs';
-
+@import './scss/vars';
 
 $navWidth: 240px;
 $sectionWidth: 800px;
@@ -96,7 +95,7 @@ $sectionWidth: 800px;
 }
 ._section {
   max-width: $sectionWidth;
-  padding: 50px $margin;
+  padding: 50px 1.5rem;
   margin: 0 auto;
 }
 ._section-title {

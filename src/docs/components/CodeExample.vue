@@ -1,7 +1,7 @@
 <template>
   <figure>
     <div class="-top">
-      <mad-button @click="toggled=!toggled" size="sm" flat>
+      <mad-button @click="toggled=!toggled" class="small" flat>
         <mad-icon mdi="code-tags" />
       </mad-button>
     </div>

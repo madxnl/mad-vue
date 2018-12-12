@@ -16,7 +16,6 @@ export default {
     color: String,
     // secondary: Boolean,
     flat: Boolean,
-    size: String,
     loading: Boolean,
     disabled: Boolean,
     active: Boolean,
@@ -31,9 +30,9 @@ export default {
     classes() {
       return [
         this.flat && '-flat',
-        this.color && `-color-${this.color}`,
+        this.flat && this.color && `color-${this.color}`,
+        !this.flat && this.color && `color-white bg-${this.color}`,
         // this.bg && !this.color && `color-white`,
-        this.size && `fontsize-${this.size}`,
         this.active && `-active`,
         this.loading && `-loading`,
         // this.square && '_square'

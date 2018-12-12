@@ -1,9 +1,7 @@
 
-$text: #35495d;
-$green: #3bb983;
-$blue: #4296e6;
+@import './vars';
 
-@import '../mad-vue/scss/mad-vue';
+@import '../../mad-vue/scss/mad-vue.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 

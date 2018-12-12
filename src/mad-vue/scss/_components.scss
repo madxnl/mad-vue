@@ -48,17 +48,6 @@
     }
   }
 
-  @each $name, $color in $colors {
-    &.-color-#{$name} {
-      background: $color;
-      color: $white;
-      &.-flat {
-        background: transparent;
-        color: $color;
-      }
-    }
-  }
-
   &:disabled, &.-loading {
     pointer-events: none;
     cursor: default;
@@ -80,8 +69,9 @@
 .mad-form-item_label {
   display: block;
   margin-bottom: 0.25em;
+  font-weight: bold;
+  font-size: 90%;
   .-required &::after {
-    // font-weight: bold;
     content: '*';
     color: $red;
   }
@@ -122,12 +112,12 @@
 }
 
 .mad-menu {
-  padding: $margin/4 0;
+  padding: .25rem 0;
   color: $text;
 }
 .mad-menu-item {
   display: block;
-  padding: $margin/4 $margin;
+  padding: .25rem .5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -289,7 +279,7 @@
   align-items: flex-start;
   // justify-content: space-around;
   & > * {
-    padding: $margin-sm;
+    padding: .5em;
   }
 }
 .mad-input-date_grid {
@@ -415,7 +405,7 @@
   z-index: 50;
   background: rgba(black, 0.5);
   overflow-y: auto;
-  padding: $margin*2;
+  padding: 1rem;
   margin: 0 calc(100% - 100vw) 0 0 !important;
 }
 .mad-modal_window {
@@ -424,7 +414,7 @@
   background: white;
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba($darkgray, 0.5);
-  padding: $margin;
+  padding: 1rem;
 }
 
 

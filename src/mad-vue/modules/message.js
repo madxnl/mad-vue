@@ -1,6 +1,4 @@
-import Vue from 'vue'
-
-export default new Vue({
+export default (Vue, config) => new Vue({
   data: () => ({
     messages: [],
   }),
@@ -40,5 +38,14 @@ export default new Vue({
       this.messages.unshift(object)
       setTimeout(() => this.close(message), 10000)
     },
+  },
+
+  created() {
+    if (!Vue.config.errorHandler) {
+      Vue.config.errorHandler = err => {
+        console.error(err)
+        message.error(err)
+      }
+    }
   },
 })

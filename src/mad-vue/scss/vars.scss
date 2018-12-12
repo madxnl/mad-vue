@@ -38,27 +38,27 @@ $colors: (
 
 
 
-$margin: 1.5rem !default;
-$margin-xs: $margin * 0.25 !default;
-$margin-sm: $margin * 0.5 !default;
-$margin-lg: $margin * 1.5 !default;
-$margin-xl: $margin * 3 !default;
+// $margin: 1.5rem !default;
+// $margin-xs: $margin * 0.25 !default;
+// $margin-sm: $margin * 0.5 !default;
+// $margin-lg: $margin * 1.5 !default;
+// $margin-xl: $margin * 3 !default;
 
-$margins-map: (
-  '': $margin,
-  -xs: $margin-xs,
-  -sm: $margin-sm,
-  -lg: $margin-lg,
-  -xl: $margin-xl,
-  -0: 0,
-);
+// $margins-map: (
+//   '': $margin,
+//   -xs: $margin-xs,
+//   -sm: $margin-sm,
+//   -lg: $margin-lg,
+//   -xl: $margin-xl,
+//   -0: 0,
+// );
 
 
-$fontsizes: (
-  xl: 1.8rem,
-  lg: 1.35rem,
-  md: 1rem,
-  sm: 0.85rem,
-  xs: 0.7rem,
-) !default;
+// $fontsizes: (
+//   xl: 1.8rem,
+//   lg: 1.35rem,
+//   md: 1rem,
+//   sm: 0.9rem,
+//   xs: 0.7rem,
+// ) !default;
 

@@ -1,61 +1,55 @@
-import message from './message'
+import message from './modules/message'
 import * as filters from './filters'
-import './directives'
 
 export default {
   install(Vue, config) {
+    config = Object.assign({}, {
+      components: [
+        'Button',
+        'Checkbox',
+        'Datatable',
+        'Dropdown',
+        'Form',
+        'FormItem',
+        'Icon',
+        'Input',
+        'InputCurrency',
+        'InputDate',
+        'InputFile',
+        'Loading',
+        'Messages',
+        'Menu',
+        'MenuItem',
+        'Modal',
+        'Select',
+        'Tab',
+        'Tabs',
+        'Transition',
+      ],
+    }, config)
 
     Vue.$mad = Vue.prototype.$mad = {
-      message,
-      filters,
-    }
+      message: message(Vue, config),
 
-    if (!Vue.config.errorHandler) {
-      Vue.config.errorHandler = err => {
-        console.error(err)
-        message.error(err)
-      }
+      filters,
     }
     
     for (let name in filters) {
       Vue.filter(name, filters[name])
     }
 
-    const components = [
-      'Button',
-      'Checkbox',
-      'Datatable',
-      'Dropdown',
-      'Form',
-      'FormItem',
-      'Icon',
-      'Input',
-      'InputCurrency',
-      'InputDate',
-      'InputFile',
-      'Loading',
-      'Messages',
-      'Menu',
-      'MenuItem',
-      'Modal',
-      'Select',
-      'Tab',
-      'Tabs',
-      'Transition',
-    ]
-
-    for (let component of components) {
+    for (let component of config.components || components) {
       Vue.component(`Mad${component}`, require(`./components/${component}`).default)
     }
-
-    // focus outlines enabled when using tab key
-    window.addEventListener('keydown', e => {
-      if (e.keyCode == 9) window.document.body.classList.add('show-focus-outline')
-    })
-    window.addEventListener('mousedown', () => {
-      window.document.body.classList.remove('show-focus-outline')
-    })
     
+    const keydown = e => {
+      if (e.keyCode == 9) window.document.body.classList.add('show-focus-outline')
+    }
+    const mousedown = e => {
+      window.document.body.classList.remove('show-focus-outline')
+    }
+    addEventListener('keydown', keydown)
+    addEventListener('mousedown', mousedown)
 
   }
 }

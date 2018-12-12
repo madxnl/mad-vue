@@ -9,13 +9,7 @@
           <td>color</td>
           <td>String</td>
           <td>null</td>
-          <td>One of the colors from the $colors list, or a custom hex value like <code>"#123123"</code></td>
-        </tr>
-        <tr>
-          <td>size</td>
-          <td>String</td>
-          <td>null</td>
-          <td>One of the sizes in $fontsizes like <code>"xs"</code>, <code>"sm"</code>, <code>"lg"</code>, or <code>"xl"</code></td>
+          <td>One of the available colors or a custom hex value</td>
         </tr>
         <tr>
           <td>flat</td>
