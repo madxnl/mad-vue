@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent.stop="submit"
-    autocomplete="off" novalidate
+    novalidate
     v-bind="$attrs">
     <slot></slot>
   </form>

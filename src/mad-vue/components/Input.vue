@@ -6,12 +6,13 @@
 
     <textarea v-if="rows>1"
       class="mad-input_input"
-      :type="type" :rows="rows"
+      :rows="rows"
       :value="value"
       v-bind="$attrs" v-on="listeners">
     </textarea>
     <input v-else
       class="mad-input_input"
+      :type="type"
       :value="value"
       v-bind="$attrs" v-on="listeners">
 
