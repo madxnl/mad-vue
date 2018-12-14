@@ -11,7 +11,7 @@
         <div class="mad-select_grid" v-if="displaySelected">
           <template v-if="multiple">
             <mad-button v-for="(value,i) in selectedValues" :key="i"
-              class="small" color="primary"
+              bg="primary-light" color="primary" size="sm"
               title="Click to remove from selection"
               @click.stop="toggleValue(value)">
               <div class="select_multi-item">
@@ -86,7 +86,6 @@ export default {
     dropdownActive: false,
     searching: false,
     highlight: -1,
-    hasFocus: false,
   }),
 
   computed: {
@@ -95,7 +94,6 @@ export default {
         // '--dropdown-active': this.dropdownActive,
         '--input-hide': !this.searchText && !this.isEmpty,
         '--disabled': this.disabled,
-        // '--has-focus': this.hasFocus,
       }
     },
 
@@ -118,8 +116,8 @@ export default {
       return this.options.filter((option, i) => {
         const optionText = option && option.label ?
           `${option.value} ${option.label}` : JSON.stringify(option)
-        const words = tokenize(optionText)
-        return terms.every(term => words.includes(term))
+        const optionWords = tokenize(optionText).split('-')
+        return terms.every(term => optionWords.some(word => word.startsWith(term)))
       })
     },
 
@@ -197,23 +195,24 @@ export default {
         this.$emit('input', value)
       }
       this.dropdownActive = false
-      this.searchText = ''
     },
     
     onInput(text) {
-      this.highlight = 0
       this.searchText = text
       this.dropdownActive = true
+      this.highlight = 0
       this.updateOptions(400)
     },
 
     onFocus(event) {
-      this.hasFocus = true
       this.updateOptions(0)
     },
 
     onBlur(event) {
-      this.hasFocus = false
+      if (this.searchText) {
+        const value = this.getValue(this.filteredOptions[this.highlight])
+        if (value && !this.valueIsSelected(value)) this.toggleValue(value)
+      }
     },
 
     onKeydown(event) {
