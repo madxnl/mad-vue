@@ -1,8 +1,8 @@
 <template>
   <div class="mad-input">
-    <div class="mad-input_left" v-if="$slots.default">
+    <!-- <div class="mad-input_left" v-if="$slots.default"> -->
       <slot></slot>
-    </div>
+    <!-- </div> -->
 
     <textarea v-if="rows>1"
       class="mad-input_input"
@@ -16,9 +16,9 @@
       :value="value"
       v-bind="$attrs" v-on="listeners">
 
-    <div class="mad-input_right" v-if="$slots.right">
+    <!-- <div class="mad-input_right" v-if="$slots.right"> -->
       <slot name="right"></slot>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 

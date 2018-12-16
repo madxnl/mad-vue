@@ -33,6 +33,11 @@ export default {
 
       filters,
     }
+
+    Vue.config.errorHandler = Vue.config.errorHandler || (err => {
+      console.error(err)
+      Vue.$mad.message.error(err)
+    })
     
     for (let name in filters) {
       Vue.filter(name, filters[name])

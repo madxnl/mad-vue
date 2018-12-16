@@ -39,13 +39,4 @@ export default (Vue, config) => new Vue({
       setTimeout(() => this.close(message), 10000)
     },
   },
-
-  created() {
-    if (!Vue.config.errorHandler) {
-      Vue.config.errorHandler = err => {
-        console.error(err)
-        message.error(err)
-      }
-    }
-  },
 })

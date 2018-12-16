@@ -2,85 +2,84 @@
   <mad-dropdown v-model="dropdownActive" class="mad-select"
     :class="classes">
 
-      <mad-input class="mad-select_input"
-        :value="searchText"
-        :placeholder="placeholder"
-        @focus="onFocus" @blur="onBlur"
-        @keydown="onKeydown" @input="onInput">
+    <mad-input class="mad-select_input"
+      :value="searchText"
+      :placeholder="placeholder"
+      @focus="onFocus" @blur="onBlur"
+      @keydown="onKeydown" @input="onInput">
 
-        <div class="mad-select_grid" v-if="displaySelected">
-          <template v-if="multiple">
-            <mad-button v-for="(value,i) in selectedValues" :key="i"
-              bg="primary-light" color="primary" size="sm"
-              title="Click to remove from selection"
-              @click.stop="toggleValue(value)">
-              <div class="select_multi-item">
-                <div>
-                  <slot v-if="getOption(value)" :option="getOption(value)">
-                    {{getLabel(getOption(value))}}
-                  </slot>
-                  <template v-else>{{value}}</template>
-                </div>
-                <mad-icon mdi="close"></mad-icon>
+      <div class="mad-select_grid" v-if="displaySelected">
+        <template v-if="multiple">
+          <mad-button v-for="(value,i) in selectedValues" :key="i"
+            bg="primary-light" color="primary" size="sm"
+            title="Click to remove from selection"
+            @click.stop="toggleValue(value)">
+            <div class="select_multi-item">
+              <div>
+                <slot v-if="getOption(value)" :option="getOption(value)">
+                  {{getLabel(getOption(value))}}
+                </slot>
+                <template v-else>{{value}}</template>
               </div>
-            </mad-button>
-          </template>
-          <template v-else>
-            <div v-for="(value,i) in selectedValues" :key="i">
-              <slot :option="getOption(value)">
-                {{getLabel(getOption(value))}}
-              </slot>
+              <mad-icon mdi="close"></mad-icon>
             </div>
-          </template>
-        </div>
+          </mad-button>
+        </template>
+        <template v-else>
+          <div v-for="(value,i) in selectedValues" :key="i">
+            <slot :option="getOption(value)">
+              {{getLabel(getOption(value))}}
+            </slot>
+          </div>
+        </template>
+      </div>
 
-        <mad-icon mdi="chevron-down" slot="right"/>
-      </mad-input>
+      <mad-icon mdi="chevron-down" slot="right"/>
+    </mad-input>
 
     <mad-menu slot="dropdown">
       <mad-menu-item v-if="searching">
-        <em>Searching...</em>
+        <em>Searching&hellip;</em>
       </mad-menu-item>
-      <mad-menu-item v-else-if="filteredOptions.length == 0">
-        <template v-if="!search && options.length == 0">
-          <em>No options available</em>
+      <template v-else>
+        <template v-if="!filteredOptions.length">
+          <mad-menu-item v-if="searchText">
+            <em>No results for "{{searchText}}"</em>
+          </mad-menu-item>
+          <mad-menu-item v-else-if="typeof options == 'function'">
+            <em>Type to search</em>
+          </mad-menu-item>
+          <mad-menu-item v-else>
+            <em>No options available</em>
+          </mad-menu-item>
         </template>
-        <template v-else-if="searchText">
-          <em>No results for "{{searchText}}"</em>
-        </template>
-        <template v-else>
-          <em>Type to search</em>
-        </template>
-      </mad-menu-item>
-
-      <mad-menu-item v-for="(option,i) in filteredOptions" :key="i"
-        @click="toggleValue(getValue(option))"
-        :active="valueIsSelected(getValue(option))"
-        :hover="highlight==i">
-        <slot :option="option">{{getLabel(option)}}</slot>
-      </mad-menu-item>
-
+        <mad-menu-item v-for="(option,i) in filteredOptions" :key="i"
+          @click="toggleValue(getValue(option))"
+          :active="valueIsSelected(getValue(option))"
+          :hover="highlight==i">
+          <slot :option="option">{{getLabel(option)}}</slot>
+        </mad-menu-item>
+      </template>
     </mad-menu>
+
   </mad-dropdown>
 </template>
 
 <script>
-const slugify = require('slugify')
-
 export default {
   props: {
-    options: { type: Array, required: true },
+    options: { type: [Array, Function], required: true },
     value: {},
     placeholder: { type: String, default: 'Please select' },
     // clearable: Boolean,
     disabled: Boolean,
-    search: Function,
     multiple: Boolean,
     pk: String,
   },
 
   data: () => ({
     selectedValues: [],
+    currentOptions: [],
     cachedOptions: [],
     searchText: '',
     dropdownActive: false,
@@ -107,16 +106,13 @@ export default {
     },
     
     filteredOptions() {
-      if (this.search) {
-        if (this.searching || !this.searchText) return []
-        return this.options
-      }
-      const tokenize = s => slugify(s.replace('/',' ')).toLowerCase()
-      const terms = tokenize(this.searchText).split('-')
-      return this.options.filter((option, i) => {
-        const optionText = option && option.label ?
-          `${option.value} ${option.label}` : JSON.stringify(option)
-        const optionWords = tokenize(optionText).split('-')
+      const options = this.currentOptions
+      if (!this.searchText || typeof this.options == 'function') return options
+
+      const tokenize = s => s.toLowerCase().match(/(\w+|[^\w\s]+)/g)
+      const terms = tokenize(this.searchText)
+      return options.filter((option, i) => {
+        const optionWords = tokenize(this.getLabel(option))
         return terms.every(term => optionWords.some(word => word.startsWith(term)))
       })
     },
@@ -136,12 +132,17 @@ export default {
 
     options: {
       immediate: true,
-      handler(options) {
-        this.cachedOptions = options.concat(this.cachedOptions.filter(a => {
-          const value = this.getValue(a)
-          return !options.some(b => this.valuesEqual(this.getValue(b), value))
-        }))
+      async handler(options) {
+        if (typeof options == 'function') return
+        this.currentOptions = options
       },
+    },
+
+    currentOptions(currentOptions) {
+      this.cachedOptions = currentOptions.concat(this.cachedOptions.filter(a => {
+        const value = this.getValue(a)
+        return !currentOptions.some(b => this.valuesEqual(this.getValue(b), value))
+      }))
     },
 
     dropdownActive(dropdownActive) {
@@ -164,9 +165,11 @@ export default {
     },
 
     getLabel(option) {
+      if (option == null) return 'null'
       if (option && option.label) return option.label
-      if (option != null) return option
-      return 'null'
+      if (option && option.toString) return option.toString()
+      return ''
+      // console.warn
     },
 
     valueIsSelected(value) {
@@ -213,6 +216,7 @@ export default {
         const value = this.getValue(this.filteredOptions[this.highlight])
         if (value && !this.valueIsSelected(value)) this.toggleValue(value)
       }
+      this.dropdownActive = false
     },
 
     onKeydown(event) {
@@ -233,18 +237,20 @@ export default {
     },
 
     updateOptions(debounceMs) {
-      if (this.search) {
+      if (typeof this.options == 'function') {
         this.searching = true
         clearTimeout(this._searchTimeout)
         this._searchTimeout = setTimeout(async () => {
           try {
-            await this.search(this.searchText)
+            this.currentOptions = await this.options(this.searchText)
           } finally {
             this.searching = false
           }
         }, debounceMs)
       }
     },
+    
   },
 }
+
 </script>

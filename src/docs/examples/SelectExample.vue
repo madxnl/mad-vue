@@ -2,9 +2,6 @@
   <div class="space">
     <mad-form-item label="test">
       <mad-select v-model="selectedValue" :options="[{ value: 'awda', label: 'asd'}, {value:null,label:'NULL'}]"/>
-      <mad-select v-model="selectedValue" :options="[{ value: 'awda', label: 'asd'}, {value:'awaad',label:'NULL'}]"/>
-      <mad-select v-model="selectedValue" :options="['asd',null]"/>
-      <mad-select v-model="selectedValue" :options="['asd',0]"/>
     </mad-form-item>
 
     <mad-form-item label="Simple select" style="max-width:120px">
@@ -30,13 +27,10 @@
         { name: 'Foo' },
         { name: 'Bar' },
       ]">
-        <template slot-scope="{option}">
-          {{option.name}}
-        </template>
       </mad-select>
     </mad-form-item>
     <mad-form-item label="Async search country">
-      <mad-select v-model="selectedCountry" :search="searchCountries" :options="countries">
+      <mad-select v-model="selectedCountry" :options="searchCountries">
         <template slot-scope="{option}">
           {{option.name}}
         </template>
@@ -54,15 +48,12 @@ export default {
     selectedMulti: ['a', 'b'],
     selectedObjects: { name: 'Foo', __foo: 0.1 },
     selectedCountry: null,
-    countries: [],
   }),
   methods: {
     async searchCountries(searchText) {
-      this.countries = []
-      if (searchText) {
-        const response = await fetch('https://restcountries.eu/rest/v2/name/' + searchText)
-        this.countries = response.status == 200 ? await response.json() : []
-      }
+      if (!searchText) return []
+      const response = await fetch('https://restcountries.eu/rest/v2/name/' + searchText)
+      return response.status == 200 ? await response.json() : []
     },
   },
 }
