@@ -138,11 +138,14 @@ export default {
       },
     },
 
-    currentOptions(currentOptions) {
-      this.cachedOptions = currentOptions.concat(this.cachedOptions.filter(a => {
-        const value = this.getValue(a)
-        return !currentOptions.some(b => this.valuesEqual(this.getValue(b), value))
-      }))
+    currentOptions: {
+      immediate: true,
+      handler(currentOptions) {
+        this.cachedOptions = currentOptions.concat(this.cachedOptions.filter(a => {
+          const value = this.getValue(a)
+          return !currentOptions.some(b => this.valuesEqual(this.getValue(b), value))
+        }))
+      },
     },
 
     dropdownActive(dropdownActive) {
