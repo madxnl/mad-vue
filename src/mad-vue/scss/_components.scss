@@ -5,7 +5,7 @@
   border: 0;
   font: inherit;
   // height: 2.5em;
-  padding: .5em 1em;
+  padding: .4em 1em;
   flex-shrink: 0;
   color: $text;
   font-weight: bold;
@@ -234,6 +234,9 @@
   border-radius: 3px;
   & > :not(:last-child) { margin-right: .25rem; }
   // & > :first-child { margin-left: .5rem; }
+  &:focus-within {
+    border-color: $primary;
+  }
 }
 .mad-input_input {
   height: 100%;
@@ -261,15 +264,6 @@
 .mad-input_left,
 .mad-input_right {
   padding: .5rem;
-}
-  // .mad-input_input:focus {
-//   outline: 2px solid $primary;
-// }
-.mad-input:focus-within {
-  border-color: $primary;
-  // .mad-input_input {
-  //   outline: ;
-  // }
 }
 
 
@@ -325,6 +319,9 @@
   &.--input-hide input {
     opacity: 0;
     // width: 0;
+  }
+  input {
+    flex: 1 1 0;
   }
 }
 .mad-select_grid {
@@ -405,10 +402,11 @@
 .mad-modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 50;
+  z-index: 150;
   background: rgba(black, 0.5);
   overflow-y: auto;
   padding: 1rem;
+  padding-top: 2rem;
   margin: 0 calc(100% - 100vw) 0 0 !important;
 }
 .mad-modal_window {

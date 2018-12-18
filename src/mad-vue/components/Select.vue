@@ -216,7 +216,7 @@ export default {
         const value = this.getValue(this.filteredOptions[this.highlight])
         if (value && !this.valueIsSelected(value)) this.toggleValue(value)
       }
-      this.dropdownActive = false
+      // this.dropdownActive = false
     },
 
     onKeydown(event) {
