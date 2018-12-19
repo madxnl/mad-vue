@@ -5,8 +5,7 @@
     <mad-input class="mad-select_input"
       :value="searchText"
       :placeholder="placeholder"
-      @focus="onFocus" @blur="onBlur"
-      @keydown="onKeydown" @input="onInput">
+      v-bind="$attrs" v-on="inputListeners">
 
       <div class="mad-select_grid" v-if="displaySelected">
         <template v-if="multiple">
@@ -120,6 +119,44 @@ export default {
     displaySelected() {
       return this.multiple || (!this.isEmpty && !this.searchText)
     },
+
+    inputListeners() {
+      return {
+        ...this.$listeners,
+        input: text => {
+          this.searchText = text
+          this.dropdownActive = true
+          this.highlight = 0
+          this.updateOptions(400)
+        },
+        focus: event => {
+          this.updateOptions(0)
+        },
+        blur: event => {
+          if (this.searchText) {
+            const value = this.getValue(this.filteredOptions[this.highlight])
+            if (value && !this.valueIsSelected(value)) this.toggleValue(value)
+          }
+          // this.dropdownActive = false
+        },
+        keydown: event => {
+          if (this.dropdownActive) {
+            if (event.keyCode == 27) { // escape
+              this.dropdownActive = false
+              event.stopPropagation()
+            } else if (event.keyCode == 38) { // up
+              this.highlight = (this.highlight + this.filteredOptions.length - 1) % this.filteredOptions.length
+            } else if (event.keyCode == 40) { // down
+              this.highlight = (this.highlight + 1) % this.filteredOptions.length
+            } else if (event.keyCode == 13) { // enter
+              const highlighted = this.filteredOptions[this.highlight]
+              if (highlighted) this.toggleValue(this.getValue(highlighted))
+              event.preventDefault()
+            }
+          }
+        },
+      }
+    },
   },
 
   watch: {
@@ -138,11 +175,14 @@ export default {
       },
     },
 
-    currentOptions(currentOptions) {
-      this.cachedOptions = currentOptions.concat(this.cachedOptions.filter(a => {
-        const value = this.getValue(a)
-        return !currentOptions.some(b => this.valuesEqual(this.getValue(b), value))
-      }))
+    currentOptions: {
+      immediate: true,
+      handler(currentOptions) {
+        this.cachedOptions = currentOptions.concat(this.cachedOptions.filter(a => {
+          const value = this.getValue(a)
+          return !currentOptions.some(b => this.valuesEqual(this.getValue(b), value))
+        }))
+      },
     },
 
     dropdownActive(dropdownActive) {
@@ -198,42 +238,6 @@ export default {
         this.$emit('input', value)
       }
       this.dropdownActive = false
-    },
-    
-    onInput(text) {
-      this.searchText = text
-      this.dropdownActive = true
-      this.highlight = 0
-      this.updateOptions(400)
-    },
-
-    onFocus(event) {
-      this.updateOptions(0)
-    },
-
-    onBlur(event) {
-      if (this.searchText) {
-        const value = this.getValue(this.filteredOptions[this.highlight])
-        if (value && !this.valueIsSelected(value)) this.toggleValue(value)
-      }
-      this.dropdownActive = false
-    },
-
-    onKeydown(event) {
-      if (this.dropdownActive) {
-        if (event.keyCode == 27) { // escape
-          this.dropdownActive = false
-          event.stopPropagation()
-        } else if (event.keyCode == 38) { // up
-          this.highlight = (this.highlight + this.filteredOptions.length - 1) % this.filteredOptions.length
-        } else if (event.keyCode == 40) { // down
-          this.highlight = (this.highlight + 1) % this.filteredOptions.length
-        } else if (event.keyCode == 13) { // enter
-          const highlighted = this.filteredOptions[this.highlight]
-          if (highlighted) this.toggleValue(this.getValue(highlighted))
-          event.preventDefault()
-        }
-      }
     },
 
     updateOptions(debounceMs) {
