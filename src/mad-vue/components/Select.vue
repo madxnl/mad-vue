@@ -5,6 +5,7 @@
     <mad-input class="mad-select_input"
       :value="searchText"
       :placeholder="placeholder"
+      :disabled="disabled"
       v-bind="$attrs" v-on="inputListeners">
 
       <div class="mad-select_grid" v-if="displaySelected">
@@ -70,7 +71,6 @@ export default {
     options: { type: [Array, Function], required: true },
     value: {},
     placeholder: { type: String, default: 'Please select' },
-    // clearable: Boolean,
     disabled: Boolean,
     multiple: Boolean,
     pk: String,
@@ -103,7 +103,7 @@ export default {
         return this.selectedValues[0] == null && !hasNullOption
       }
     },
-    
+
     filteredOptions() {
       const options = this.currentOptions
       if (!this.searchText || typeof this.options == 'function') return options
@@ -133,10 +133,10 @@ export default {
           this.updateOptions(0)
         },
         blur: event => {
-          if (this.searchText) {
-            const value = this.getValue(this.filteredOptions[this.highlight])
-            if (value && !this.valueIsSelected(value)) this.toggleValue(value)
-          }
+          // if (this.searchText) {
+          //   const value = this.getValue(this.filteredOptions[this.highlight])
+          //   if (value && !this.valueIsSelected(value)) this.toggleValue(value)
+          // }
           // this.dropdownActive = false
         },
         keydown: event => {
@@ -224,7 +224,7 @@ export default {
       if (this.pk && a && b && a[this.pk] == b[this.pk]) return true
       return a == b || JSON.stringify(a) == JSON.stringify(b)
     },
-    
+
     toggleValue(value) {
       if (this.multiple) {
         if (this.valueIsSelected(value)) {
@@ -253,7 +253,7 @@ export default {
         }, debounceMs)
       }
     },
-    
+
   },
 }
 

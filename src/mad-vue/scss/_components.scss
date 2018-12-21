@@ -214,7 +214,7 @@
   &.-success { background: $green; }
   &.-warn { background: $yellow; }
   &.-error { background: $red; }
-  
+
   .mad-messages_text {
     padding: .5em;
   }
@@ -316,6 +316,13 @@
 .mad-select {
   width: 100%;
   position: relative;
+  &.--disabled {
+    & > .mad-input {
+      background: rgba(0, 0, 0, 0.05);
+      color: rgba(0, 0, 0, 0.8);
+    }
+    pointer-events: none;
+  }
   &.--input-hide input {
     opacity: 0;
     // width: 0;
@@ -452,7 +459,7 @@
   display: flex;
   height: 1.5em;
   align-items: center;
-  
+
   input {
     margin-right: .5em;
   }
