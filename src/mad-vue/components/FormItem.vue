@@ -30,7 +30,7 @@ export default {
     parentForm() {
       for (let v = this; v; v = v.$parent) if (v.formItems) return v
     },
-    
+
     classes() {
       return [
         this.error && '-haserror',
@@ -44,15 +44,15 @@ export default {
       if (this.error) this.validate()
     },
   },
-  
+
   methods: {
     async validate() {
       this.error = await this.getValidationError(this.value)
       return !this.error
     },
-    
+
     async getValidationError(value) {
-      if (this.required && (value == null || value === '')) {
+      if (this.required && (value == false || value == null || value === '')) {
         return 'is required'
       } else if (this.validator) {
         return await this.validator(value)
@@ -73,4 +73,3 @@ export default {
   },
 }
 </script>
-
