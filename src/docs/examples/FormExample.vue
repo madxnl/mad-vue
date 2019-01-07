@@ -1,6 +1,6 @@
 <template>
   <mad-form @submit="onSubmit">
-    <mad-form-item label="Message" required>
+    <mad-form-item label="Message" :value="message" required>
       <mad-input v-model="message"/>
     </mad-form-item>
 

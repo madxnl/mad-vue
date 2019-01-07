@@ -52,7 +52,7 @@ export default {
     },
 
     async getValidationError(value) {
-      if (this.required && (value == false || value == null || value === '')) {
+      if (this.required && !value) {
         return 'is required'
       } else if (this.validator) {
         return await this.validator(value)
