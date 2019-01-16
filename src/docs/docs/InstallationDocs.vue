@@ -1,25 +1,21 @@
 <template>
   <div>
     <p>
-      See <a href="https://cli.vuejs.org/guide/installation.html">the Vue CLI documentation</a> for details on how to create a new Vue.js project.
-      Make sure to select the CSS pre-processors feature during setup to enable Sass support.
+      See <a target="_blank" href="https://cli.vuejs.org/guide/installation.html">the Vue CLI documentation</a> for details on how to create a Vue.js project.
+      Be sure to select CSS pre-processors during the setup because Mad-Vue uses SCSS for styling.
     </p>
-    <figure class="container">
-      <code-block>
-        npm install @madxnl/mad-vue
-      </code-block>
-    </figure>
+    <code-block class="card">
+      npm install @madxnl/mad-vue
+    </code-block>
     <p>
-      Then, add the following lines to <code>main.js</code> and you're good to go:
+      Add the following lines to <code>main.js</code> and you're good to go:
     </p>
-    <figure class="container">
-      <code-block filename="main.js">
-        import MadVue from '@madxnl/mad-vue'
-        import '@madxnl/mad-vue/src/mad-vue/scss/mad-vue.scss'
+    <code-block class="card">
+      import MadVue from '@madxnl/mad-vue'
+      import '@madxnl/mad-vue/src/mad-vue/scss/mad-vue.scss'
 
-        Vue.use(MadVue)
-      </code-block>
-    </figure>
+      Vue.use(MadVue)
+    </code-block>
   </div>
 </template>
 

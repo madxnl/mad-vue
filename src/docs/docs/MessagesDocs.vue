@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>To enable feedback messages in small "toast" style popups, include the <code>&lt;mad-messages/&gt;</code> component at the top in your main app template.</p>
+    <p>To enable 'toast' style popup messages you must first include <code>&lt;mad-messages/&gt;</code> in your App component.</p>
     <code-example name="MessagesExample" />
   </div>
 </template>

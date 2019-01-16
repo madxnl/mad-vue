@@ -47,7 +47,7 @@ export default {
       { name: 'Messages', component: require('./docs/MessagesDocs').default },
       { name: 'Datatable', component: require('./docs/DatatableDocs').default },
       { name: 'Transition', component: require('./docs/FormDocs').default },
-      { name: 'Custom styling', component: require('./docs/StylingDocs').default },
+      { name: 'Custom colors', component: require('./docs/StylingDocs').default },
     ],
     activeSection: null,
   }),
@@ -110,7 +110,7 @@ $sectionWidth: 800px;
 ._nav {
   position: fixed; left: 0; top: 0; bottom: 0;
   // border-right: 1px solid rgba($text, 0.25);
-  background: rgba($text, 0.1);
+  background: rgba($text, 0.15);
   width: $navWidth;
   // padding: 1rem;
 }

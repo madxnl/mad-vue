@@ -1,5 +1,10 @@
 <template>
-  <pre><code ref="code" :class="language"><slot></slot></code></pre>
+  <div>
+    <p v-if="filename" class="filename">
+      {{filename}}
+    </p>
+    <pre><code ref="code" :class="language"><slot></slot></code></pre>
+  </div>
 </template>
 
 <script>
@@ -15,6 +20,7 @@ hljs.registerLanguage('scss', scss)
 export default {
   props: {
     language: String,
+    filename: String,
   },
 
   methods: {
@@ -38,6 +44,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-._filename {
+
+.filename {
+  opacity: 0.6;
+  font-style: italic;
 }
 </style>

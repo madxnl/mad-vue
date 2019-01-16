@@ -14,11 +14,6 @@ code {
   // line-height: 0.8;
 }
 
-figure {
-  background: rgba($text, 0.05);
-  border: 1px solid rgba($text, 0.25);
-}
-
 .container {
   padding: 1rem;
   & > :last-child { margin-bottom: 0; }
@@ -29,4 +24,12 @@ figure {
 .hljs {
   background: none !important;
   padding: 0 !important;
+}
+
+.card {
+  @extend p;
+  padding: 1rem;
+  padding-bottom: 1px;
+  background: rgba($text, 0.05);
+  // border: 2px solid rgba($text, 0.25);
 }

@@ -1,17 +1,31 @@
 <template>
-  <figure>
-    <div class="-top">
-      <mad-button @click="toggled=!toggled" class="small" flat>
-        <mad-icon mdi="code-tags" />
-      </mad-button>
-    </div>
-    <div class="container">
-      <mad-transition>
-        <code-block v-if="toggled">{{source}}</code-block>
-        <component v-else-if="component" :is="component" />
-      </mad-transition>
-    </div>
-  </figure>
+  <div class="code-example">
+
+    <mad-tabs :tabs="[
+      'Example',
+      'Source',
+      this.$slots.api && 'API',
+    ]">
+
+      <template slot="Source">
+        <code-block class="card">{{source}}</code-block>
+      </template>
+
+      <template slot="Example">
+        <div class="card">
+          <component :is="component" />
+        </div>
+      </template>
+
+      <template slot="API">
+        <div class="card">
+          <slot name="api"></slot>
+        </div>
+      </template>
+
+    </mad-tabs>
+
+  </div>
 </template>
 
 <script>
@@ -34,12 +48,15 @@ export default {
 <style lang="scss" scoped>
 @import '~@/mad-vue/scss/vars';
 
-.-top {
-  // background: rgba($text, 0.75);
-  // color: white;
-  padding: .5em .5em 0;
-  text-align: right;
-  cursor: pointer;
+// .-top {
+//   // background: rgba($text, 0.75);
+//   // color: white;
+//   padding: .5em .5em 0;
+//   text-align: right;
+//   cursor: pointer;
+// }
+
+.code-example {
 }
 
 </style>
