@@ -4,16 +4,21 @@
 </template>
 
 <script>
-import 'flag-icon-css/sass/flag-icon.scss'
+// import 'flag-icon-css/sass/flag-icon.scss'
 import '@mdi/font/css/materialdesignicons.css'
+
+let flagsLoaded = false
 
 export default {
   props: {
     mdi: String,
     flag: String,
   },
+
   computed: {
     computedClass() {
+      if (this.flag && !flagsLoaded) this.loadFlags()
+
       return [
         'mad-icon',
         this.mdi && `mdi mdi-${this.mdi.toLowerCase()}`,
@@ -21,6 +26,17 @@ export default {
       ]
     },
   },
+
+  methods: {
+    loadFlags() {
+      flagsLoaded = true
+      const link = window.document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.css'
+      window.document.body.appendChild(link)
+    },
+  },
+  
   // watch: {
   //   country: {
   //     immediate: true,
