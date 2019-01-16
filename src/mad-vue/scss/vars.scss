@@ -1,19 +1,15 @@
 $yellow: #e4b600 !default;
-$blue: #7348eb !default;
-$green: #40bd93 !default;
+$blue: #4296e6 !default;
+$green: #3bb983 !default;
 $red: #e43f3f !default;
 $purple: #7348eb !default;
 $orange: #fb7e5c !default;
 
-// $facebook: #3b5998 !default;
-// $twitter: #00aced !default;
+$dark: #35495d;
 
 $white: #ffffff !default;
-$gray: #888888 !default;
-$darkgray: #222222 !default;
 
-$text: $darkgray !default;
-$muted: $gray;
+$text: $dark !default;
 $primary: $blue !default;
 
 
@@ -25,14 +21,9 @@ $colors: (
   purple: $purple,
   orange: $orange,
 
-  // facebook: $facebook,
-  // twitter: $twitter,
-
   white: $white,
-  darkgray: $darkgray,
   
   text: $text,
-  muted: $muted,
   primary: $primary,
 ) !default;
 

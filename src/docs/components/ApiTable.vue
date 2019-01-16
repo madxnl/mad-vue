@@ -1,13 +1,7 @@
 <template>
   <div>
-    <h4>{{name}}</h4>
-    <mad-tabs :tabs="[
-      $slots.props && 'Props',
-      $slots.events && 'Events',
-      $slots.slots && 'Slots',
-    ]" v-model="tab"/>
     
-    <table class="component-api-table" v-if="tab=='Props'">
+    <table class="component-api-table" v-if="$slots.props">
       <tr>
         <th>Prop</th>
         <th>Type</th>
@@ -17,7 +11,7 @@
       <slot name="props"></slot>
     </table>
     
-    <table class="component-api-table" v-if="tab=='Events'">
+    <table class="component-api-table" v-if="$slots.events">
       <tr>
         <th>Event</th>
         <th>Description</th>
@@ -25,7 +19,7 @@
       <slot name="events"></slot>
     </table>
 
-    <table class="component-api-table" v-if="tab=='Slots'">
+    <table class="component-api-table" v-if="$slots.slots">
       <tr>
         <th>Slot</th>
         <th>Description</th>
@@ -38,17 +32,22 @@
 
 <script>
 export default {
-  props: {
-    name: String,
-  },
-  data: () => ({
-    tab: 'Props',
-  }),
 }
 </script>
 
 <style lang="scss" scoped>
 @import '~@/mad-vue/scss/vars';
 
+.component-api-table {
+  width: 100%;
+  
+  td:not(:last-child) {
+    font-family: monospace;
+    font-size: 85%;
+  }
+  td:first-child {
+    font-weight: bold;
+  }
+}
 
 </style>

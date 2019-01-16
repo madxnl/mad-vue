@@ -9,7 +9,6 @@
         :href="'#' + getSectionId(section)"
         class="_nav-link" :class="{
           '-active':activeSection==section,
-          '-subitem':section.subitem,
         }">
         {{section.name}}
       </a>
@@ -35,19 +34,19 @@ export default {
   data: () => ({
     sections: [
       { name: 'Installation', component: require('./docs/InstallationDocs').default },
-      { name: 'Button', component: require('./docs/ButtonDocs').default, subitem: true },
-      { name: 'Icons', component: require('./docs/IconDocs').default, subitem: true },
-      { name: 'Form', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Input', component: require('./docs/InputDocs').default, subitem: true },
-      { name: 'Select', component: require('./docs/SelectDocs').default, subitem: true },
-      { name: 'Dropdown', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Menu', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Modal', component: require('./docs/ModalDocs').default, subitem: true },
-      { name: 'Tabs', component: require('./docs/FormDocs').default, subitem: true },
-      { name: 'Loading', component: require('./docs/LoadingDocs').default, subitem: true },
-      { name: 'Messages', component: require('./docs/MessagesDocs').default, subitem: true },
-      { name: 'Datatable', component: require('./docs/DatatableDocs').default, subitem: true },
-      { name: 'Transition', component: require('./docs/FormDocs').default, subitem: true },
+      { name: 'Button', component: require('./docs/ButtonDocs').default },
+      { name: 'Icons', component: require('./docs/IconDocs').default },
+      { name: 'Form', component: require('./docs/FormDocs').default },
+      { name: 'Input', component: require('./docs/InputDocs').default },
+      { name: 'Select', component: require('./docs/SelectDocs').default },
+      { name: 'Dropdown', component: require('./docs/FormDocs').default },
+      { name: 'Menu', component: require('./docs/FormDocs').default },
+      { name: 'Modal', component: require('./docs/ModalDocs').default },
+      { name: 'Tabs', component: require('./docs/FormDocs').default },
+      { name: 'Loading', component: require('./docs/LoadingDocs').default },
+      { name: 'Messages', component: require('./docs/MessagesDocs').default },
+      { name: 'Datatable', component: require('./docs/DatatableDocs').default },
+      { name: 'Transition', component: require('./docs/FormDocs').default },
       { name: 'Custom styling', component: require('./docs/StylingDocs').default },
     ],
     activeSection: null,
@@ -106,20 +105,21 @@ $sectionWidth: 800px;
   margin-bottom: 1.5em;
 }
 ._main {
+  margin-bottom: 300px;
 }
 ._nav {
   position: fixed; left: 0; top: 0; bottom: 0;
-  border-right: 1px solid rgba($text, 0.25);
+  // border-right: 1px solid rgba($text, 0.25);
   background: rgba($text, 0.1);
   width: $navWidth;
-  padding: 1rem;
+  // padding: 1rem;
 }
 ._nav-brand {
   text-align: center;
   color: inherit;
   text-decoration: none;
   img {
-    margin: 0 auto;
+    margin: 1rem auto;
     display: block;
     margin-bottom: .5rem;
   }
@@ -129,15 +129,15 @@ $sectionWidth: 800px;
   color: $text;
   display: block;
   text-decoration: none;
-  padding: .25em .5em;
+  padding: .25em 1.5em;
   transition: all .2s;
   &:hover {
     background: rgba($text, 0.1);
   }
   &.-active {
+    font-weight: bold;
     background: rgba($text, 0.75);
     color: white;
   }
-  // &.-subitem { margin-left: 1em; }
 }
 </style>

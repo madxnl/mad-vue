@@ -30,15 +30,3 @@ figure {
   background: none !important;
   padding: 0 !important;
 }
-
-.component-api-table {
-  width: 100%;
-  
-  td:not(:last-child) {
-    font-family: monospace;
-    font-size: 85%;
-  }
-  td:first-child {
-    font-weight: bold;
-  }
-}

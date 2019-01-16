@@ -3,6 +3,7 @@ import * as filters from './filters'
 
 export default {
   install(Vue, config) {
+
     config = Object.assign({}, {
       components: [
         'Button',
@@ -30,7 +31,6 @@ export default {
 
     Vue.$mad = Vue.prototype.$mad = {
       message: message(Vue, config),
-
       filters,
     }
 
@@ -56,5 +56,5 @@ export default {
     addEventListener('keydown', keydown)
     addEventListener('mousedown', mousedown)
 
-  }
+  },
 }

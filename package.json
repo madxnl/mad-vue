@@ -20,8 +20,7 @@
   "homepage": "https://gitlab.com/madxnl/mad-vue#README",
   "dependencies": {
     "@mdi/font": "^3.0.39",
-    "date-fns": "^1.29.0",
-    "flag-icon-css": "^3.0.0"
+    "date-fns": "^1.29.0"
   },
   "devDependencies": {
     "vue": "^2.5.16",

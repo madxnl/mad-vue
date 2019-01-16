@@ -44,7 +44,7 @@
     color: black;
     box-shadow: none;
     &::after {
-      background: $muted;
+      background: rgba($text, 0.5);
     }
   }
 
@@ -52,8 +52,8 @@
     pointer-events: none;
     cursor: default;
     opacity: 0.5;
-    &.-flat { color: $muted !important }
-    &:not(.-flat) { background: $muted !important }
+    &.-flat { color: rgba($text, 0.5) !important }
+    &:not(.-flat) { background: rgba($text, 0.5) !important }
   }
   &.-loading {
     .mad-button_content { visibility: hidden; }
@@ -175,6 +175,7 @@
 .mad-tabs {
   display: flex;
   position: relative;
+  @extend p;
 }
 .mad-tabs_line {
   bottom: 0;
@@ -421,7 +422,7 @@
   max-width: 800px;
   background: white;
   border-radius: 4px;
-  box-shadow: 0 10px 30px rgba($darkgray, 0.5);
+  box-shadow: 0 10px 30px rgba(black, 0.3);
   padding: 1rem;
 }
 
@@ -481,7 +482,6 @@
 //   right: 0;
 //   height: 4px;
 //   overflow: hidden;
-//   // background: $darkgray;
 //   &::after {
 //     content: '';
 //     position: absolute;
