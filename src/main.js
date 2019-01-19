@@ -2,14 +2,18 @@ import Vue from 'vue'
 
 Vue.config.productionTip = false
 
-import MadVue from './mad-vue'
-import Documentation from './docs/Documentation.vue'
+import MadVue from './index'
+import Documentation from './documentation/Documentation.vue'
 
 Vue.use(MadVue)
 
-Vue.component('CodeExample', require('./docs/components/CodeExample').default)
-Vue.component('CodeBlock', require('./docs/components/CodeBlock').default)
-Vue.component('ApiTable', require('./docs/components/ApiTable').default)
+import CodeExample from './documentation/components/CodeExample'
+import CodeBlock from './documentation/components/CodeBlock'
+import ApiTable from './documentation/components/ApiTable'
+
+Vue.component('CodeExample', CodeExample)
+Vue.component('CodeBlock', CodeBlock)
+Vue.component('ApiTable', ApiTable)
 
 new Vue({
   render: h => h(Documentation),

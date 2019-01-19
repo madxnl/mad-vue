@@ -11,11 +11,11 @@
       $primary: $red;
 
       // Then import Mad-Vue vars:
-      @import '~@madxnl/mad-vue/src/mad-vue/scss/vars.scss';
+      @import '~@madxnl/mad-vue/src/scss/vars.scss';
     </code-block>
     <code-block class="card" language="scss" filename="src/scss/my-app.scss">
       @import './my-vars.scss';
-      @import '~@madxnl/mad-vue/src/mad-vue/scss/main.scss';
+      @import '~@madxnl/mad-vue/src/scss/main.scss';
 
       // Additional global styling rules and imports go here
     </code-block>
@@ -23,7 +23,7 @@
       Change the style import in <code>main.js</code> to point to your custom scss:
     </p>
     <code-block class="card" filename="src/main.js">
-      // import '@madxnl/mad-vue/src/mad-vue/scss/main.scss'
+      // import '@madxnl/mad-vue/src/scss/main.scss'
       import './scss/my-app.scss'
     </code-block>
     <p>
@@ -40,7 +40,7 @@
       &lt;&#47;style&gt;
     </code-block>
     <p>
-      See <a href="https://github.com/madxnl/mad-vue/blob/master/src/mad-vue/scss/vars.scss"><code>vars.scss</code></a> for a full list of variables that can be overridden.
+      See <a href="https://github.com/madxnl/mad-vue/blob/master/src/scss/vars.scss"><code>vars.scss</code></a> for a full list of variables that can be overridden.
     </p>
   </div>
 </template>

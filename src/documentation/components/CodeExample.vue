@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/mad-vue/scss/vars';
+@import '~@/scss/vars';
 
 // .-top {
 //   // background: rgba($text, 0.75);
