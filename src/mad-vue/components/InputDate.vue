@@ -6,7 +6,7 @@
       v-bind="$attrs" v-on="listeners">
       <mad-icon mdi="chevron-down" slot="right" />
     </mad-input>
-    
+
     <div slot="dropdown" class="mad-input-date_columns">
       <div>
         <div class="mad-input-date_row">
@@ -102,36 +102,20 @@ export default {
       // let prevValue = null
       return {
         ...this.$listeners,
-        input: e => {
-          this.inputText = e
-          const date = dateFns.parse(e)
-          if (!isNaN(date)) {
-            this.selectDate(date)
-          }
-        },
-        blur: e => {
-          // const date = dateFns.parse(e.target.value)
-          // this.selectDate(date)
-          this.inputText = null
-          // setTimeout(() => {
-          //   this.$emit('input', new Date())
-          // }, 500)
-          // this.$nextTick().then(() => this.selectDate(date))
-        },
-        focus: e => {
-          this.$nextTick().then(() => e.target.select())
-        },
-        keyup: e => {
-          if (e.keyCode == 37) {// left
-          } else if (e.keyCode == 39) {//right
-          }
-        },
+        input: this.onInput,
+        blur: this.onBlur,
+        focus: this.onFocus,
+        // keyup: e => {
+        //   if (e.keyCode == 37) {// left
+        //   } else if (e.keyCode == 39) {//right
+        //   }
+        // },
         // click: e => {
         //   this.updateInputSelection(e.target)
         // },
       }
     },
-    
+
     localeTimeString() {
       const date = dateFns.parse(this.value)
       if (isNaN(date)) return '00:00:00'
@@ -164,6 +148,28 @@ export default {
   },
 
   methods: {
+    onInput(e) {
+      this.inputText = e
+      const date = dateFns.parse(e)
+      if (!isNaN(date)) {
+        this.selectDate(date)
+      }
+    },
+
+    onBlur(e) {
+      // const date = dateFns.parse(e.target.value)
+      // this.selectDate(date)
+      this.inputText = null
+      // setTimeout(() => {
+      //   this.$emit('input', new Date())
+      // }, 500)
+      // this.$nextTick().then(() => this.selectDate(date))
+    },
+
+    onFocus(e) {
+      this.$nextTick().then(() => e.target.select())
+    },
+
     selectDate(date) {
       // if (isNaN(date)) date = 'Invalid date!'
       this.$emit('input', date)
@@ -196,7 +202,7 @@ export default {
     isCurrentMonth(date) {
       return dateFns.isSameMonth(this.currentMonth, date)
     },
-    
+
     displayFormat(value) {
       const date = dateFns.parse(value)
       return date.toLocaleDateString(navigator.language, {

@@ -12,7 +12,7 @@
 <script>
 export default {
   props: {
-    value: true,
+    value: {},
     disabled: Boolean,
   },
   methods: {

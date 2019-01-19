@@ -123,38 +123,16 @@ export default {
     inputListeners() {
       return {
         ...this.$listeners,
-        input: text => {
-          this.searchText = text
-          this.dropdownActive = true
-          this.highlight = 0
-          this.updateOptions(400)
-        },
-        focus: event => {
-          this.updateOptions(0)
-        },
-        blur: event => {
+        input: this.onInput,
+        focus: this.onFocus,
+        // blur: event => {
           // if (this.searchText) {
           //   const value = this.getValue(this.filteredOptions[this.highlight])
           //   if (value && !this.valueIsSelected(value)) this.toggleValue(value)
           // }
           // this.dropdownActive = false
-        },
-        keydown: event => {
-          if (this.dropdownActive) {
-            if (event.keyCode == 27) { // escape
-              this.dropdownActive = false
-              event.stopPropagation()
-            } else if (event.keyCode == 38) { // up
-              this.highlight = (this.highlight + this.filteredOptions.length - 1) % this.filteredOptions.length
-            } else if (event.keyCode == 40) { // down
-              this.highlight = (this.highlight + 1) % this.filteredOptions.length
-            } else if (event.keyCode == 13) { // enter
-              const highlighted = this.filteredOptions[this.highlight]
-              if (highlighted) this.toggleValue(this.getValue(highlighted))
-              event.preventDefault()
-            }
-          }
-        },
+        // },
+        keydown: this.onKeydown,
       }
     },
   },
@@ -200,6 +178,34 @@ export default {
   },
 
   methods: {
+    onKeydown(event) {
+      if (this.dropdownActive) {
+        if (event.keyCode == 27) { // escape
+          this.dropdownActive = false
+          event.stopPropagation()
+        } else if (event.keyCode == 38) { // up
+          this.highlight = (this.highlight + this.filteredOptions.length - 1) % this.filteredOptions.length
+        } else if (event.keyCode == 40) { // down
+          this.highlight = (this.highlight + 1) % this.filteredOptions.length
+        } else if (event.keyCode == 13) { // enter
+          const highlighted = this.filteredOptions[this.highlight]
+          if (highlighted) this.toggleValue(this.getValue(highlighted))
+          event.preventDefault()
+        }
+      }
+    },
+
+    onInput(text) {
+      this.searchText = text
+      this.dropdownActive = true
+      this.highlight = 0
+      this.updateOptions(400)
+    },
+
+    onFocus(event) {
+      this.updateOptions(0)
+    },
+
     getOption(value) {
       return this.cachedOptions.find(o => this.valuesEqual(this.getValue(o), value)) || value
     },

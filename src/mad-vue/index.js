@@ -4,30 +4,28 @@ import * as filters from './filters'
 export default {
   install(Vue, config) {
 
-    config = Object.assign({}, {
-      components: [
-        'Button',
-        'Checkbox',
-        'Datatable',
-        'Dropdown',
-        'Form',
-        'FormItem',
-        'Icon',
-        'Input',
-        'InputCurrency',
-        'InputDate',
-        'InputFile',
-        'Loading',
-        'Messages',
-        'Menu',
-        'MenuItem',
-        'Modal',
-        'Select',
-        'Tab',
-        'Tabs',
-        'Transition',
-      ],
-    }, config)
+    const components = [
+      'Button',
+      'Checkbox',
+      'Datatable',
+      'Dropdown',
+      'Form',
+      'FormItem',
+      'Icon',
+      'Input',
+      'InputCurrency',
+      'InputDate',
+      'InputFile',
+      'Loading',
+      'Messages',
+      'Menu',
+      'MenuItem',
+      'Modal',
+      'Select',
+      'Tab',
+      'Tabs',
+      'Transition',
+    ]
 
     Vue.$mad = Vue.prototype.$mad = {
       message: message(Vue, config),
@@ -38,15 +36,15 @@ export default {
       console.error(err)
       Vue.$mad.message.error(err)
     })
-    
+
     for (let name in filters) {
       Vue.filter(name, filters[name])
     }
 
-    for (let component of config.components || components) {
+    for (let component of components) {
       Vue.component(`Mad${component}`, require(`./components/${component}`).default)
     }
-    
+
     const keydown = e => {
       if (e.keyCode == 9) window.document.body.classList.add('show-focus-outline')
     }

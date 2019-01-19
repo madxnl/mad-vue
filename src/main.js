@@ -12,5 +12,5 @@ Vue.component('CodeBlock', require('./docs/components/CodeBlock').default)
 Vue.component('ApiTable', require('./docs/components/ApiTable').default)
 
 new Vue({
-  render: h => h(Documentation)
+  render: h => h(Documentation),
 }).$mount('#app')

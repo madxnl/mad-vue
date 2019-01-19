@@ -29,6 +29,7 @@ export default {
   computed: {
     parentForm() {
       for (let v = this; v; v = v.$parent) if (v.formItems) return v
+      return null
     },
 
     classes() {

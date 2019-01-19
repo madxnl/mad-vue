@@ -14,9 +14,9 @@ export default {
   }),
 
   computed: {
-    loading() {
+    // loading() {
       // return this.$hasPending('submit')
-    },
+    // },
   },
 
   methods: {

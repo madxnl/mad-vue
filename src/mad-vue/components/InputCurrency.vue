@@ -15,7 +15,7 @@ export default {
     onInput(event) {
       event.target.value = event.target.value.toString()
         .replace(',', '.') // use . instead of , as decimal point
-        .replace(/[^\d\.]+/, '') // invalid characters
+        .replace(/[^\d.]+/, '') // invalid characters
         .replace(/^0(\d)/, '$1') // leading zeros
         .replace(/^\./, '0.') // skip to entering fraction
         .replace(/^(\d+\.\d{0,2}).*$/, '$1') // limit to 1 point 2 decimals
