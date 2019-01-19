@@ -22,9 +22,18 @@ $colors: (
   orange: $orange,
 
   white: $white,
-  
+
   text: $text,
   primary: $primary,
+) !default;
+
+
+$fontsizes: (
+  huge: 1.8rem,
+  large: 1.35rem,
+  medium: 1rem,
+  small: 0.9rem,
+  tiny: 0.7rem,
 ) !default;
 
 
@@ -43,13 +52,3 @@ $colors: (
 //   -xl: $margin-xl,
 //   -0: 0,
 // );
-
-
-// $fontsizes: (
-//   xl: 1.8rem,
-//   lg: 1.35rem,
-//   md: 1rem,
-//   sm: 0.9rem,
-//   xs: 0.7rem,
-// ) !default;
-

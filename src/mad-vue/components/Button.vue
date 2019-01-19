@@ -18,6 +18,7 @@ export default {
   props: {
     type: { type: String, default: 'button' },
     color: String,
+    size: String,
     loading: Boolean,
     disabled: Boolean,
     active: Boolean,
@@ -36,9 +37,10 @@ export default {
       if (this.color) classes += ` colored ${this.color}`
       if (this.variant) classes += ` ${this.variant}`
       else if (this.flat) classes += ' flat'
+      if (this.size) classes += ` size-${this.size}`
       // if (this.flat && this.color) classes += ` color-${this.color}`
       // if (!this.flat && this.color) classes += ` bg-${this.color}`
-      // if (this.active) classes += ` -active`
+      if (this.active) classes += ` active`
       if (this.loading) classes += ` loading`
       return classes
     },

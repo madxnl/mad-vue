@@ -2,10 +2,10 @@
   <div>
     <p>
       Color variables used by Mad-Vue can by customized as follows:
-      Create two SCSS files, <code>app-vars.scss</code> and <code>my-app.scss</code>.
+      Create two SCSS files, <code>_my-vars.scss</code> and <code>my-app.scss</code>.
       This lets you use the variables in your own components later as well. Here's an example:
     </p>
-    <code-block class="card" filename="src/scss/app-vars.scss">
+    <code-block class="card" filename="src/scss/_my-vars.scss">
       // Override colors:
       $red: #4296e6;
       $primary: $red;
@@ -14,8 +14,8 @@
       @import '~@madxnl/mad-vue/src/mad-vue/scss/vars.scss';
     </code-block>
     <code-block class="card" language="scss" filename="src/scss/my-app.scss">
-      @import './app-vars.scss';
-      @import '~@madxnl/mad-vue/src/mad-vue/scss/mad-vue.scss';
+      @import './my-vars.scss';
+      @import '~@madxnl/mad-vue/src/mad-vue/scss/main.scss';
 
       // Additional global styling rules and imports go here
     </code-block>
@@ -23,7 +23,7 @@
       Change the style import in <code>main.js</code> to point to your custom scss:
     </p>
     <code-block class="card" filename="src/main.js">
-      // import '@madxnl/mad-vue/src/mad-vue/scss/mad-vue.scss'
+      // import '@madxnl/mad-vue/src/mad-vue/scss/main.scss'
       import './scss/my-app.scss'
     </code-block>
     <p>
@@ -32,7 +32,7 @@
     </p>
     <code-block class="card" filename="my-component.vue">
       &lt;style lang="scss" scoped&gt;
-      @import 'src/scss/app-vars';
+      @import 'src/scss/my-vars';
 
       .my-component {
         color: $primary;

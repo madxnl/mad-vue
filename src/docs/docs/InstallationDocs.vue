@@ -12,7 +12,7 @@
     </p>
     <code-block class="card">
       import MadVue from '@madxnl/mad-vue'
-      import '@madxnl/mad-vue/src/mad-vue/scss/mad-vue.scss'
+      import '@madxnl/mad-vue/src/mad-vue/scss/main.scss'
 
       Vue.use(MadVue)
     </code-block>

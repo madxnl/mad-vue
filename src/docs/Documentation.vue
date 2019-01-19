@@ -1,23 +1,23 @@
 <template>
-  <div class="_app">
-    <nav class="_nav">
-      <a class="_nav-brand" :href="'#' + getSectionId(sections[0])">
+  <div class="app">
+    <nav class="nav">
+      <a class="nav-brand" :href="'#' + getSectionId(sections[0])">
         <img src="./assets/mad-vue-logo.png" height="100"/>
         <h2>Mad-Vue</h2>
       </a>
       <a v-for="(section,i) in sections" :key="i"
         :href="'#' + getSectionId(section)"
-        class="_nav-link" :class="{
+        class="nav-link" :class="{
           '-active':activeSection==section,
         }">
         {{section.name}}
       </a>
     </nav>
-    <main class="_main">
+    <main class="main">
       <section v-for="(section,i) in sections" :key="i"
-        class="_section"
+        class="section"
         :id="getSectionId(section)">
-        <h1 class="_section-title">
+        <h1 class="section-title">
           {{section.name}}
         </h1>
         <component :is="section.component"/>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import './scss/docs.scss'
+import './scss/main.scss'
 
 export default {
   data: () => ({
@@ -47,7 +47,7 @@ export default {
       { name: 'Messages', component: require('./docs/MessagesDocs').default },
       { name: 'Datatable', component: require('./docs/DatatableDocs').default },
       { name: 'Transition', component: require('./docs/FormDocs').default },
-      { name: 'Custom colors', component: require('./docs/StylingDocs').default },
+      { name: 'Customize', component: require('./docs/StylingDocs').default },
     ],
     activeSection: null,
   }),
@@ -84,37 +84,37 @@ export default {
 <style lang="scss" scoped>
 @import './scss/vars';
 
-$navWidth: 240px;
+$navWidth: 220px;
 $sectionWidth: 800px;
 
-._app {
+.app {
   justify-content: stretch;
   height: 100vh;
   padding-left: $navWidth;
 }
-._section {
+.section {
   max-width: $sectionWidth;
   padding: 50px 1.5rem;
   margin: 0 auto;
 }
-._section-title {
+.section-title {
   // background: $text;
   // color: white;
   // padding: .5em .5em;
   // border-bottom: 1px solid $primary;
   margin-bottom: 1.5em;
 }
-._main {
+.main {
   margin-bottom: 300px;
 }
-._nav {
+.nav {
   position: fixed; left: 0; top: 0; bottom: 0;
   // border-right: 1px solid rgba($text, 0.25);
   background: rgba($text, 0.15);
   width: $navWidth;
   // padding: 1rem;
 }
-._nav-brand {
+.nav-brand {
   text-align: center;
   color: inherit;
   text-decoration: none;
@@ -124,7 +124,7 @@ $sectionWidth: 800px;
     margin-bottom: .5rem;
   }
 }
-._nav-link {
+.nav-link {
   font-size: 110%;
   color: $text;
   display: block;
