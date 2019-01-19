@@ -101,3 +101,62 @@ input, select, textarea {
 }
 
 
+
+
+
+
+
+@each $name, $color in $colors {
+  .text-#{$name} { color: $color !important; }
+  .color-#{$name} { color: $color !important; } // Deprecated
+  .bg-#{$name} { background-color: $color !important; }
+  .border-#{$name} { border-color: $color !important; }
+}
+
+// @each $key, $size in $fontsizes {
+//   .fontsize-#{$key} { font-size: $size !important; }
+// }
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+@each $direction in (row, column, row-reverse, column-reverse) {
+  .#{$direction} {
+    display: flex;
+    flex-flow: $direction;
+  }
+}
+
+.wrap { flex-wrap: wrap; }
+.wrap-reverse { flex-wrap: wrap-reverse; }
+.grow { flex-grow: 1; }
+@each $t in (baseline, center, stretch, flex-start, flex-end) {
+  .align-#{$t} { align-items: $t }
+  .align-self-#{$t} { align-self: $t }
+}
+@each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
+  .justify-#{$t} { justify-content: $t }
+  .justify-self-#{$t} { justify-self: $t }
+}
+
+.faded { opacity: 0.5 }
+
+// @each $key, $value in $margins-map {
+//   .padded#{$key} {
+//     padding: $value;
+//     & > :last-child { margin-bottom: 0; }
+//   }
+//   .grid-spacing#{$key} {
+//     margin: -$value / 2;
+//     & > * { margin: $value / 2; }
+//   }
+//   // .spacing#{$key}.row > :not(:last-child) { margin-bottom: $value; }
+//   // .spacing#{$key}:not(.row) > :not(:last-child) { margin-bottom: $value; }
+//   // .margin#{$key} { margin: $value; }
+// }
+
+
+// .cursor-pointer { cursor: pointer; }
+
+// .capitalize::first-letter { text-transform: uppercase }

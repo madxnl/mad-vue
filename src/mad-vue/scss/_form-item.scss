@@ -1,0 +1,17 @@
+
+
+.mad-form-item {
+  &.-haserror {
+    color: $red;
+  }
+}
+.mad-form-item_label {
+  display: block;
+  margin-bottom: 0.25em;
+  font-weight: bold;
+  font-size: 90%;
+  .-required &::after {
+    content: '*';
+    color: $red;
+  }
+}

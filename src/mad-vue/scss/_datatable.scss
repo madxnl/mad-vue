@@ -1,0 +1,28 @@
+
+
+.mad-datatable {
+  width: 100%;
+  th.-sortable {
+    cursor: pointer;
+    transition: background .1s;
+    &:hover,&.-sorted {
+      background: rgba($text, .1);
+    }
+  }
+  th::first-letter { text-transform: uppercase }
+  td {
+    position: relative;
+    transition: background .1s;
+  }
+  &.-clickable tr:hover {
+    box-shadow: 0 2px 5px rgba(black, 0.2);
+    background: rgba(white, 0.5);
+  }
+}
+.mad-datatable_td-fill {
+  display: block;
+  margin: -.5rem;
+  padding: .5rem;
+  color: inherit !important;
+  text-decoration: none !important;
+}

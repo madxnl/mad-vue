@@ -1,0 +1,39 @@
+
+
+.mad-messages {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+.mad-messages_message {
+  max-width: 600px;
+  margin-bottom: .5em;
+  pointer-events: auto;
+  margin-left: auto;
+  margin-right: auto;
+  background: $text;
+  color: white;
+  cursor: default;
+  border-radius: 2px;
+  font-weight: bold;
+  max-height: 200px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  &.-info { background: $blue; }
+  &.-success { background: $green; }
+  &.-warn { background: $yellow; }
+  &.-error { background: $red; }
+
+  .mad-messages_text {
+    padding: .5em;
+  }
+  .mad-messages_close {
+    color: white;
+  }
+}

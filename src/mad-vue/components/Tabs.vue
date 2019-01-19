@@ -4,7 +4,7 @@
       <template v-for="(tab,i) in tabs">
         <div v-if="tab != null" :key="i"
           @click="activate(tab)"
-          class="mad-tab"
+          class="mad-tabs_tab"
           ref="tabs"
           :class="{'-active':tab==value}">
           <slot :name="`tab:${tab}`">

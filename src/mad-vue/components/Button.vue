@@ -1,11 +1,15 @@
 <template>
     <!-- @click="onClick" -->
-  <button :type="type" class="mad-button"
+  <button :type="type"
     :disabled="disabled"
-    :class="classes" :style="styles"
+    :class="classes"
+    :style="`background-color:${color};border-color:${color}`"
     v-bind="$attrs" v-on="$listeners">
-    <div class="mad-button_content"><slot></slot></div>
-    <mad-loading v-if="loading" absolute/>
+    <div class="mad-button_content"
+      :style="`color:${color}`">
+      <slot></slot>
+    <mad-loading v-if="loading" />
+    </div>
   </button>
 </template>
 
@@ -14,41 +18,29 @@ export default {
   props: {
     type: { type: String, default: 'button' },
     color: String,
-    // secondary: Boolean,
-    flat: Boolean,
     loading: Boolean,
     disabled: Boolean,
     active: Boolean,
-    // square: Boolean,
+    flat: Boolean, // Deprecated
   },
 
   data: () => ({
     // loading: false,
+    // invertText: false,
   }),
 
   computed: {
     classes() {
-      return [
-        this.flat && '-flat',
-        this.flat && this.color && `color-${this.color}`,
-        !this.flat && this.color && `color-white bg-${this.color}`,
-        // this.bg && !this.color && `color-white`,
-        this.active && `-active`,
-        this.loading && `-loading`,
-        // this.square && '_square'
-      ]
-    },
-
-    styles() {
-      let style = ''
-      if (this.color && (this.color.startsWith('#') || this.color.startsWith('rgb'))) {
-        if (this.flat) {
-          style += `color:${this.color}`
-        } else {
-          style += `background-color:${this.color};border-color:${this.color}`
-        }
-      }
-      return style
+      let classes = 'mad-button'
+      // if (this.invertText) classes += ` invertText`
+      if (this.color) classes += ` colored ${this.color}`
+      if (this.variant) classes += ` ${this.variant}`
+      else if (this.flat) classes += ' flat'
+      // if (this.flat && this.color) classes += ` color-${this.color}`
+      // if (!this.flat && this.color) classes += ` bg-${this.color}`
+      // if (this.active) classes += ` -active`
+      if (this.loading) classes += ` loading`
+      return classes
     },
   },
 }
