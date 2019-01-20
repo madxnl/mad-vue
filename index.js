@@ -1,3 +1,3 @@
-import MadVue from './src'
+import MadVue from './src/plugin'
 
 export default MadVue

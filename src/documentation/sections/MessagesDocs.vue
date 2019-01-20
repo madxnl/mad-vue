@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>To enable 'toast' style popup messages you must first include <code>&lt;mad-messages/&gt;</code> in your App component.</p>
+    <p>These 'toast' style messages are useful for informing the user about the results of their actions.</p>
     <code-example name="MessagesExample" />
   </div>
 </template>

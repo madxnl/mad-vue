@@ -1,12 +1,10 @@
 <template>
   <div>
     <p>
-      Color variables used by Mad-Vue can by customized as follows:
-      Create two SCSS files, <code>_my-vars.scss</code> and <code>my-app.scss</code>.
-      This lets you use the variables in your own components later as well. Here's an example:
+      The default colors and font-sizes used by Mad-Vue can be overridden by defining your own variables before importing Mad-Vue styling. You will need to create two files: <code>_my-vars.scss</code> and <code>my-app.scss</code>. Here's an example:
     </p>
     <code-block class="card" filename="src/scss/_my-vars.scss">
-      // Override colors:
+      // Change colors and set primary theme color:
       $red: #4296e6;
       $primary: $red;
 
@@ -27,7 +25,7 @@
       import './scss/my-app.scss'
     </code-block>
     <p>
-      Now you can easily import SCSS variables into components:
+      You can import the customized SCSS variables into your own components as well:
        <!-- Be sure to import only variables, otherwise you will end up duplicating CSS rules. -->
     </p>
     <code-block class="card" filename="my-component.vue">

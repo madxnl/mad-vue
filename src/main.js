@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 Vue.config.productionTip = false
 
-import MadVue from './index'
+import MadVue from './plugin'
 import Documentation from './documentation/Documentation.vue'
 
 Vue.use(MadVue)

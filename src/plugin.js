@@ -54,5 +54,11 @@ export default {
     addEventListener('keydown', keydown)
     addEventListener('mousedown', mousedown)
 
+
+    const el = document.createElement('div')
+    document.body.appendChild(el)
+    const MadMessages = Vue.component('MadMessages')
+    new MadMessages({ el })
+
   },
 }

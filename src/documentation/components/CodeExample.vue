@@ -3,11 +3,11 @@
 
     <mad-tabs :tabs="[
       'Example',
-      'Source',
+      'Code',
       this.$slots.api && 'API',
     ]">
 
-      <template slot="Source">
+      <template slot="Code">
         <code-block class="card">{{source}}</code-block>
       </template>
 

@@ -7,13 +7,14 @@
       <mad-icon mdi="download"/>
       <mad-icon mdi="settings"/>
       <mad-icon mdi="table" color="red"/>
-      <mad-icon mdi="airballoon" color="blue" size="large"/>
-      <mad-icon mdi="city-variant-outline" color="#0f0" size="150%"/>
+      <mad-icon mdi="airballoon" color="blue"/>
+      <mad-icon mdi="city-variant-outline" color="#0f0"/>
       <mad-icon mdi="star" size="tiny"/>
       <mad-icon mdi="star" size="small"/>
       <mad-icon mdi="star" size="medium"/>
       <mad-icon mdi="star" size="large"/>
       <mad-icon mdi="star" size="huge"/>
+      <mad-icon mdi="star" size="250%"/>
     </p>
     <h1>
       <mad-icon flag="kz"/>

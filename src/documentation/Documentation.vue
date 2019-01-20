@@ -23,7 +23,7 @@
         <component :is="section.component"/>
       </section>
     </main>
-    <mad-messages/>
+    <!-- <mad-messages/> -->
   </div>
 </template>
 
@@ -33,7 +33,7 @@ import './scss/main.scss'
 export default {
   data: () => ({
     sections: [
-      { name: 'Installation', component: require('./sections/InstallationDocs').default },
+      { name: 'Install', component: require('./sections/InstallationDocs').default },
       { name: 'Button', component: require('./sections/ButtonDocs').default },
       { name: 'Icon', component: require('./sections/IconDocs').default },
       { name: 'Form', component: require('./sections/FormDocs').default },
@@ -84,13 +84,13 @@ export default {
 <style lang="scss" scoped>
 @import './scss/vars';
 
-$navWidth: 220px;
 $sectionWidth: 800px;
 
 .app {
   justify-content: stretch;
   height: 100vh;
-  padding-left: $navWidth;
+  width: 100vw;
+  display: flex;
 }
 .section {
   max-width: $sectionWidth;
@@ -98,20 +98,16 @@ $sectionWidth: 800px;
   margin: 0 auto;
 }
 .section-title {
-  // background: $text;
-  // color: white;
-  // padding: .5em .5em;
-  // border-bottom: 1px solid $primary;
   margin-bottom: 1.5em;
 }
 .main {
-  margin-bottom: 300px;
+  overflow: auto;
+  flex-grow: 1;
 }
 .nav {
-  position: fixed; left: 0; top: 0; bottom: 0;
-  // border-right: 1px solid rgba($text, 0.25);
   background: rgba($text, 0.15);
-  width: $navWidth;
+  width: 220px;
+  overflow: auto;
   // padding: 1rem;
 }
 .nav-brand {

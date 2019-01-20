@@ -1,14 +1,29 @@
 <template>
-  <p>
-    <mad-button @click="showSuccess" color="green">Success</mad-button>
-    <mad-button @click="showInfo" color="blue">Info</mad-button>
-    <mad-button @click="showWarn" color="yellow">Warn</mad-button>
-    <mad-button @click="showError" color="red">Error</mad-button>
-  </p>
+  <div>
+    <p>
+      <mad-button @click="showSuccess" color="green">Success</mad-button>
+      <mad-button @click="showInfo" color="blue">Info</mad-button>
+      <mad-button @click="showWarn" color="yellow">Warn</mad-button>
+      <mad-button @click="showError" color="red">Error</mad-button>
+      <mad-button @click="customShown=true">Custom html</mad-button>
+    </p>
+    <!--
+    <mad-message v-model="customShown">
+      A custom message
+      <mad-button variant="flat">
+        Button
+      </mad-button>
+    </mad-message>
+    -->
+  </div>
 </template>
 
 <script>
 export default {
+  data: () => ({
+    customShown: false,
+  }),
+
   methods: {
     showSuccess() {
       this.$mad.message.success(`It worked! High-fives all around!`)
@@ -24,6 +39,10 @@ export default {
 
     showError() {
       this.$mad.message.error(`This could be an error!`)
+    },
+
+    showCustom() {
+
     },
   },
 }
