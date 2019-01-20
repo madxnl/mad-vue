@@ -1,6 +1,9 @@
 <template>
-  <i :class="computedClass"
-    v-bind="$attrs" v-on="$listeners"></i>
+  <span :class="classes"
+    v-bind="$attrs" v-on="$listeners"
+    :style="`font-size:${size};color:${color}`">
+    <span :class="contentClasses"></span>
+  </span>
 </template>
 
 <script>
@@ -13,17 +16,24 @@ export default {
   props: {
     mdi: String,
     flag: String,
+    size: String,
+    color: String,
   },
 
   computed: {
-    computedClass() {
+    classes() {
+      let classes = 'mad-icon'
+      if (this.size) classes += ` size-${this.size}`
+      return classes
+    },
+
+    contentClasses() {
       if (this.flag && !flagsLoaded) this.loadFlags()
 
-      return [
-        'mad-icon',
-        this.mdi && `mdi mdi-${this.mdi.toLowerCase()}`,
-        this.flag && `flag-icon flag-icon-${this.flag.toLowerCase()}`,
-      ]
+      let classes = 'mad-icon_content'
+      if (this.mdi) classes += ` mdi mdi-${this.mdi.toLowerCase()}`
+      else if (this.flag) classes += ` flag-icon flag-icon-${this.flag.toLowerCase()}`
+      return classes
     },
   },
 
@@ -36,7 +46,7 @@ export default {
       window.document.body.appendChild(link)
     },
   },
-  
+
   // watch: {
   //   country: {
   //     immediate: true,

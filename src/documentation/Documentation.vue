@@ -35,7 +35,7 @@ export default {
     sections: [
       { name: 'Installation', component: require('./sections/InstallationDocs').default },
       { name: 'Button', component: require('./sections/ButtonDocs').default },
-      { name: 'Icons', component: require('./sections/IconDocs').default },
+      { name: 'Icon', component: require('./sections/IconDocs').default },
       { name: 'Form', component: require('./sections/FormDocs').default },
       { name: 'Input', component: require('./sections/InputDocs').default },
       { name: 'Select', component: require('./sections/SelectDocs').default },

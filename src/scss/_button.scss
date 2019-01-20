@@ -70,11 +70,4 @@
     opacity: 0.5;
     filter: grayscale(100%);
   }
-  &.loading {
-    @extend .mad-button.active;
-    pointer-events: none;
-    .mad-button_content {
-      // visibility: hidden;
-    }
-  }
 }

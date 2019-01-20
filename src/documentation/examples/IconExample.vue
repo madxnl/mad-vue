@@ -3,37 +3,24 @@
     <p>
       <mad-icon mdi="cake-variant"/>
       <mad-icon mdi="compass"/>
-      <mad-icon mdi="arrow-right"/>
+      <mad-icon mdi="chevron-right"/>
       <mad-icon mdi="download"/>
       <mad-icon mdi="settings"/>
-      <mad-icon mdi="table"/>
-      <mad-icon mdi="airballoon"/>
-      <mad-icon mdi="city-variant-outline"/>
+      <mad-icon mdi="table" color="red"/>
+      <mad-icon mdi="airballoon" color="blue" size="large"/>
+      <mad-icon mdi="city-variant-outline" color="#0f0" size="150%"/>
+      <mad-icon mdi="star" size="tiny"/>
+      <mad-icon mdi="star" size="small"/>
+      <mad-icon mdi="star" size="medium"/>
+      <mad-icon mdi="star" size="large"/>
+      <mad-icon mdi="star" size="huge"/>
     </p>
     <h1>
-      <mad-icon mdi="cake-variant"/>
-      <mad-icon mdi="compass"/>
-      <mad-icon mdi="arrow-right"/>
-      <mad-icon mdi="download"/>
-      <mad-icon mdi="settings"/>
-      <mad-icon mdi="table"/>
-      <mad-icon mdi="airballoon"/>
-      <mad-icon mdi="city-variant-outline"/>
-    </h1>
-    <p>
-      <mad-icon flag="nl"/>
-      <mad-icon flag="gb"/>
-      <mad-icon flag="sz"/>
-      <mad-icon flag="kg"/>
-      <mad-icon flag="mo"/>
-      <mad-icon flag="nf"/>
-    </p>
-    <h1>
-      <mad-icon flag="nl"/>
-      <mad-icon flag="gb"/>
-      <mad-icon flag="sz"/>
-      <mad-icon flag="kg"/>
-      <mad-icon flag="mo"/>
+      <mad-icon flag="kz"/>
+      <mad-icon flag="ca"/>
+      <mad-icon flag="al"/>
+      <mad-icon flag="br"/>
+      <mad-icon flag="bt"/>
       <mad-icon flag="nf"/>
     </h1>
   </div>
