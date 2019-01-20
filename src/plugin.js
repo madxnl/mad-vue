@@ -1,4 +1,3 @@
-import message from './modules/message'
 import * as filters from './filters'
 
 export default {
@@ -27,15 +26,6 @@ export default {
       'Transition',
     ]
 
-    Vue.$mad = Vue.prototype.$mad = {
-      message: message(Vue, config),
-      filters,
-    }
-
-    Vue.config.errorHandler = Vue.config.errorHandler || (err => {
-      console.error(err)
-      Vue.$mad.message.error(err)
-    })
 
     for (let name in filters) {
       Vue.filter(name, filters[name])
@@ -44,6 +34,20 @@ export default {
     for (let component of components) {
       Vue.component(`Mad${component}`, require(`./components/${component}`).default)
     }
+
+    const messagesDiv = document.createElement('div')
+    document.body.appendChild(messagesDiv)
+    const Messages = Vue.component('MadMessages')
+
+    Vue.$mad = Vue.prototype.$mad = {
+      message: new Messages({ el: messagesDiv }),
+      filters,
+    }
+
+    Vue.config.errorHandler = Vue.config.errorHandler || (err => {
+      console.error(err)
+      Vue.$mad.message.error(err)
+    })
 
     const keydown = e => {
       if (e.keyCode == 9) window.document.body.classList.add('show-focus-outline')
@@ -54,11 +58,6 @@ export default {
     addEventListener('keydown', keydown)
     addEventListener('mousedown', mousedown)
 
-
-    const el = document.createElement('div')
-    document.body.appendChild(el)
-    const MadMessages = Vue.component('MadMessages')
-    new MadMessages({ el })
 
   },
 }
