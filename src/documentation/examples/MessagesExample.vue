@@ -5,16 +5,18 @@
       <mad-button @click="showInfo" color="blue">Info</mad-button>
       <mad-button @click="showWarn" color="yellow">Warn</mad-button>
       <mad-button @click="showError" color="red">Error</mad-button>
-      <mad-button @click="customShown=true">Custom html</mad-button>
     </p>
-    <!--
+    <p>
+      <mad-button @click="customShown=!customShown" :active="customShown">
+        Toggle custom html message
+      </mad-button>
+    </p>
     <mad-message v-model="customShown">
-      A custom message
+      A custom message {{timer}}!
       <mad-button variant="flat">
         Button
       </mad-button>
     </mad-message>
-    -->
   </div>
 </template>
 
@@ -22,6 +24,7 @@
 export default {
   data: () => ({
     customShown: false,
+    timer: 0,
   }),
 
   methods: {
@@ -44,6 +47,10 @@ export default {
     showCustom() {
 
     },
+  },
+
+  created() {
+    setInterval(() => this.timer += 1, 500)
   },
 }
 </script>

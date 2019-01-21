@@ -5,35 +5,34 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 80;
   pointer-events: none;
 }
-.mad-messages_message {
+.mad-message {
   max-width: 600px;
-  margin-bottom: .5em;
+  margin: 0 auto .5rem auto;
+  max-height: 200px;
+  z-index: 80;
   pointer-events: auto;
-  margin-left: auto;
-  margin-right: auto;
-  background: $text;
-  color: white;
+  background: white;
+  box-shadow: 0 2px 5px rgba(black, 0.3);
   cursor: default;
   border-radius: 2px;
   font-weight: bold;
-  max-height: 200px;
   overflow: hidden;
   display: flex;
-  align-items: flex-start;
+  // align-items: flex;
   justify-content: space-between;
 
-  &.-info { background: $blue; }
-  &.-success { background: $green; }
-  &.-warn { background: $yellow; }
-  &.-error { background: $red; }
-
   .mad-messages_text {
-    padding: .5em;
+    padding: .5rem;
+    padding-left: 1rem;
   }
-  .mad-messages_close {
-    color: white;
+
+  @each $name, $color in $colors {
+    &.#{$name} {
+      // border-left: 4px solid $color;
+      background: $color;
+      color: white;
+    }
   }
 }

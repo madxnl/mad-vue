@@ -1,4 +1,5 @@
 import * as filters from './filters'
+import Messages from './Messages'
 
 export default {
   install(Vue, config) {
@@ -16,7 +17,7 @@ export default {
       'InputDate',
       'InputFile',
       'Loading',
-      'Messages',
+      'Message',
       'Menu',
       'MenuItem',
       'Modal',
@@ -32,15 +33,11 @@ export default {
     }
 
     for (let component of components) {
-      Vue.component(`Mad${component}`, require(`./components/${component}`).default)
+      Vue.component(`Mad${component}`, require(`../components/${component}`).default)
     }
 
-    const messagesDiv = document.createElement('div')
-    document.body.appendChild(messagesDiv)
-    const Messages = Vue.component('MadMessages')
-
     Vue.$mad = Vue.prototype.$mad = {
-      message: new Messages({ el: messagesDiv }),
+      message: new Vue(Messages),
       filters,
     }
 

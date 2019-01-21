@@ -85,12 +85,15 @@ export default {
 @import './scss/vars';
 
 $sectionWidth: 800px;
+$navWidth: 220px;
 
 .app {
   justify-content: stretch;
   height: 100vh;
   width: 100vw;
   display: flex;
+  padding-left: $navWidth;
+  overflow-x: hidden;
 }
 .section {
   max-width: $sectionWidth;
@@ -101,14 +104,14 @@ $sectionWidth: 800px;
   margin-bottom: 1.5em;
 }
 .main {
-  overflow: auto;
-  flex-grow: 1;
+  margin: auto;
 }
 .nav {
+  position: fixed;
+  left: 0; bottom: 0; top: 0;
+  width: $navWidth;
+  overflow-y: auto;
   background: rgba($text, 0.15);
-  width: 220px;
-  overflow: auto;
-  // padding: 1rem;
 }
 .nav-brand {
   text-align: center;
