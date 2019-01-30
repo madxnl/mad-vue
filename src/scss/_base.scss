@@ -134,19 +134,12 @@ input, select, textarea {
 
 .faded { opacity: 0.5 }
 
-// @each $key, $value in $margins-map {
-//   .padded#{$key} {
-//     padding: $value;
-//     & > :last-child { margin-bottom: 0; }
-//   }
-//   .grid-spacing#{$key} {
-//     margin: -$value / 2;
-//     & > * { margin: $value / 2; }
-//   }
-//   // .spacing#{$key}.row > :not(:last-child) { margin-bottom: $value; }
-//   // .spacing#{$key}:not(.row) > :not(:last-child) { margin-bottom: $value; }
-//   // .margin#{$key} { margin: $value; }
-// }
+@each $key, $value in $margins-sizes {
+  .margin#{$key} { margin: $value; }
+  .padding#{$key} { padding: $value; }
+  .h-spacing#{$key} > :not(:last-child) { margin-right: $value; }
+  .v-spacing#{$key} > :not(:last-child) { margin-bottom: $value; }
+}
 
 
 // .cursor-pointer { cursor: pointer; }

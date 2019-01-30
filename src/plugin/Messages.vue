@@ -67,15 +67,15 @@ export default {
     },
 
     appendMessageComponent(component) {
-      this.$el.appendChild(component.$el)
-      component.$once('close', () => {
-        this.removeMessageComponent(component)
-      })
+      // this.$el.appendChild(component.$el)
+      // component.$once('close', () => {
+      //   this.removeMessageComponent(component)
+      // })
     },
 
     removeMessageComponent(component) {
-      this.$el.removeChild(component.$el)
-      component.$off('close')
+      // this.$el.removeChild(component.$el)
+      // component.$off('close')
     },
   },
 

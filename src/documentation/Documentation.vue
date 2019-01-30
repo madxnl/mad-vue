@@ -38,6 +38,7 @@ export default {
       { name: 'Icon', component: require('./sections/IconDocs').default },
       { name: 'Form', component: require('./sections/FormDocs').default },
       { name: 'Input', component: require('./sections/InputDocs').default },
+      { name: 'Input Image', component: require('./sections/InputImageDocs').default },
       { name: 'Select', component: require('./sections/SelectDocs').default },
       { name: 'Dropdown', component: require('./sections/FormDocs').default },
       { name: 'Menu', component: require('./sections/FormDocs').default },
@@ -89,7 +90,7 @@ $navWidth: 220px;
 
 .app {
   justify-content: stretch;
-  height: 100vh;
+  // height: 100vh;
   width: 100vw;
   display: flex;
   padding-left: $navWidth;

@@ -16,6 +16,7 @@ export default {
       'InputCurrency',
       'InputDate',
       'InputFile',
+      'InputImage',
       'Loading',
       'Message',
       'Menu',

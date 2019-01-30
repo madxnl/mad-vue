@@ -38,17 +38,13 @@ $fontsizes: (
 
 
 
-// $margin: 1.5rem !default;
-// $margin-xs: $margin * 0.25 !default;
-// $margin-sm: $margin * 0.5 !default;
-// $margin-lg: $margin * 1.5 !default;
-// $margin-xl: $margin * 3 !default;
+$margin: 1.5rem !default;
 
-// $margins-map: (
-//   '': $margin,
-//   -xs: $margin-xs,
-//   -sm: $margin-sm,
-//   -lg: $margin-lg,
-//   -xl: $margin-xl,
-//   -0: 0,
-// );
+$margins-sizes: (
+  '': $margin,
+  -xs: $margin * 0.25,
+  -sm: $margin * 0.50,
+  -lg: $margin * 1.50,
+  -xl: $margin * 3.00,
+  -0: 0,
+) !default;
