@@ -2,10 +2,15 @@
 
 
 .mad-input-image {
+
+  &.-draggingFile {
+    background: red;
+  }
 }
 .mad-input-image_preview {
   width: 300px;
   max-width: 100%;
+  pointer-events: none;
 }
 .mad-input-image_canvasdiv {
   width: 100%;

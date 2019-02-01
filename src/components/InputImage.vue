@@ -1,41 +1,54 @@
 <template>
-  <div class="mad-input-image">
-    <div class="mad-input-image_dragarea"
-      @drop.prevent="drop"
-      @dragover.prevent="dragover"
-      @dragleave.self.prevent="dragleave">
-      drag here
-    </div>
+  <div :class="classes"
+    @drop.prevent="drop"
+    @dragover.prevent="dragover"
+    @dragleave.prevent="dragleave">
 
     <input type="file"
+      v-show="false"
       ref="fileinput"
-      class="d-block"
       :id="_uid"
-      :disabled="disabled"
       @change="onInput">
     
     <div v-if="value" class="mad-input-image_preview">
-      <img ref="image" :src="imageSrc" @load="onImgLoad">
+      <img ref="image" :src="imageSrc" @load="onImgLoad" v-show="!previewSrc">
+      <img v-if="previewSrc" ref="preview" :src="previewSrc">
       <p>
         {{imageName}}
-        <template v-if="imageRes">&nbsp; {{imageRes.join('x')}}</template>
+        <template v-if="previewRes">&nbsp; {{previewRes.join('x')}}</template>
       </p>
       <p v-if="resolutions">
         Allowed resolutions: {{resolutions.map(r => r.join('x')).join(', ')}}
-        draggingFileOver:{{draggingFileOver}}
       </p>
-      <p>
-        <br>
-        <mad-button @click="openEditor">
-          Crop/resize
-        </mad-button>
-      </p>
+      <!-- <p v-if="">
+        Image is too big/small, click resize
+      </p> -->
     </div>
+    <p>
+      <br>
+      <mad-button @click="clickBrowse">
+        Choose
+      </mad-button>
+      <mad-button @click="openEditor">
+        Resize
+      </mad-button>
+    </p>
 
     <mad-modal v-model="modalShown">
       
       <p class="mad-input-image_canvasdiv">
-        <canvas ref="canvas"></canvas>
+        <canvas ref="canvas"
+          @mousemove="canvasEvent"
+          @mousedown="canvasEvent"
+          @mouseup="canvasEvent"
+          @mouseleave="canvasEvent"></canvas>
+      </p>
+
+      <p>
+        Zoom:
+        <input type="range" min="1" max="100"
+          :value="cropZoom*100" @input.stop="e=>cropZoom=e.target.value/100">
+        {{Math.round(cropZoom*100)}}%
       </p>
 
       <p v-if="resolutions && resolutions.length > 1">
@@ -45,7 +58,7 @@
         </label>
       </p>
       <p v-else class="row h-spacing-sm align-center">
-        <span>Crop/resize to:</span>
+        <span>Resize to:</span>
         <mad-input type="number" v-model="targetWidth" placeholder="width" :disabled="resolutions"/>
         <span>x</span>
         <mad-input type="number" v-model="targetHeight" placeholder="height" :disabled="resolutions"/>
@@ -68,15 +81,8 @@
 // todo
 // change target w/h (only if not predefined res)
 // - updates cropRect to nearest fit
-// drag crop rect
-// - 4 dir cursor on mouseover rectangle area
-// padding edit canvas by 10
-// draw edge controls
-// - drag controls to move cropRect
-// - preserve ratio if fixed output res
-// - otherwise update target w/h 
-// click to recenter crop area
-// drag outside crop area to crop new area
+// reset resize
+// maximum width/height
 
 export default {
   props: {
@@ -86,16 +92,30 @@ export default {
   },
 
   data: () => ({
-    imageFile: null,
+    imageElem: null,
     imageSrc: null,
     imageName: null,
+    previewSrc: null,
+    previewRes: null,
     modalShown: false,
-    imageRes: null,
+    editedFile: null,
+    originalRes: null,
     targetWidth: null,
     targetHeight: null,
-    cropRect: null,
+    cropX: 0.5,
+    cropY: 0.5,
+    cropZoom: 1,
     draggingFileOver: false,
   }),
+
+  computed: {
+    classes() {
+      return {
+        'mad-input-image': true,
+        '-draggingFile': this.draggingFileOver,
+      }
+    },
+  },
 
   watch: {
     value: {
@@ -107,15 +127,22 @@ export default {
         }
         if (typeof value == 'string') {
           this.imageSrc = value
+          this.previewSrc = null
           const parts = value.split('/')
           this.imageName = parts[parts.length - 1]
         }
         if (value instanceof File) {
           this.imageName = value.name
-          const reader = new FileReader()
-          reader.onload = e => this.imageSrc = e.target.result
-          reader.readAsDataURL(value)
+          if (value != this.editedFile) {
+            this.previewSrc = null
+            const reader = new FileReader()
+            reader.onload = e => this.imageSrc = e.target.result
+            reader.readAsDataURL(value)
+          }
         }
+        // if (!this.editedFile || !value) {
+        //   this.editedFile = value
+        // }
       },
     },
   },
@@ -127,9 +154,19 @@ export default {
     },
 
     onImgLoad(event) {
+      if (this.value == this.editedFile) return
       const img = event.target
-      this.imageFile = img
-      this.imageRes = [img.naturalWidth, img.naturalHeight]
+      this.imageElem = img
+      this.originalRes = [img.naturalWidth, img.naturalHeight]
+      this.previewRes = this.originalRes
+    },
+
+    clickBrowse(event) {
+      const fileinput = this.$refs.fileinput
+      fileinput.style.display = 'block'
+      fileinput.focus()
+      fileinput.click()
+      fileinput.style.display = 'none'
     },
 
     async openEditor() {
@@ -137,10 +174,6 @@ export default {
         const res = this.resolutions[0]
         this.targetWidth = res[0]
         this.targetHeight = res[1]
-        const ratio = res[0] / res[1]
-        const w = Math.min(this.imageRes[0], this.imageRes[1] * ratio)
-        const h = w / ratio
-        this.cropRect = [(this.imageRes[0] - w) / 2, (this.imageRes[1] - h) / 2, w, h]
       }
       this.modalShown = true
       await this.$nextTick()
@@ -151,30 +184,49 @@ export default {
       if (!this.modalShown) return
       const canvas = this.$refs.canvas
       const ctx = canvas.getContext('2d')
-      const scaling = Math.min(
-        canvas.parentNode.clientHeight / this.imageRes[1],
-        canvas.parentNode.clientWidth / this.imageRes[0])
-      const height = this.imageRes[1] * scaling
-      const width = this.imageRes[0] * scaling
-      canvas.width = width
-      canvas.height = height
-      ctx.drawImage(this.imageFile, 0, 0, width, height)
-      if (this.cropRect) {
-        const scaledRect = this.cropRect.map(x => x * scaling)
-        ctx.globalAlpha = 0.5
-        ctx.fillRect(0, 0, width, height)
-        ctx.globalAlpha = 1
-        ctx.drawImage(this.imageFile, ...this.cropRect, ...scaledRect)
-        ctx.strokeStyle = 'white'
-        ctx.setLineDash([10, 10])
-        ctx.lineDashOffset = 0
-        ctx.strokeRect(...scaledRect)
-        ctx.strokeStyle = 'black'
-        ctx.lineDashOffset = 10
-        ctx.strokeRect(...scaledRect)
-        // drawCropControl
-      }
+      const scaling = this.getEditorScaling(canvas)
+      const cropRect = this.getCropRect()
+      const scaledRect = cropRect.map(x => x * scaling)
+      canvas.height = this.originalRes[1] * scaling
+      canvas.width = this.originalRes[0] * scaling
+      ctx.drawImage(this.imageElem, 0, 0, canvas.width, canvas.height)
+      ctx.globalAlpha = 0.5
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.globalAlpha = 1
+      ctx.drawImage(this.imageElem, ...cropRect, ...scaledRect)
+      ctx.strokeStyle = 'white'
+      ctx.setLineDash([10, 10])
+      ctx.lineDashOffset = 0
+      ctx.strokeRect(...scaledRect)
+      ctx.strokeStyle = 'black'
+      ctx.lineDashOffset += 10
+      ctx.strokeRect(...scaledRect)
+      ctx.setLineDash([])
       window.requestAnimationFrame(() => this.renderLoop())
+    },
+
+    getCropRect(canvas) {
+      const ratio = this.targetWidth / this.targetHeight
+      const w = this.cropZoom * Math.min(this.originalRes[0], this.originalRes[1] * ratio)
+      const h = w / ratio
+      const x = this.cropX * this.originalRes[0] - w / 2
+      const y = this.cropY * this.originalRes[1] - h / 2
+      return [x, y, w, h]
+    },
+
+    getEditorScaling(canvas) {
+      const scaling = Math.min(
+        canvas.parentNode.clientHeight / this.originalRes[1],
+        canvas.parentNode.clientWidth / this.originalRes[0])
+      return scaling
+    },
+
+    constrainCropRect() {
+      const cropRect = this.getCropRect()
+      const hw = cropRect[2] / this.originalRes[0] / 2
+      const hh = cropRect[3] / this.originalRes[1] / 2
+      this.cropX = Math.max(hw, Math.min(1 - hw, this.cropX))
+      this.cropY = Math.max(hh, Math.min(1 - hh, this.cropY))
     },
 
     applyCrop() {
@@ -182,7 +234,8 @@ export default {
       canvas.width = this.targetWidth
       canvas.height = this.targetHeight
       const ctx = canvas.getContext('2d')
-      ctx.drawImage(this.imageFile, ...this.cropRect, 0, 0, canvas.width, canvas.height)
+      const cropRect = this.getCropRect()
+      ctx.drawImage(this.imageElem, ...cropRect, 0, 0, canvas.width, canvas.height)
       const dataURI = canvas.toDataURL()
       const binary = atob(dataURI.split(',')[1])
       const bytes = []
@@ -190,26 +243,67 @@ export default {
       const blob = new Blob([new Uint8Array(bytes)], {type: 'image/jpeg'})
       const formData = new FormData()
       formData.set('file', blob, this.imageName, { lastModified: new Date().getTime() })
-      const file = formData.get('file')
-      this.$emit('input', file)
-      this.imageSrc = dataURI
+      this.editedFile = formData.get('file')
+      this.$emit('input', this.editedFile)
+      this.previewSrc = dataURI
+      this.previewRes = [this.targetWidth, this.targetHeight]
       this.modalShown = false
     },
 
+    restoreOriginal() {
+      this.$emit('input', this.editedFile)
+    },
+
     dragover(event) {
-      console.log('dragover')
-      // if (event.dataTransfer.types.includes('Files')) {
-      // this.draggingFileOver = this.$el.parentNode.contains(event.target)
       this.draggingFileOver = true
     },
 
     dragleave(event) {
-      console.log('dragleave', event)
-      this.draggingFileOver = false
+      if (!this.$el.contains(event.relatedTarget)) {
+        this.draggingFileOver = false
+      }
     },
 
     drop(event) {
-      console.log('drop', event.dataTransfer.files)
+      const file = event.dataTransfer.files[0]
+      if (file) {
+        this.$emit('input', file)
+      }
+      this.draggingFileOver = false
+    },
+
+    canvasEvent(event) {
+      const canvas = event.target
+      const bounds = canvas.getBoundingClientRect()
+      const mouseX = (event.clientX - bounds.left)
+      const mouseY = (event.clientY - bounds.top)
+      const scaling = this.getEditorScaling(canvas)
+      const cropRect = this.getCropRect()
+      const scaledRect = cropRect.map(x => x * scaling)
+      const isOverCropArea = 
+        mouseX >= scaledRect[0] && mouseX < scaledRect[0] + scaledRect[2] &&
+        mouseY >= scaledRect[1] && mouseY < scaledRect[1] + scaledRect[3]
+      if (event.type == 'mousemove') {
+        canvas.style.cursor = isOverCropArea ? 'grab' : 'crosshair'
+        if (this.dragginCropArea) {
+          this.cropX += event.movementX / canvas.width
+          this.cropY += event.movementY / canvas.height
+        }
+      } else if (event.type == 'mousedown') {
+        if (!isOverCropArea) {
+          this.cropX = mouseX / canvas.width
+          this.cropY = mouseY / canvas.height
+        }
+        this.dragginCropArea = true
+        const onMouseup = e => {
+          this.dragginCropArea = false
+          e.preventDefault()
+          e.stopPropagation()
+          window.removeEventListener('mouseup', onMouseup, { capture: true })
+        }
+        window.addEventListener('mouseup', onMouseup)
+      }
+      this.constrainCropRect()
     },
   },
 }
