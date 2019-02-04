@@ -1,8 +1,7 @@
 <template>
   <div>
     <mad-form-item label="Image">
-      <mad-input-image v-model="image"
-        :resolutions="[[800,400]]"/>
+      <mad-input-image v-model="image"/>
     </mad-form-item>
   </div>
 </template>

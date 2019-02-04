@@ -2,7 +2,12 @@
   <div :class="classes"
     @drop.prevent="drop"
     @dragover.prevent="dragover"
-    @dragleave.prevent="dragleave">
+    @dragleave.prevent="dragleave"
+    class="v-spacing-xs">
+
+    <p v-if="resolutions" class="small">
+      Allowed resolutions: {{resolutions.map(r => r.join('x')).join(', ')}}
+    </p>
 
     <input type="file"
       v-show="false"
@@ -13,24 +18,20 @@
     <div v-if="value" class="mad-input-image_preview">
       <img ref="image" :src="imageSrc" @load="onImgLoad" v-show="!previewSrc">
       <img v-if="previewSrc" ref="preview" :src="previewSrc">
-      <p>
+      <div class="small text-center">
         {{imageName}}
-        <template v-if="previewRes">&nbsp; {{previewRes.join('x')}}</template>
-      </p>
-      <p v-if="resolutions">
-        Allowed resolutions: {{resolutions.map(r => r.join('x')).join(', ')}}
-      </p>
+        <template v-if="previewRes"><br>{{previewRes.join('x')}} pixels</template>
+      </div>
       <!-- <p v-if="">
         Image is too big/small, click resize
       </p> -->
     </div>
     <p>
-      <br>
-      <mad-button @click="clickBrowse">
-        Choose
+      <mad-button @click="openEditor" flat v-if="value">
+        Resize image
       </mad-button>
-      <mad-button @click="openEditor">
-        Resize
+      <mad-button @click="clickBrowse" flat>
+        Choose {{value ? 'new image' : 'image'}}
       </mad-button>
     </p>
 
@@ -44,11 +45,11 @@
           @mouseleave="canvasEvent"></canvas>
       </p>
 
-      <p>
-        Zoom:
-        <input type="range" min="1" max="100"
-          :value="cropZoom*100" @input.stop="e=>cropZoom=e.target.value/100">
-        {{Math.round(cropZoom*100)}}%
+      <p class="row h-spacing-sm align-center">
+        <span>Zoom crop area:</span>
+        <input type="range" min="0" max="100"
+          :value="cropZoom" @input.stop="e=>cropZoom=e.target.value">
+        <span>{{cropZoomInPct}}%</span>
       </p>
 
       <p v-if="resolutions && resolutions.length > 1">
@@ -58,18 +59,21 @@
         </label>
       </p>
       <p v-else class="row h-spacing-sm align-center">
-        <span>Resize to:</span>
-        <mad-input type="number" v-model="targetWidth" placeholder="width" :disabled="resolutions"/>
+        <span>New dimensions:</span>
+        <mad-input type="number" v-model="targetWidth" placeholder="width" :disabled="resolutions" min="0" max="10000"/>
         <span>x</span>
-        <mad-input type="number" v-model="targetHeight" placeholder="height" :disabled="resolutions"/>
+        <mad-input type="number" v-model="targetHeight" placeholder="height" :disabled="resolutions" min="0" max="10000"/>
+        <span>pixels</span>
       </p>
+      <br>
 
-      <div>
+      <div class="row">
         <mad-button @click="modalShown=false">
           Cancel
         </mad-button>
-        <mad-button @click="applyCrop">
-          Apply
+        <div class="grow"></div>
+        <mad-button @click="applyCrop" color="primary">
+          Resize image
         </mad-button>
       </div>
 
@@ -104,7 +108,7 @@ export default {
     targetHeight: null,
     cropX: 0.5,
     cropY: 0.5,
-    cropZoom: 1,
+    cropZoom: 0,
     draggingFileOver: false,
   }),
 
@@ -114,6 +118,10 @@ export default {
         'mad-input-image': true,
         '-draggingFile': this.draggingFileOver,
       }
+    },
+
+    cropZoomInPct() {
+      return Math.max(1, Math.round(100 - this.cropZoom))
     },
   },
 
@@ -170,11 +178,9 @@ export default {
     },
 
     async openEditor() {
-      if (this.resolutions) {
-        const res = this.resolutions[0]
-        this.targetWidth = res[0]
-        this.targetHeight = res[1]
-      }
+      const res = this.resolutions ? this.resolutions[0] : this.previewRes
+      this.targetWidth = res[0]
+      this.targetHeight = res[1]
       this.modalShown = true
       await this.$nextTick()
       this.renderLoop()
@@ -207,7 +213,8 @@ export default {
 
     getCropRect(canvas) {
       const ratio = this.targetWidth / this.targetHeight
-      const w = this.cropZoom * Math.min(this.originalRes[0], this.originalRes[1] * ratio)
+      const scale = this.cropZoomInPct / 100
+      const w = Math.min(this.originalRes[0], this.originalRes[1] * ratio) * scale
       const h = w / ratio
       const x = this.cropX * this.originalRes[0] - w / 2
       const y = this.cropY * this.originalRes[1] - h / 2
@@ -236,11 +243,13 @@ export default {
       const ctx = canvas.getContext('2d')
       const cropRect = this.getCropRect()
       ctx.drawImage(this.imageElem, ...cropRect, 0, 0, canvas.width, canvas.height)
-      const dataURI = canvas.toDataURL()
+      const imageQuality = 0.8;
+      const dataURI = canvas.toDataURL('image/jpeg', imageQuality)
+      const mimeType = dataURI.match(/data:(.+);/)[1]
       const binary = atob(dataURI.split(',')[1])
       const bytes = []
       for(let i = 0; i < binary.length; i++) bytes.push(binary.charCodeAt(i))
-      const blob = new Blob([new Uint8Array(bytes)], {type: 'image/jpeg'})
+      const blob = new Blob([new Uint8Array(bytes)], { type: mimeType })
       const formData = new FormData()
       formData.set('file', blob, this.imageName, { lastModified: new Date().getTime() })
       this.editedFile = formData.get('file')
