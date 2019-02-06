@@ -8,9 +8,14 @@
   }
 }
 .mad-input-image_preview {
-  width: 300px;
-  max-width: 100%;
-  pointer-events: none;
+  display: inline-block;
+  img {
+    max-width: 100%;
+    max-height: 300px;
+    height: auto;
+    width: auto;
+    pointer-events: none;
+  }
 }
 .mad-input-image_canvasdiv {
   width: 100%;

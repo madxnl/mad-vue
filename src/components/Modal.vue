@@ -1,7 +1,7 @@
 <template>
   <mad-transition>
     <div class="mad-modal" @click.self="toggle(false)" v-if="active">
-      <div class="mad-modal_window" v-bind="$attrs" v-on="$listeners">
+      <div class="mad-modal_window">
         <slot></slot>
       </div>
     </div>

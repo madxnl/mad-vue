@@ -1,17 +1,18 @@
 <template>
   <div>
     <mad-form-item label="Image">
-      <mad-input-image v-model="image"/>
+      <mad-input-image v-model="image"
+        :allowedResolutions="[[800,400]]"/>
     </mad-form-item>
   </div>
 </template>
 
 <script>
-import ElephantImage from '../assets/elephant.jpg'
+import ElephantJPG from '../assets/elephant.jpg'
 
 export default {
   data: () => ({
-    image: ElephantImage,
+    image: ElephantJPG,
   }),
   methods: {
   },

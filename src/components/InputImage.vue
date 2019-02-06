@@ -5,8 +5,8 @@
     @dragleave.prevent="dragleave"
     class="v-spacing-xs">
 
-    <p v-if="resolutions" class="small">
-      Allowed resolutions: {{resolutions.map(r => r.join('x')).join(', ')}}
+    <p v-if="allowedResolutions" class="small">
+      Allowed resolutions: {{allowedResolutions.map(r => r.join('x')).join(', ')}}
     </p>
 
     <input type="file"
@@ -52,17 +52,19 @@
         <span>{{cropZoomInPct}}%</span>
       </p>
 
-      <p v-if="resolutions && resolutions.length > 1">
-        <label v-for="res in resolutions" :key="res.join('x')">
+      <p v-if="allowedResolutions">
+        <label v-for="res in allowedResolutions" :key="res.join('x')">
           <input type="radio" name="crop-resolutions" :value="res">
           {{res.join('x')}}
         </label>
       </p>
       <p v-else class="row h-spacing-sm align-center">
         <span>New dimensions:</span>
-        <mad-input type="number" v-model="targetWidth" placeholder="width" :disabled="resolutions" min="0" max="10000"/>
+        <mad-input type="number" v-model="targetWidth" placeholder="width" min="0" max="10000"
+          :disabled="allowedResolutions"/>
         <span>x</span>
-        <mad-input type="number" v-model="targetHeight" placeholder="height" :disabled="resolutions" min="0" max="10000"/>
+        <mad-input type="number" v-model="targetHeight" placeholder="height" min="0" max="10000"
+          :disabled="allowedResolutions"/>
         <span>pixels</span>
       </p>
       <br>
@@ -92,7 +94,7 @@ export default {
   props: {
     value: [String, File],
     disabled: Boolean,
-    resolutions: Array,
+    allowedResolutions: Array,
   },
 
   data: () => ({
@@ -178,9 +180,12 @@ export default {
     },
 
     async openEditor() {
-      const res = this.resolutions ? this.resolutions[0] : this.previewRes
-      this.targetWidth = res[0]
-      this.targetHeight = res[1]
+      this.targetWidth = this.previewRes[0]
+      this.targetHeight = this.previewRes[1]
+      if (this.allowedResolutions) {
+        this.targetWidth = this.allowedResolutions[0][0]
+        this.targetHeight = this.allowedResolutions[0][1]
+      }
       this.modalShown = true
       await this.$nextTick()
       this.renderLoop()
