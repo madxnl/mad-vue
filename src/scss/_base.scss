@@ -1,0 +1,147 @@
+
+
+*,*::before,*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlightcolor: rgba(white, 0.05);
+}
+
+
+
+:focus, .focus {
+  outline: 0;
+  .show-focus-outline & {
+    // outline: 2px solid rgba($primary, 0.5);
+    box-shadow: 0 0 0 3px rgba($primary, 0.5) !important;
+  }
+}
+
+
+p, ul, ol, table,
+hr, blockquote, pre, figure,
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1rem;
+}
+
+
+
+//////////////////////////////////// TYPOGRAPHY ////////////////////////////////////
+
+html {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  color: $text;
+}
+
+.strong { font-weight: bold; }
+.em { font-style: italic; }
+
+h1 { font-size: 2.00em; }
+h2 { font-size: 1.50em; }
+h3 { font-size: 1.17em; }
+h4 { font-size: 1.00em; }
+h5 { font-size: 0.83em; }
+h6 { font-size: 0.67em; }
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+small, .small {
+  font-size: map-get($fontsizes, 'small');
+}
+
+a, .a {
+  color: $primary;
+}
+
+
+table {
+  text-align: left;
+  border-collapse: collapse;
+  td, th {
+    padding: .5rem;
+  }
+  tr:not(:last-child) {
+    td, th {
+      border-bottom: 1px solid rgba($text, 0.1);
+    }
+  }
+  th {
+    font-weight: normal;
+    font-weight: bold;
+    font-size: 90%;
+  }
+}
+
+hr {
+  border-bottom: 1px solid rgba($text, 0.3);
+}
+
+img {
+  // display: block;
+  max-width: 100%;
+}
+
+
+input, select, textarea {
+  font: inherit;
+  // color: inherit;
+}
+
+
+
+
+
+//////////////////////////////////// UTILITY ////////////////////////////////////
+
+
+@each $name, $color in $colors {
+  .text-#{$name} { color: $color !important; }
+  .color-#{$name} { color: $color !important; } // Deprecated
+  .bg-#{$name} { background-color: $color !important; }
+  .border-#{$name} { border-color: $color !important; }
+}
+
+@each $key, $size in $fontsizes {
+  .size-#{$key} { font-size: $size !important; }
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+@each $direction in (row, column, row-reverse, column-reverse) {
+  .#{$direction} {
+    display: flex;
+    flex-flow: $direction;
+  }
+}
+
+.wrap { flex-wrap: wrap; }
+.wrap-reverse { flex-wrap: wrap-reverse; }
+.grow { flex-grow: 1; }
+@each $t in (baseline, center, stretch, flex-start, flex-end) {
+  .align-#{$t} { align-items: $t }
+  .align-self-#{$t} { align-self: $t }
+}
+@each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
+  .justify-#{$t} { justify-content: $t }
+  .justify-self-#{$t} { justify-self: $t }
+}
+
+.faded { opacity: 0.5 }
+
+@each $key, $value in $margins-sizes {
+  .margin#{$key} { margin: $value; }
+  .padding#{$key} { padding: $value; }
+  .h-spacing#{$key} > :not(:last-child) { margin-right: $value; }
+  .v-spacing#{$key} > :not(:last-child) { margin-bottom: $value; }
+}
+
+
+// .cursor-pointer { cursor: pointer; }
+
+// .capitalize::first-letter { text-transform: uppercase }

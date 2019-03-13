@@ -1,0 +1,43 @@
+
+
+.mad-input {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  background: white;
+  border: 1px solid rgba($text, 0.35);
+  box-shadow: 0 1px 1px rgba(black, 0.15) inset;
+  border-radius: 3px;
+  & > :not(:last-child) { margin-right: .25rem; }
+  // & > :first-child { margin-left: .5rem; }
+  &:focus-within {
+    border-color: $primary;
+  }
+}
+.mad-input_input {
+  height: 100%;
+  flex-grow: 1;
+  min-width: 0;
+  background: transparent;
+  padding: .5em;
+  padding-right: 0;
+  // font-size: 110%;
+  .-haserror & {
+    border-color: $red;
+    color: $red;
+  }
+  &:disabled,
+  &:read-only {
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    cursor: default;
+  }
+  &:focus {
+    border-color: $primary;
+  }
+}
+.mad-input_left,
+.mad-input_right {
+  padding: .5rem;
+}

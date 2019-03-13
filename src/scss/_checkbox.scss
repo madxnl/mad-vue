@@ -1,0 +1,14 @@
+
+.mad-checkbox {
+  display: flex;
+  height: 1.5em;
+  align-items: center;
+
+  input {
+    margin-right: .5em;
+  }
+  // &:disabled {
+  //   opacity: 0.5;
+  //   pointer-events: none;
+  // }
+}

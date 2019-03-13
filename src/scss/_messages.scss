@@ -1,0 +1,38 @@
+
+
+.mad-messages {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+.mad-message {
+  max-width: 600px;
+  margin: 0 auto .5rem auto;
+  max-height: 200px;
+  z-index: 80;
+  pointer-events: auto;
+  background: white;
+  box-shadow: 0 2px 5px rgba(black, 0.3);
+  cursor: default;
+  border-radius: 2px;
+  font-weight: bold;
+  overflow: hidden;
+  display: flex;
+  // align-items: flex;
+  justify-content: space-between;
+
+  .mad-messages_text {
+    padding: .5rem;
+    padding-left: 1rem;
+  }
+
+  @each $name, $color in $colors {
+    &.#{$name} {
+      // border-left: 4px solid $color;
+      background: $color;
+      color: white;
+    }
+  }
+}

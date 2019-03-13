@@ -1,0 +1,50 @@
+$yellow: #e4b600 !default;
+$blue: #4296e6 !default;
+$green: #3bb983 !default;
+$red: #e43f3f !default;
+$purple: #7348eb !default;
+$orange: #fb7e5c !default;
+
+$dark: #35495d;
+
+$white: #ffffff !default;
+
+$text: $dark !default;
+$primary: $blue !default;
+
+
+$colors: (
+  yellow: $yellow,
+  blue: $blue,
+  green: $green,
+  red: $red,
+  purple: $purple,
+  orange: $orange,
+
+  white: $white,
+
+  text: $text,
+  primary: $primary,
+) !default;
+
+
+$fontsizes: (
+  huge: 1.8em,
+  large: 1.35em,
+  medium: 1em,
+  small: 0.9em,
+  tiny: 0.75em,
+) !default;
+
+
+
+$margin: 1.5rem !default;
+
+$margins-sizes: (
+  '': $margin,
+  -xs: $margin * 0.25,
+  -sm: $margin * 0.50,
+  -lg: $margin * 1.50,
+  -xl: $margin * 3.00,
+  '-0': 0,
+) !default;

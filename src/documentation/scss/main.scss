@@ -1,0 +1,36 @@
+
+@import './vars';
+
+@import '../../scss/main.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+html {
+  font-family: 'Lato', sans-serif;
+}
+
+code {
+  // font-size: 85%;
+  background: rgba(black, 0.05);
+  // line-height: 0.8;
+}
+
+.container {
+  padding: 1rem;
+  & > :last-child { margin-bottom: 0; }
+}
+
+@import '~highlight.js/styles/github.css';
+
+.hljs {
+  background: none !important;
+  padding: 0 !important;
+}
+
+.card {
+  @extend p;
+  padding: 1rem;
+  padding-bottom: 1px;
+  background: rgba($text, 0.05);
+  // border: 2px solid rgba($text, 0.25);
+}
