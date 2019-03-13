@@ -29,11 +29,16 @@ $colors: (
 
 
 $fontsizes: (
-  huge: 1.8em,
-  large: 1.35em,
-  medium: 1em,
-  small: 0.9em,
+  xs: 0.75em,
+  sm: 0.9em,
+  md: 1em,
+  lg: 1.35em,
+  xl: 1.8em,
   tiny: 0.75em,
+  small: 0.9em,
+  medium: 1em,
+  large: 1.35em,
+  huge: 1.8em,
 ) !default;
 
 

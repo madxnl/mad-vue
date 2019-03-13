@@ -32,7 +32,7 @@
               <td>size</td>
               <td>String</td>
               <td></td>
-              <td>"tiny", "small", "large", or "huge", or a valid css font-size</td>
+              <td>Font-size based scaling, eg: "xs", "sm", "lg", or "xl", or "200%"</td>
             </tr>
           </template>
         </api-table>
