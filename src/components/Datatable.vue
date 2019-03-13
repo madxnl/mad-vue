@@ -79,11 +79,11 @@ export default {
       let rows = this.rows.slice(0)
       const sortCol = this.sortKey && this.columns.find(c => c && c.key == this.sortKey)
       if (sortCol && sortCol.sort) {
+        const getSortVal = sortCol.sort == 'function' ? sortCol.sort : (row => row[sortCol.sort])
         rows = rows.sort((a, b) => {
-          const valueA = a[sortCol.key], valueB = b[sortCol.key]
+          const valueA = getSortVal(a), valueB = getSortVal(b)
           let diff = valueB - valueA
-          if (typeof sortCol.sort == 'function') diff = sortCol.sort(b) - sortCol.sort(a)
-          else if (isNaN(diff) && typeof valueB == 'string') diff = valueB.localeCompare(valueA)
+          if (isNaN(diff) && typeof valueB == 'string') diff = valueB.localeCompare(valueA)
           return this.sortDir * diff
         })
       }
