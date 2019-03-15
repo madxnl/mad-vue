@@ -79,7 +79,9 @@ export default {
       let rows = this.rows.slice(0)
       const sortCol = this.sortKey && this.columns.find(c => c && c.key == this.sortKey)
       if (sortCol && sortCol.sort) {
-        const getSortVal = sortCol.sort == 'function' ? sortCol.sort : (row => row[sortCol.sort])
+        let getSortVal = sortCol.sort
+        if (typeof sortCol.sort === 'string') getSortVal = row => row[sortCol.sort]
+        if (sortCol.sort === true) getSortVal = row => row[sortCol.key]
         rows = rows.sort((a, b) => {
           const valueA = getSortVal(a), valueB = getSortVal(b)
           let diff = valueB - valueA
