@@ -1,20 +1,37 @@
 <template>
   <mad-form @submit="onSubmit">
-    <mad-form-item label="Message" :value="message" required>
-      <mad-input v-model="message"/>
+    <mad-form-item label="Message" :value="''" required>
+      <mad-input v-model="message" />
     </mad-form-item>
 
     <mad-form-item label="Date and time" :value="datetime" required>
-      <mad-input-date time seconds v-model="datetime"/>
+      <mad-input-date v-model="datetime" time seconds />
     </mad-form-item>
+
     <mad-form-item label="Checkboxes">
-      <mad-checkbox v-model="checkboxChecked">
-        Checked: {{checkboxChecked}}
+      {{ checked }}
+      <mad-checkbox v-model="checked[0]">
+        Checkbox
+      </mad-checkbox>
+      <mad-checkbox v-model="checked[1]">
+        Checkbox
+      </mad-checkbox>
+      <!-- <mad-switch v-model="checked">{{checked}}</mad-switch> -->
+    </mad-form-item>
+    <mad-form-item label="Radio">
+      {{ radioValue }}
+      <mad-checkbox v-model="radioValue" radio value="a">
+        Radio 1
+      </mad-checkbox>
+      <mad-checkbox v-model="radioValue" radio value="b">
+        Radio 2
       </mad-checkbox>
       <!-- <mad-switch v-model="checked">{{checked}}</mad-switch> -->
     </mad-form-item>
     <p>
-      <mad-button type="submit" color="primary">Submit</mad-button>
+      <mad-button type="submit" class="bg-primary">
+        Submit
+      </mad-button>
     </p>
   </mad-form>
 </template>
@@ -24,13 +41,16 @@ export default {
   data: () => ({
     message: '',
     datetime: new Date(),
-    checkboxChecked: false,
+    checked: [true, false],
+    radioValue: null,
   }),
+
   methods: {
     onSubmit() {
       this.$mad.message.success(`Submitted message "${this.message}"`)
       this.message = ''
     },
+    
     validator(x) {
       // return 'nope'
     },
