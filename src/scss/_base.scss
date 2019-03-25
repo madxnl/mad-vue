@@ -97,11 +97,23 @@ input, select, textarea {
 
 //////////////////////////////////// UTILITY ////////////////////////////////////
 
+@function contrast-text-color($color) {
+  @if (lightness($color) > 60) {
+    @return #000000;
+  } @else {
+    @return #ffffff;
+  }
+}
+
 
 @each $name, $color in $colors {
-  .text-#{$name} { color: $color !important; }
   .color-#{$name} { color: $color !important; } // Deprecated
-  .bg-#{$name} { background-color: $color !important; }
+  .bg-#{$name} {
+    background-color: $color !important;
+    color: contrast-text-color($color);
+  }
+  .#{$name} { color: $color !important; }
+  .text-#{$name} { color: $color !important; }
   .border-#{$name} { border-color: $color !important; }
 }
 

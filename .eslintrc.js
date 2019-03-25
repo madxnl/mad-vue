@@ -15,6 +15,9 @@ module.exports = {
 
     'space-before-function-paren': ['error', 'never'],
     'comma-dangle': ['error', 'only-multiline'],
+    'vue/html-self-closing': ['error', {'html': { 'void': 'never', 'normal': 'never', 'component': 'always' }}],
+    'vue/max-attributes-per-line': ['error', {'singleline': 3, 'multiline': {'max': 1}}],
+    'no-trailing-spaces': ['error', { 'skipBlankLines': true }],
   },
   parserOptions: {
     parser: 'babel-eslint',

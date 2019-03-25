@@ -2,7 +2,7 @@
   <!-- <mad-transition> -->
     <div v-show="value">
       <div
-        :class="`mad-message ${color}`">
+        :class="`mad-message bg-${color}`">
         <div class="mad-messages_text">
           <slot></slot>
         </div>

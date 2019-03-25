@@ -2,9 +2,7 @@
   <div>
     <p>Buttons can be raised or flat, and in any color and size.</p>
     <code-example name="ButtonExample">
-
       <template slot="api">
-
         <h4><code>mad-form</code></h4>
 
         <api-table>
@@ -54,9 +52,7 @@
           </template>
         </api-table>
       </template>
-
     </code-example>
-
   </div>
 </template>
 

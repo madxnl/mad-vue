@@ -27,12 +27,4 @@
     padding: .5rem;
     padding-left: 1rem;
   }
-
-  @each $name, $color in $colors {
-    &.#{$name} {
-      // border-left: 4px solid $color;
-      background: $color;
-      color: white;
-    }
-  }
 }
