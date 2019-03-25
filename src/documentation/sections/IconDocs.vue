@@ -1,11 +1,10 @@
 <template>
   <div>
     <p>
-      The <code>&lt;mad-icon&gt;</code> component supports the 2400+ icons from the <a href="https://materialdesignicons.com/">Material Design Icons' collection</a>, as well as country flag icons using <a href="https://github.com/lipis/flag-icon-css"><code>flag-icon-css</code></a>.</p>
+      The <code>&lt;mad-icon&gt;</code> component supports the 2400+ icons from the <a href="https://materialdesignicons.com/">Material Design Icons' collection</a>, as well as country flag icons using <a href="https://github.com/lipis/flag-icon-css"><code>flag-icon-css</code></a>.
+    </p>
     <code-example name="IconExample">
-
       <template slot="api">
-
         <h4><code>mad-icon</code></h4>
 
         <api-table>
@@ -22,30 +21,10 @@
               <td></td>
               <td>Two-letter country code to display a flag icon from <a href="https://github.com/lipis/flag-icon-css"><code>flag-icon-css</code></a></td>
             </tr>
-            <tr>
-              <td>color</td>
-              <td>String</td>
-              <td></td>
-              <td>A color name or custom hex/rgb string</td>
-            </tr>
-            <tr>
-              <td>size</td>
-              <td>String</td>
-              <td></td>
-              <td>Font-size based scaling, eg: "xs", "sm", "lg", or "xl", or "200%"</td>
-            </tr>
           </template>
         </api-table>
       </template>
-
     </code-example>
   </div>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    visible: false,
-  }),
-}
-</script>

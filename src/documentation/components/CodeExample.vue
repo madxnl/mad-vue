@@ -1,14 +1,14 @@
 <template>
   <div class="code-example">
-
-    <mad-tabs :tabs="[
-      'Example',
-      'Code',
-      this.$slots.api && 'API',
-    ]">
-
+    <mad-tabs
+      :tabs="[
+        'Example',
+        'Code',
+        this.$slots.api && 'API',
+      ]"
+    >
       <template slot="Code">
-        <code-block class="card">{{source}}</code-block>
+        <code-block class="card">{{ source }}</code-block>
       </template>
 
       <template slot="Example">
@@ -22,9 +22,7 @@
           <slot name="api"></slot>
         </div>
       </template>
-
     </mad-tabs>
-
   </div>
 </template>
 
@@ -40,7 +38,7 @@ export default {
   }),
   async mounted() {
     this.component = require(`../examples/${this.name}.vue`).default
-    this.source = require(`!raw-loader!../examples/${this.name}.vue`)
+    this.source = require(`!raw-loader!../examples/${this.name}.vue`).default
   },
 }
 </script>
@@ -56,7 +54,6 @@ export default {
 //   cursor: pointer;
 // }
 
-.code-example {
-}
+// .code-example {}
 
 </style>

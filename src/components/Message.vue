@@ -6,8 +6,8 @@
         <div class="mad-messages_text">
           <slot></slot>
         </div>
-        <mad-button flat class="mad-messages_close" @click="close">
-          <mad-icon mdi="close" :color="color ? 'white' : null"/>
+        <mad-button class="mad-messages_close" @click="close">
+          <mad-icon mdi="close" :class="color ? 'white' : ''"/>
         </mad-button>
       </div>
     </div>

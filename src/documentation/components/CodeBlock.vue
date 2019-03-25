@@ -1,9 +1,11 @@
 <template>
   <div>
     <p v-if="filename" class="filename">
-      {{filename}}
+      {{ filename }}
     </p>
-    <pre><code ref="code" :class="language"><slot></slot></code></pre>
+    <pre>
+      <code ref="code" :class="language"><slot></slot></code>
+    </pre>
   </div>
 </template>
 
@@ -19,14 +21,8 @@ hljs.registerLanguage('scss', scss)
 
 export default {
   props: {
-    language: String,
-    filename: String,
-  },
-
-  methods: {
-    applyHighlight() {
-      hljs.highlightBlock(this.$refs.code)
-    },
+    language: { type: String, default: null },
+    filename: { type: String, default: null },
   },
 
   created() {
@@ -39,6 +35,12 @@ export default {
 
   mounted() {
     this.applyHighlight()
+  },
+
+  methods: {
+    applyHighlight() {
+      hljs.highlightBlock(this.$refs.code)
+    },
   },
 }
 </script>
