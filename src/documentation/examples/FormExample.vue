@@ -20,11 +20,20 @@
     </mad-form-item>
     <mad-form-item label="Radio">
       {{ radioValue }}
-      <mad-checkbox v-model="radioValue" radio value="a">
+      <mad-checkbox v-model="radioValue" value="a" class="red">
         Radio 1
       </mad-checkbox>
-      <mad-checkbox v-model="radioValue" radio value="b">
+      <mad-checkbox v-model="radioValue" value="b">
         Radio 2
+      </mad-checkbox>
+      <!-- <mad-switch v-model="checked">{{checked}}</mad-switch> -->
+    </mad-form-item>
+    <mad-form-item label="Independent check">
+      <mad-checkbox value="a">
+        Check
+      </mad-checkbox>
+      <mad-checkbox intermediate>
+        Check
       </mad-checkbox>
       <!-- <mad-switch v-model="checked">{{checked}}</mad-switch> -->
     </mad-form-item>
@@ -42,7 +51,7 @@ export default {
     message: '',
     datetime: new Date(),
     checked: [true, false],
-    radioValue: null,
+    radioValue: [],
   }),
 
   methods: {
