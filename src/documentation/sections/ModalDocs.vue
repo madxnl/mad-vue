@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Todo</p>
-    <code-example name="ModalExample" />
+    <component-example name="ModalExample" />
   </div>
 </template>
 

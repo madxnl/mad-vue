@@ -14,5 +14,17 @@ module.exports = {
         options.compilerOptions.preserveWhitespace = true
         return options
       })
+    config
+      .plugin('define')
+      .tap((definitions) => {
+        definitions[0]['process.env']['PACKAGE_VERSION'] = JSON.stringify(require('./package.json').version)
+        return definitions
+      })
   }
 }
+
+// plugins: [
+//   new webpack.DefinePlugin({
+//     VERSION: JSON.stringify(require('package.json').version)
+//   })
+// ]

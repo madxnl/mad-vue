@@ -11,7 +11,7 @@
       <mad-icon mdi="city-variant-outline" style="color:#0f0" />
       <mad-icon mdi="star" class="size-xs" />
       <mad-icon mdi="star" class="size-sm" />
-      <mad-icon mdi="star" />
+      <mad-icon mdi="star" class="size-md" />
       <mad-icon mdi="star" class="size-lg" />
       <mad-icon mdi="star" class="size-xl" />
       <mad-icon mdi="star" style="font-size:250%" />

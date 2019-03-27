@@ -3,9 +3,7 @@
     <p v-if="filename" class="filename">
       {{ filename }}
     </p>
-    <pre>
-      <code ref="code" :class="language"><slot></slot></code>
-    </pre>
+    <pre><code ref="code" :class="language"><slot></slot></code></pre>
   </div>
 </template>
 

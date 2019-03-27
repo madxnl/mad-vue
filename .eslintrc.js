@@ -18,6 +18,8 @@ module.exports = {
     'vue/html-self-closing': ['error', {'html': { 'void': 'never', 'normal': 'never', 'component': 'always' }}],
     'vue/max-attributes-per-line': ['error', {'singleline': 3, 'multiline': {'max': 1}}],
     'no-trailing-spaces': ['error', { 'skipBlankLines': true }],
+    'vue/no-v-html': ['off'],
+    'vue/singleline-html-element-content-newline': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',

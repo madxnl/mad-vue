@@ -23,7 +23,6 @@ export default {
       'MenuItem',
       'Modal',
       'Select',
-      'Tab',
       'Tabs',
       'Transition',
     ]

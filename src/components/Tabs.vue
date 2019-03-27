@@ -2,22 +2,21 @@
   <div>
     <div class="mad-tabs">
       <template v-for="(tab,i) in tabs">
-        <div v-if="tab != null" :key="i"
-          @click="activate(tab)"
-          class="mad-tabs_tab"
+        <div
+          v-if="tab"
+          :key="i"
           ref="tabs"
-          :class="{'-active':tab==value}">
+          class="mad-tabs_tab"
+          :class="{'-active':tab==value}"
+          @click="activate(tab)"
+        >
           <slot :name="`tab:${tab}`">
-            {{tab}}
+            {{ tab }}
           </slot>
         </div>
       </template>
       <div ref="line" class="mad-tabs_line"></div>
     </div>
-
-    <template v-for="tab in validTabs">
-      <slot v-if="activeTab==tab" :name="tab"></slot>
-    </template>
   </div>
 </template>
 
@@ -25,7 +24,7 @@
 export default {
   props: {
     tabs: { type: Array, required: true, default: () => [] },
-    value: {},
+    value: { type: [Number, String, Object], required: true },
   },
 
   data: () => ({
@@ -45,6 +44,10 @@ export default {
         this.activate(value)
       },
     },
+  },
+
+  mounted() {
+    this.setLine()
   },
 
   methods: {
@@ -68,10 +71,6 @@ export default {
         line.style.width = tabEl.offsetWidth + 'px'
       }
     },
-  },
-
-  mounted() {
-    this.setLine()
   },
 }
 </script>

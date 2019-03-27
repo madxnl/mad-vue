@@ -2,25 +2,39 @@
   <div class="app">
     <nav class="nav">
       <a class="nav-brand" :href="'#' + getSectionId(sections[0])">
-        <img src="./assets/mad-vue-logo.png" height="100"/>
+        <img src="./assets/mad-vue-logo.png" height="100">
         <h2>Mad-Vue</h2>
+        {{ version }}
       </a>
-      <a v-for="(section,i) in sections" :key="i"
+      <a
+        v-for="(section,i) in sections"
+        :key="i"
         :href="'#' + getSectionId(section)"
-        class="nav-link" :class="{
+        class="nav-link"
+        :class="{
           '-active':activeSection==section,
-        }">
-        {{section.name}}
+          '-mono': section.mono,
+        }"
+      >
+        {{ '&nbsp; &nbsp;'.repeat(section.indent) }}
+        <component :is="section.mono ? 'code' : 'span'">
+          {{ section.name }}
+        </component>
       </a>
     </nav>
     <main class="main">
-      <section v-for="(section,i) in sections" :key="i"
+      <section
+        v-for="(section,i) in sections"
+        :id="getSectionId(section)"
+        :key="i"
         class="section"
-        :id="getSectionId(section)">
+      >
         <h1 class="section-title">
-          {{section.name}}
+          <component :is="section.mono ? 'code' : 'span'">
+            {{ section.name }}
+          </component>
         </h1>
-        <component :is="section.component"/>
+        <component :is="section.component" />
       </section>
     </main>
     <!-- <mad-messages/> -->
@@ -30,32 +44,52 @@
 <script>
 import './scss/main.scss'
 
+const loadSection = path => require(`./sections/${path}`).default
+
 export default {
   data: () => ({
     sections: [
-      { name: 'Install', component: require('./sections/InstallationDocs').default },
-      { name: 'Button', component: require('./sections/ButtonDocs').default },
-      { name: 'Icon', component: require('./sections/IconDocs').default },
-      { name: 'Form', component: require('./sections/FormDocs').default },
-      { name: 'Input', component: require('./sections/InputDocs').default },
-      { name: 'Input Image', component: require('./sections/InputImageDocs').default },
-      { name: 'Select', component: require('./sections/SelectDocs').default },
-      { name: 'Dropdown', component: require('./sections/FormDocs').default },
-      { name: 'Menu', component: require('./sections/FormDocs').default },
-      { name: 'Modal', component: require('./sections/ModalDocs').default },
-      { name: 'Tabs', component: require('./sections/FormDocs').default },
-      { name: 'Loading', component: require('./sections/LoadingDocs').default },
-      { name: 'Messages', component: require('./sections/MessagesDocs').default },
-      { name: 'Datatable', component: require('./sections/DatatableDocs').default },
-      { name: 'Transition', component: require('./sections/FormDocs').default },
-      { name: 'Customize', component: require('./sections/StylingDocs').default },
+      { name: 'Installation', component: loadSection('InstallationDocs') },
+      { name: 'Components', component: loadSection('StylingDocs') },
+      { name: 'button', component: loadSection('ButtonDocs'), indent: 1, mono: true },
+      { name: 'icon', component: loadSection('IconDocs'), indent: 1, mono: true },
+      { name: 'form', component: loadSection('FormDocs'), indent: 1, mono: true },
+      { name: 'form-item', component: loadSection('FormItemDocs'), indent: 1, mono: true },
+      { name: 'input', component: loadSection('InputDocs'), indent: 1, mono: true },
+      { name: 'input-image', component: loadSection('InputImageDocs'), indent: 1, mono: true },
+      { name: 'select', component: loadSection('SelectDocs'), indent: 1, mono: true },
+      { name: 'dropdown', component: loadSection('FormDocs'), indent: 1, mono: true },
+      { name: 'menu', component: loadSection('FormDocs'), indent: 1, mono: true },
+      { name: 'modal', component: loadSection('ModalDocs'), indent: 1, mono: true },
+      { name: 'tabs', component: loadSection('FormDocs'), indent: 1, mono: true },
+      { name: 'loading', component: loadSection('LoadingDocs'), indent: 1, mono: true },
+      { name: 'messages', component: loadSection('MessagesDocs'), indent: 1, mono: true },
+      { name: 'datatable', component: loadSection('DatatableDocs'), indent: 1, mono: true },
+      { name: 'transition', component: loadSection('FormDocs'), indent: 1, mono: true },
+      { name: 'Styling', component: loadSection('StylingDocs') },
     ],
     activeSection: null,
   }),
 
+  computed: {
+    version() {
+      return process.env.PACKAGE_VERSION
+    },
+  },
+
+  mounted() {
+    this.updateActiveSection()
+    this.scrollListener = e => this.updateActiveSection()
+    addEventListener('scroll', this.scrollListener, { passive: true })
+  },
+
+  beforeDestroy() {
+    removeEventListener('scroll', this.scrollListener)
+  },
+
   methods: {
     getSectionId(section) {
-      return section.name.replace(' ','-')
+      return section.name.replace(' ', '-')
     },
 
     updateActiveSection() {
@@ -68,16 +102,6 @@ export default {
         }
       })
     },
-  },
-
-  mounted() {
-    this.updateActiveSection()
-    this.scrollListener = e => this.updateActiveSection()
-    addEventListener('scroll', this.scrollListener, { passive: true })
-  },
-
-  beforeDestroy() {
-    removeEventListener('scroll', this.scrollListener)
   },
 }
 </script>
@@ -118,26 +142,27 @@ $navWidth: 220px;
   text-align: center;
   color: inherit;
   text-decoration: none;
+  display: block;
+  margin: 30px 0;
   img {
-    margin: 1rem auto;
+    margin: 0 auto .5rem auto;
     display: block;
-    margin-bottom: .5rem;
   }
 }
 .nav-link {
-  font-size: 110%;
+  // font-weight: bold;
   color: $text;
   display: block;
   text-decoration: none;
-  padding: .25em 1.5em;
+  padding: 3px 20px;
+  font-size: 110%;
   transition: all .2s;
   &:hover {
     background: rgba($text, 0.1);
   }
   &.-active {
     font-weight: bold;
-    background: rgba($text, 0.75);
-    color: white;
+    background: rgba($text, 0.1);
   }
 }
 </style>

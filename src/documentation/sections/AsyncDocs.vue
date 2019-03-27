@@ -3,7 +3,7 @@
     <p>
       todo
     </p>
-    <code-example name="AsyncExample" />
+    <component-example name="AsyncExample" />
   </div>
 </template>
 

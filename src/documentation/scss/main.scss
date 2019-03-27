@@ -9,9 +9,10 @@ html {
   font-family: 'Lato', sans-serif;
 }
 
-code {
-  // font-size: 85%;
-  background: rgba(black, 0.05);
+code, .code {
+  font-family: 'monospace';
+  font-size: 90%;
+  // background: rgba(black, 0.05);
   // line-height: 0.8;
 }
 
