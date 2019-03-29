@@ -1,31 +1,27 @@
 <template>
-  <mad-form @submit="onSubmit">
-    <mad-form-item label="Message" required>
-      <mad-input v-model="message"/>
+  <div class="v-spacing-sm">
+    <mad-form-item label="Message">
+      <mad-input v-model="message" placeholder="Enter message here" />
     </mad-form-item>
-    <mad-form-item label="Date and time" :value="datetime" required>
-      <mad-input-date time seconds v-model="datetime"/>
+
+    <mad-form-item label="Multi-line">
+      <mad-input v-model="longMessage" rows="3" />
     </mad-form-item>
-    <p>
-      <mad-button type="submit" color="primary">Submit</mad-button>
-    </p>
-  </mad-form>
+
+    <mad-form-item label="Password">
+      <mad-input v-model="password" type="password">
+        <mad-icon slot="after" mdi="lock-question" />
+      </mad-input>
+    </mad-form-item>
+  </div>
 </template>
 
 <script>
 export default {
   data: () => ({
     message: '',
-    datetime: new Date(),
+    longMessage: '',
+    password: 'hunter2',
   }),
-  methods: {
-    onSubmit() {
-      this.$mad.message.success(`Submitted message "${this.message}"`)
-      this.message = ''
-    },
-    validator(x) {
-      return 'nope'
-    },
-  },
 }
 </script>

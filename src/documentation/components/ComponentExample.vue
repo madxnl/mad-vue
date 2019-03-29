@@ -7,14 +7,14 @@
         'Code',
       ]"
     />
-    <div class="card -maxheight">
-      <template v-if="tab === 'Example'">
+    <div>
+      <div v-show="tab === 'Example'" class="card">
         <component :is="component" />
-      </template>
+      </div>
 
-      <template v-if="tab === 'Code'">
+      <div v-if="tab === 'Code'" class="card">
         <code-block>{{ source }}</code-block>
-      </template>
+      </div>
     </div>
 
     <template v-if="props || events">
@@ -23,6 +23,7 @@
         :tabs="[
           props && 'Props',
           events && 'Events',
+          slots && 'Slots',
         ]"
       />
       <div class="card">
@@ -51,6 +52,18 @@
             </tr>
           </table>
         </template>
+
+        <template v-if="apiTab === 'Slots'">
+          <table class="component-api-table">
+            <tr><th>Slot</th><th>Description</th></tr>
+            <tr v-for="slot in slots" :key="slot.name">
+              <td>
+                <code>{{ slot.name }}</code>
+              </td>
+              <td v-html="slot.description"></td>
+            </tr>
+          </table>
+        </template>
       </div>
     </template>
   </div>
@@ -62,6 +75,7 @@ export default {
     name: { type: String, required: true },
     props: { type: Array, default: null },
     events: { type: Array, default: null },
+    slots: { type: Array, default: null },
   },
 
   data: () => ({
@@ -71,7 +85,7 @@ export default {
     tab: null,
     apiTab: 'Props',
   }),
-
+  
   async mounted() {
     this.component = require(`../examples/${this.name}.vue`).default
     this.source = require(`!raw-loader!../examples/${this.name}.vue`).default

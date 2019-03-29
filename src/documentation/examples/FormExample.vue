@@ -1,14 +1,12 @@
 <template>
-  <mad-form @submit="onSubmit">
+  <mad-form class="v-spacing-sm" @submit="onSubmit">
     <mad-form-item label="Message" :value="message" required>
       <mad-input v-model="message" />
     </mad-form-item>
 
-    <p>
-      <mad-button type="submit" class="bg-primary">
-        Submit
-      </mad-button>
-    </p>
+    <mad-button type="submit" class="bg-primary">
+      Submit
+    </mad-button>
   </mad-form>
 </template>
 

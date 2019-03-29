@@ -24,7 +24,7 @@
 export default {
   props: {
     tabs: { type: Array, required: true, default: () => [] },
-    value: { type: [Number, String, Object], required: true },
+    value: { required: true },
   },
 
   data: () => ({

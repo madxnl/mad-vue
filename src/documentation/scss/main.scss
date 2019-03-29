@@ -31,7 +31,5 @@ code, .code {
 .card {
   @extend p;
   padding: 1rem;
-  padding-bottom: 1px;
   background: rgba($text, 0.05);
-  // border: 2px solid rgba($text, 0.25);
 }

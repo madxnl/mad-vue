@@ -1,9 +1,9 @@
 
 
-// .mad-icon {
+.mad-icon {
   // transform: scale(1.2, 1.2);
-// }
-.mad-icon_content.mdi {
+}
+.mad-icon.mdi:before {
   font-size: 125%;
   line-height: 80%;
   vertical-align: -15%;

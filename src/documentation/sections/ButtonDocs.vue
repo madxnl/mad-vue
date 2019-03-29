@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Button component, styled using css classes:</p>
+    <p>Customizable button component.</p>
     <component-example name="ButtonExample" :props="props" :events="events" />
   </div>
 </template>

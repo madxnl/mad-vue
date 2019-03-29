@@ -5,9 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:vue/recommended',
-    // 'plugin:vue/essential',
     '@vue/standard',
-    // 'eslint:recommended'
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -16,10 +14,10 @@ module.exports = {
     'space-before-function-paren': ['error', 'never'],
     'comma-dangle': ['error', 'only-multiline'],
     'vue/html-self-closing': ['error', {'html': { 'void': 'never', 'normal': 'never', 'component': 'always' }}],
-    'vue/max-attributes-per-line': ['error', {'singleline': 3, 'multiline': {'max': 1}}],
-    'no-trailing-spaces': ['error', { 'skipBlankLines': true }],
+    'vue/max-attributes-per-line': ['error', {'singleline': 5, 'multiline': {'max': 1}}],
     'vue/no-v-html': ['off'],
     'vue/singleline-html-element-content-newline': 'off',
+    'vue/require-prop-types': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',

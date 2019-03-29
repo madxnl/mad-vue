@@ -1,47 +1,24 @@
 <template>
-  <mad-form @submit="onSubmit">
-    <mad-form-item label="Message" :value="''" required>
+  <mad-form class="v-spacing-sm" @submit="onSubmit">
+    <mad-form-item label="Message" required :value="message">
       <mad-input v-model="message" />
     </mad-form-item>
 
-    <mad-form-item label="Date and time" :value="datetime" required>
-      <mad-input-date v-model="datetime" time seconds />
+    <mad-form-item label="Email" :value="email" :validator="validateEmail">
+      <mad-input v-model="email" />
     </mad-form-item>
 
-    <mad-form-item label="Checkboxes">
-      {{ checked }}
-      <mad-checkbox v-model="checked[0]">
-        Checkbox
-      </mad-checkbox>
-      <mad-checkbox v-model="checked[1]">
-        Checkbox
-      </mad-checkbox>
-      <!-- <mad-switch v-model="checked">{{checked}}</mad-switch> -->
+    <mad-form-item label="Name">
+      <div slot="label">
+        <mad-icon mdi="account-box-outline" />
+        Name
+      </div>
+      <mad-input v-model="name" />
     </mad-form-item>
-    <mad-form-item label="Radio">
-      {{ radioValue }}
-      <mad-checkbox v-model="radioValue" value="a" class="red">
-        Radio 1
-      </mad-checkbox>
-      <mad-checkbox v-model="radioValue" value="b">
-        Radio 2
-      </mad-checkbox>
-      <!-- <mad-switch v-model="checked">{{checked}}</mad-switch> -->
-    </mad-form-item>
-    <mad-form-item label="Independent check">
-      <mad-checkbox value="a">
-        Check
-      </mad-checkbox>
-      <mad-checkbox intermediate>
-        Check
-      </mad-checkbox>
-      <!-- <mad-switch v-model="checked">{{checked}}</mad-switch> -->
-    </mad-form-item>
-    <p>
-      <mad-button type="submit" class="bg-primary">
-        Submit
-      </mad-button>
-    </p>
+
+    <mad-button type="submit" class="bg-primary">
+      Submit
+    </mad-button>
   </mad-form>
 </template>
 
@@ -49,20 +26,23 @@
 export default {
   data: () => ({
     message: '',
-    datetime: new Date(),
-    checked: [true, false],
-    radioValue: [],
+    email: '',
+    name: '',
   }),
 
   methods: {
     onSubmit() {
-      this.$mad.message.success(`Submitted message "${this.message}"`)
+      this.$mad.message.success(`Message: ${this.message}`)
       this.message = ''
     },
-    
-    validator(x) {
-      // return 'nope'
+
+    validateEmail(email) {
+      if (!email.includes('@')) return 'is invalid'
     },
+
+    change(e) {
+      console.log(e)
+    }
   },
 }
 </script>

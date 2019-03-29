@@ -1,25 +1,31 @@
 <template>
-  <p class="mad-form-item" :class="classes"
-    v-bind="$attrs" v-on="$listeners">
-    <label v-if="label || error" class="mad-form-item_label"
-      :title="required && 'This field is required'">
+  <div
+    class="mad-form-item"
+    :class="classes"
+  >
+    <label
+      v-if="label || error"
+      class="mad-form-item_label"
+      :title="required && 'This field is required'"
+      v-bind="$attrs"
+    >
       <slot name="label">
-        {{label || 'This field'}}
+        {{ label || 'Unlabeled field' }}
       </slot>
-      {{error}}
+      {{ error }}
     </label>
     <slot></slot>
-  </p>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    label: String,
-    value: {},
-    required: Boolean,
-    validator: Function,
-    // for: String,
+    label: { type: String, default: null },
+    value: { default: undefined },
+    required: { type: Boolean, default: false },
+    requiredMessage: { type: String, default: 'is required' },
+    validator: { type: Function, default: null },
   },
 
   data: () => ({
@@ -28,7 +34,9 @@ export default {
 
   computed: {
     parentForm() {
-      for (let v = this; v; v = v.$parent) if (v.formItems) return v
+      for (let v = this; v; v = v.$parent) {
+        if (v.registerFormItem) return v
+      }
       return null
     },
 
@@ -46,6 +54,18 @@ export default {
     },
   },
 
+  mounted() {
+    if (this.parentForm) {
+      this.parentForm.registerFormItem(this)
+    }
+  },
+
+  beforeDestroy() {
+    if (this.parentForm) {
+      this.parentForm.unregisterFormItem(this)
+    }
+  },
+
   methods: {
     async validate() {
       this.error = await this.getValidationError(this.value)
@@ -54,23 +74,11 @@ export default {
 
     async getValidationError(value) {
       if (this.required && !value) {
-        return 'is required'
+        return this.requiredMessage
       } else if (this.validator) {
-        return await this.validator(value)
+        return this.validator(value)
       }
     },
-  },
-
-  mounted() {
-    if (this.parentForm) {
-      this.parentForm.formItems = this.parentForm.formItems.concat(this)
-    }
-  },
-
-  beforeDestroy() {
-    if (this.parentForm) {
-      this.parentForm.formItems = this.parentForm.formItems.filter(item => item != this)
-    }
   },
 }
 </script>

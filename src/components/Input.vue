@@ -1,33 +1,36 @@
 <template>
   <div class="mad-input">
-    <!-- <div class="mad-input_left" v-if="$slots.default"> -->
-      <slot></slot>
-    <!-- </div> -->
+    <slot></slot>
 
-    <textarea v-if="rows>1"
+    <textarea
+      v-if="rows>1"
+      :id="id"
       class="mad-input_input"
       :rows="rows"
       :value="value"
-      v-bind="$attrs" v-on="listeners">
+      v-bind="$attrs"
+      v-on="listeners"
+    >
     </textarea>
-    <input v-else
+    <input
+      v-else
+      :id="id"
       class="mad-input_input"
-      :type="type"
       :value="value"
-      v-bind="$attrs" v-on="listeners">
+      v-bind="$attrs"
+      v-on="listeners"
+    >
 
-    <!-- <div class="mad-input_right" v-if="$slots.right"> -->
-      <slot name="right"></slot>
-    <!-- </div> -->
+    <slot name="after"></slot>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    value: [String, Number],
-    type: { type: String, default: 'text' },
+    value: { default: undefined },
     rows: { type: [String, Number], default: 1 },
+    id: { type: String, default: null },
   },
 
   computed: {
@@ -41,7 +44,7 @@ export default {
   
   methods: {
     onInput(event) {
-      this.$emit('input', event.target.value)
+      this.$emit('input', event.target.value, event)
     }
   }
 }
