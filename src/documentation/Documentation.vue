@@ -115,7 +115,7 @@ $navWidth: 220px;
 .app {
   justify-content: stretch;
   // height: 100vh;
-  width: 100vw;
+  // width: 100vw;
   display: flex;
   padding-left: $navWidth;
   overflow-x: hidden;
