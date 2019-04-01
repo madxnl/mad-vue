@@ -92,6 +92,37 @@ input, select, textarea {
 }
 
 
+//////////////////////////////////// GENERIC ////////////////////////////////////
+
+.mad-menu-item {
+  display: block;
+  padding: .25rem .5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $text;
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  &.clickable {
+    cursor: pointer;
+  }
+  &:hover, &:focus, &.hover {
+    color: white;
+    background: $primary;
+  }
+  &.active {
+    color: white;
+    background: $primary;
+  }
+  &:last-child {
+    margin-bottom: .25rem;
+  }
+  &:first-child {
+    margin-top: .25rem;
+  }
+}
 
 
 

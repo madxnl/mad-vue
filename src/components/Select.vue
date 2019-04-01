@@ -37,30 +37,33 @@
       <mad-icon mdi="chevron-down" slot="right"/>
     </mad-input>
 
-    <mad-menu slot="dropdown">
-      <mad-menu-item v-if="searching">
+    <div slot="dropdown">
+      <div class="mad-menu-item" v-if="searching">
         <em>Searching&hellip;</em>
-      </mad-menu-item>
+      </div>
       <template v-else>
-        <template v-if="!filteredOptions.length">
-          <mad-menu-item v-if="searchText">
+        <div class="mad-menu-item" v-if="!filteredOptions.length">
+          <template v-if="searchText">
             <em>No results for "{{searchText}}"</em>
-          </mad-menu-item>
-          <mad-menu-item v-else-if="typeof options == 'function'">
+          </template>
+          <template v-else-if="typeof options == 'function'">
             <em>Type to search</em>
-          </mad-menu-item>
-          <mad-menu-item v-else>
+          </template>
+          <template v-else>
             <em>No options available</em>
-          </mad-menu-item>
-        </template>
-        <mad-menu-item v-for="(option,i) in filteredOptions" :key="i"
+          </template>
+        </div>
+        <div v-for="(option,i) in filteredOptions" :key="i"
           @click="toggleValue(getValue(option))"
-          :active="valueIsSelected(getValue(option))"
-          :hover="highlight==i">
+           class="mad-menu-item"
+           :class="{
+             active: valueIsSelected(getValue(option)),
+             hover: highlight==i,
+          }" >
           <slot :option="option">{{getLabel(option)}}</slot>
-        </mad-menu-item>
+        </div>
       </template>
-    </mad-menu>
+    </div>
 
   </mad-dropdown>
 </template>
