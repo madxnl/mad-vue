@@ -85,7 +85,7 @@ export default {
     tab: null,
     apiTab: 'Props',
   }),
-  
+
   async mounted() {
     this.component = require(`../examples/${this.name}.vue`).default
     this.source = require(`!raw-loader!../examples/${this.name}.vue`).default

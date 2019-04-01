@@ -1,16 +1,16 @@
 <template>
   <div>
     <p>
-      <mad-button class="green" @click="showSuccess">
+      <mad-button class="bg-green" @click="showSuccess">
         Success
       </mad-button>
-      <mad-button class="blue" @click="showInfo">
+      <mad-button class="bg-blue" @click="showInfo">
         Info
       </mad-button>
-      <mad-button class="yellow" @click="showWarn">
+      <mad-button class="bg-yellow" @click="showWarn">
         Warn
       </mad-button>
-      <mad-button class="red" @click="showError">
+      <mad-button class="bg-red" @click="showError">
         Error
       </mad-button>
     </p>
@@ -36,7 +36,9 @@ export default {
   }),
 
   created() {
-    setInterval(() => this.timer += 1, 500)
+    setInterval(() => {
+      this.timer += 1
+    }, 500)
   },
 
   methods: {

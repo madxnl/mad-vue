@@ -1,14 +1,16 @@
 <template>
   <div>
     <mad-datatable
-      :rows="rows" :columns="columns"
       v-model="selectedRows"
-      :per-page="10">
+      :rows="rows"
+      :columns="columns"
+      :per-page="10"
+    >
       <template slot="flag-label">
         Flag
       </template>
       <template slot="flag" slot-scope="{row}">
-        <mad-icon :flag="row.alpha2Code"/>
+        <mad-icon :flag="row.alpha2Code" />
       </template>
     </mad-datatable>
   </div>
@@ -43,7 +45,7 @@ export default {
 
   async created() {
     const res = await fetch('https://restcountries.eu/rest/v2/')
-    this.countries = res.status == 200 ? await res.json() : []
+    this.countries = res.status === 200 ? await res.json() : []
   },
 }
 </script>

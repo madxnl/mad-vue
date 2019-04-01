@@ -1,50 +1,59 @@
 <template>
-  <mad-dropdown v-model="dropdownActive" class="mad-select"
-    :class="classes">
-
-    <mad-input class="mad-select_input"
+  <mad-dropdown
+    v-model="dropdownActive"
+    class="mad-select"
+    :class="classes"
+  >
+    <mad-input
+      class="mad-select_input"
       :value="searchText"
       :placeholder="placeholder"
       :disabled="disabled"
-      v-bind="$attrs" v-on="inputListeners">
-
-      <div class="mad-select_grid" v-if="displaySelected">
+      v-bind="$attrs"
+      v-on="inputListeners"
+    >
+      <div v-if="displaySelected" class="mad-select_grid">
         <template v-if="multiple">
-          <mad-button v-for="(value,i) in selectedValues" :key="i"
-            bg="primary-light" color="primary" size="sm"
+          <mad-button
+            v-for="(v,i) in selectedValues"
+            :key="i"
+            bg="primary-light"
+            color="primary"
+            size="sm"
             title="Click to remove from selection"
-            @click.stop="toggleValue(value)">
+            @click.stop="toggleValue(v)"
+          >
             <div class="select_multi-item">
               <div>
-                <slot v-if="getOption(value)" :option="getOption(value)">
-                  {{getLabel(getOption(value))}}
+                <slot v-if="getOption(v)" :option="getOption(v)">
+                  {{ getLabel(getOption(v)) }}
                 </slot>
-                <template v-else>{{value}}</template>
+                <template v-else>{{ v }}</template>
               </div>
-              <mad-icon mdi="close"></mad-icon>
+              <mad-icon mdi="close" />
             </div>
           </mad-button>
         </template>
         <template v-else>
-          <div v-for="(value,i) in selectedValues" :key="i">
-            <slot :option="getOption(value)">
-              {{getLabel(getOption(value))}}
+          <div v-for="(v,i) in selectedValues" :key="i">
+            <slot :option="getOption(v)">
+              {{ getLabel(getOption(v)) }}
             </slot>
           </div>
         </template>
       </div>
 
-      <mad-icon mdi="chevron-down" slot="right"/>
+      <mad-icon slot="right" mdi="chevron-down" />
     </mad-input>
 
     <div slot="dropdown">
-      <div class="mad-menu-item" v-if="searching">
+      <div v-if="searching" class="mad-menu-item">
         <em>Searching&hellip;</em>
       </div>
       <template v-else>
-        <div class="mad-menu-item" v-if="!filteredOptions.length">
+        <div v-if="!filteredOptions.length" class="mad-menu-item">
           <template v-if="searchText">
-            <em>No results for "{{searchText}}"</em>
+            <em>No results for "{{ searchText }}"</em>
           </template>
           <template v-else-if="typeof options == 'function'">
             <em>Type to search</em>
@@ -53,18 +62,20 @@
             <em>No options available</em>
           </template>
         </div>
-        <div v-for="(option,i) in filteredOptions" :key="i"
+        <div
+          v-for="(option,i) in filteredOptions"
+          :key="i"
+          class="mad-menu-item"
+          :class="{
+            active: valueIsSelected(getValue(option)),
+            hover: highlight==i,
+          }"
           @click="toggleValue(getValue(option))"
-           class="mad-menu-item"
-           :class="{
-             active: valueIsSelected(getValue(option)),
-             hover: highlight==i,
-          }" >
-          <slot :option="option">{{getLabel(option)}}</slot>
+        >
+          <slot :option="option">{{ getLabel(option) }}</slot>
         </div>
       </template>
     </div>
-
   </mad-dropdown>
 </template>
 
@@ -72,11 +83,11 @@
 export default {
   props: {
     options: { type: [Array, Function], required: true },
-    value: {},
+    value: { default: null },
     placeholder: { type: String, default: 'Please select' },
     disabled: Boolean,
     multiple: Boolean,
-    pk: String,
+    pk: { type: String, default: null },
   },
 
   data: () => ({
@@ -100,7 +111,7 @@ export default {
 
     isEmpty() {
       if (this.multiple) {
-        return this.selectedValues.length == 0
+        return this.selectedValues.length === 0
       } else {
         const hasNullOption = this.cachedOptions.some(o => this.getValue(o) == null)
         return this.selectedValues[0] == null && !hasNullOption
@@ -109,7 +120,7 @@ export default {
 
     filteredOptions() {
       const options = this.currentOptions
-      if (!this.searchText || typeof this.options == 'function') return options
+      if (!this.searchText || typeof this.options === 'function') return options
 
       const tokenize = s => s.toLowerCase().match(/(\w+|[^\w\s]+)/g)
       const terms = tokenize(this.searchText)
@@ -129,11 +140,11 @@ export default {
         input: this.onInput,
         focus: this.onFocus,
         // blur: event => {
-          // if (this.searchText) {
-          //   const value = this.getValue(this.filteredOptions[this.highlight])
-          //   if (value && !this.valueIsSelected(value)) this.toggleValue(value)
-          // }
-          // this.dropdownActive = false
+        // if (this.searchText) {
+        //   const value = this.getValue(this.filteredOptions[this.highlight])
+        //   if (value && !this.valueIsSelected(value)) this.toggleValue(value)
+        // }
+        // this.dropdownActive = false
         // },
         keydown: this.onKeydown,
       }
@@ -151,7 +162,7 @@ export default {
     options: {
       immediate: true,
       async handler(options) {
-        if (typeof options == 'function') return
+        if (typeof options === 'function') return
         this.currentOptions = options
       },
     },
@@ -183,14 +194,14 @@ export default {
   methods: {
     onKeydown(event) {
       if (this.dropdownActive) {
-        if (event.keyCode == 27) { // escape
+        if (event.keyCode === 27) { // escape
           this.dropdownActive = false
           event.stopPropagation()
-        } else if (event.keyCode == 38) { // up
+        } else if (event.keyCode === 38) { // up
           this.highlight = (this.highlight + this.filteredOptions.length - 1) % this.filteredOptions.length
-        } else if (event.keyCode == 40) { // down
+        } else if (event.keyCode === 40) { // down
           this.highlight = (this.highlight + 1) % this.filteredOptions.length
-        } else if (event.keyCode == 13) { // enter
+        } else if (event.keyCode === 13) { // enter
           const highlighted = this.filteredOptions[this.highlight]
           if (highlighted) this.toggleValue(this.getValue(highlighted))
           event.preventDefault()
@@ -231,7 +242,7 @@ export default {
 
     valuesEqual(a, b) {
       if (this.pk && a && b && a[this.pk] == b[this.pk]) return true
-      return a == b || JSON.stringify(a) == JSON.stringify(b)
+      return a == b || JSON.stringify(a) === JSON.stringify(b)
     },
 
     toggleValue(value) {
@@ -250,10 +261,10 @@ export default {
     },
 
     updateOptions(debounceMs) {
-      if (typeof this.options == 'function') {
+      if (typeof this.options === 'function') {
         this.searching = true
         clearTimeout(this._searchTimeout)
-        this._searchTimeout = setTimeout(async () => {
+        this._searchTimeout = setTimeout(async() => {
           try {
             this.currentOptions = await this.options(this.searchText)
           } finally {

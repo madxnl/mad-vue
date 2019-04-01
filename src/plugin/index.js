@@ -12,7 +12,7 @@ export default {
       'FormItem',
       'Icon',
       'Input',
-      'InputCurrency',
+      'InputNumber',
       'InputDate',
       'InputFile',
       'InputImage',

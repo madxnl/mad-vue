@@ -59,7 +59,7 @@ export default {
       this.$mad.message.success(`Submitted message "${this.message}"`)
       this.message = ''
     },
-    
+
     validator(x) {
       // return 'nope'
     },

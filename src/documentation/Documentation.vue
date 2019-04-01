@@ -56,6 +56,7 @@ export default {
       { name: 'form', component: loadSection('FormDocs'), indent: 1, mono: true },
       { name: 'form-item', component: loadSection('FormItemDocs'), indent: 1, mono: true },
       { name: 'input', component: loadSection('InputDocs'), indent: 1, mono: true },
+      { name: 'input-number', component: loadSection('InputNumberDocs'), indent: 1, mono: true },
       { name: 'input-image', component: loadSection('InputImageDocs'), indent: 1, mono: true },
       { name: 'select', component: loadSection('SelectDocs'), indent: 1, mono: true },
       { name: 'dropdown', component: loadSection('FormDocs'), indent: 1, mono: true },

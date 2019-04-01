@@ -3,7 +3,7 @@
     <mad-form-item label="Message" required>
       <mad-input v-model="message" />
     </mad-form-item>
-    
+
     <mad-form-item label="Date and time" :value="datetime" required>
       <mad-input-date v-model="datetime" time seconds />
     </mad-form-item>
