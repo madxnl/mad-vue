@@ -3,7 +3,6 @@ import Messages from './Messages'
 
 export default {
   install(Vue, config) {
-
     const components = [
       'Button',
       'Checkbox',
@@ -19,14 +18,11 @@ export default {
       'InputImage',
       'Loading',
       'Message',
-      'Menu',
-      'MenuItem',
       'Modal',
       'Select',
       'Tabs',
       'Transition',
     ]
-
 
     for (let name in filters) {
       Vue.filter(name, filters[name])
@@ -47,14 +43,12 @@ export default {
     })
 
     const keydown = e => {
-      if (e.keyCode == 9) window.document.body.classList.add('show-focus-outline')
+      if (e.keyCode === 9) window.document.body.classList.add('show-focus-outline')
     }
     const mousedown = e => {
       window.document.body.classList.remove('show-focus-outline')
     }
     addEventListener('keydown', keydown)
     addEventListener('mousedown', mousedown)
-
-
   },
 }
