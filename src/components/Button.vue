@@ -21,7 +21,7 @@ export default {
 
   data: () => ({
   }),
-  
+
   computed: {
     classes() {
       const classes = ['mad-button']

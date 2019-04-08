@@ -8,14 +8,15 @@
   border: 1px solid rgba($text, 0.5);
   box-shadow: 0 1px 1px rgba(black, 0.15) inset;
   border-radius: 2px;
-  padding: .5em;
+  padding: 0 .5em;
+  min-height: 2.6em;
   .mad-input_input {
     flex-grow: 1;
     min-width: 0;
     background: transparent;
-    padding: .5em;
-    padding-right: 0;
-    margin: -.5em;
+    padding: .5em 0;
+    // padding-right: 0;
+    // margin: -.5em;
     // font-size: 110%;
     .-haserror & {
       border-color: $red;
@@ -29,7 +30,8 @@
       cursor: default;
     }
     &:focus {
-      border-color: $primary;
+      outline: none !important;
+      // border-color: $primary;
     }
   }
   & > :not(:last-child) {

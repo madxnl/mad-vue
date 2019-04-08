@@ -1,6 +1,7 @@
 
 
 .mad-form-item {
+  @extend p;
   display: block;
   &.-haserror {
     color: $red;

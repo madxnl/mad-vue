@@ -14,7 +14,7 @@
   outline: 0;
   .show-focus-outline & {
     // outline: 2px solid rgba($primary, 0.5);
-    box-shadow: 0 0 0 3px rgba($primary, 0.5) !important;
+    box-shadow: 0 0 0 3px rgba($primary, 0.5);
   }
 }
 
@@ -124,7 +124,14 @@ input, select, textarea {
   }
 }
 
-
+.mad-badge {
+  padding: .25em .35em;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: .25em;
+}
 
 //////////////////////////////////// UTILITY ////////////////////////////////////
 

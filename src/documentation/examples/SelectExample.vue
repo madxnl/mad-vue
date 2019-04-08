@@ -15,6 +15,19 @@
         ]"
       />
     </mad-form-item>
+
+    <mad-form-item label="Simple select">
+      <mad-select
+        v-model="selectedValue"
+        :options="[
+          { value: 'a', label: 'Option A' },
+          { value: 'b', label: 'Option B' },
+          { value: 'c', label: 'Option C' },
+          { value: 'd', label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' },
+        ]"
+      />
+    </mad-form-item>
+
     <mad-form-item label="Multiple select">
       <mad-select
         v-model="selectedMulti"
@@ -27,6 +40,7 @@
         ]"
       />
     </mad-form-item>
+
     <mad-form-item label="Objects">
       <mad-select
         v-model="selectedObjects"
@@ -38,6 +52,7 @@
         ]"
       />
     </mad-form-item>
+
     <mad-form-item label="Async search country">
       <mad-select v-model="selectedCountry" :options="searchCountries">
         <template slot-scope="{option}">

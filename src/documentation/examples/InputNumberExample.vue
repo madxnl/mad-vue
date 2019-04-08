@@ -1,26 +1,34 @@
 <template>
-  <div class="v-spacing-sm">
-    <mad-form-item label="Boxes">
-      <mad-input-number v-model="boxes" :max="100" />
-      {{ JSON.stringify(boxes) }}
+  <div>
+    <mad-form-item label="Number of items">
+      <mad-input-number v-model="number" placeholder="0" />
     </mad-form-item>
 
-    <mad-form-item label="Currency">
-      <mad-input-number v-model="cost" :min="0" :decimals="2" placeholder="0.00">
+    <mad-form-item label="Cost per item">
+      <mad-input-number v-model="cost" :min="0" :decimals="null" placeholder="0.00">
         <mad-icon mdi="currency-eur" />
       </mad-input-number>
-      {{ JSON.stringify(cost) }}
     </mad-form-item>
 
-    <input v-model="boxes">
+    <div>
+      {{ number || 0 }} <mad-icon mdi="close" />
+      <mad-icon mdi="currency-eur" /> {{ (cost || 0).toFixed(2) }}
+      <mad-icon mdi="equal" /> <mad-icon mdi="currency-eur" /> {{ total.toFixed(2) }}
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    boxes: null,
+    number: null,
     cost: null,
   }),
+
+  computed: {
+    total() {
+      return this.number * this.cost
+    },
+  },
 }
 </script>

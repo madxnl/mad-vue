@@ -31,6 +31,12 @@ export default {
         description: 'The id of the input.'
       },
       {
+        name: 'decimals',
+        type: 'Number',
+        description: 'Number of decimals. Set to null to allow any number of decimals.',
+        default: 0,
+      },
+      {
         name: 'min',
         type: 'Number',
         description: 'Minimum number value.'

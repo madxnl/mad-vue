@@ -1,82 +1,79 @@
 <template>
-  <mad-dropdown
-    v-model="dropdownActive"
+  <div
     class="mad-select"
     :class="classes"
   >
-    <mad-input
-      class="mad-select_input"
-      :value="searchText"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      v-bind="$attrs"
-      v-on="inputListeners"
-    >
-      <div v-if="displaySelected" class="mad-select_grid">
-        <template v-if="multiple">
-          <mad-button
-            v-for="(v,i) in selectedValues"
-            :key="i"
-            bg="primary-light"
-            color="primary"
-            size="sm"
-            title="Click to remove from selection"
-            @click.stop="toggleValue(v)"
-          >
-            <div class="select_multi-item">
-              <div>
-                <slot v-if="getOption(v)" :option="getOption(v)">
-                  {{ getLabel(getOption(v)) }}
-                </slot>
-                <template v-else>{{ v }}</template>
-              </div>
+    <mad-dropdown v-model="dropdownActive">
+      <div class="mad-input">
+        <div class="mad-select_content">
+          <template v-if="multiple">
+            <div
+              v-for="(v,i) in selectedValues"
+              :key="i"
+              class="select_multi-item"
+              title="Click to remove from selection"
+              @click.stop="toggleValue(v)"
+            >
+              <slot v-if="getOption(v)" :option="getOption(v)">
+                {{ getLabel(getOption(v)) }}
+              </slot>
+              <template v-else>{{ v }}</template>
               <mad-icon mdi="close" />
             </div>
-          </mad-button>
-        </template>
+          </template>
+          <template v-else>
+            <div v-for="(v,i) in selectedValues" v-show="displaySelected" :key="i" class="select_item">
+              <slot v-if="getOption(v)" :option="getOption(v)">
+                {{ getLabel(getOption(v)) }}
+              </slot>
+            </div>
+          </template>
+
+          <input
+            class="mad-select_input"
+            :value="searchText"
+            :placeholder="currentPlaceholder"
+            :disabled="disabled"
+            v-bind="$attrs"
+            v-on="inputListeners"
+          >
+        </div>
+
+        <mad-icon mdi="chevron-down" class="size-lg" />
+      </div>
+
+      <div slot="dropdown">
+        <div v-if="searching" class="mad-menu-item">
+          <em>Searching&hellip;</em>
+        </div>
         <template v-else>
-          <div v-for="(v,i) in selectedValues" :key="i">
-            <slot :option="getOption(v)">
-              {{ getLabel(getOption(v)) }}
-            </slot>
+          <div v-if="!filteredOptions.length" class="mad-menu-item">
+            <template v-if="searchText">
+              <em>No results for "{{ searchText }}"</em>
+            </template>
+            <template v-else-if="typeof options == 'function'">
+              <em>Type to search</em>
+            </template>
+            <template v-else>
+              <em>No options available</em>
+            </template>
+          </div>
+          <div
+            v-for="(option,i) in filteredOptions"
+            :key="i"
+            class="mad-menu-item"
+            :class="{
+              active: valueIsSelected(getValue(option)),
+              hover: highlight==i,
+            }"
+            @click="toggleValue(getValue(option))"
+          >
+            <slot :option="option">{{ getLabel(option) }}</slot>
           </div>
         </template>
       </div>
-
-      <mad-icon slot="right" mdi="chevron-down" />
-    </mad-input>
-
-    <div slot="dropdown">
-      <div v-if="searching" class="mad-menu-item">
-        <em>Searching&hellip;</em>
-      </div>
-      <template v-else>
-        <div v-if="!filteredOptions.length" class="mad-menu-item">
-          <template v-if="searchText">
-            <em>No results for "{{ searchText }}"</em>
-          </template>
-          <template v-else-if="typeof options == 'function'">
-            <em>Type to search</em>
-          </template>
-          <template v-else>
-            <em>No options available</em>
-          </template>
-        </div>
-        <div
-          v-for="(option,i) in filteredOptions"
-          :key="i"
-          class="mad-menu-item"
-          :class="{
-            active: valueIsSelected(getValue(option)),
-            hover: highlight==i,
-          }"
-          @click="toggleValue(getValue(option))"
-        >
-          <slot :option="option">{{ getLabel(option) }}</slot>
-        </div>
-      </template>
-    </div>
-  </mad-dropdown>
+    </mad-dropdown>
+  </div>
 </template>
 
 <script>
@@ -104,8 +101,9 @@ export default {
     classes() {
       return {
         // '--dropdown-active': this.dropdownActive,
-        '--input-hide': !this.searchText && !this.isEmpty,
+        // '--input-hide': !this.searchText && !this.isEmpty,
         '--disabled': this.disabled,
+        multiple: this.multiple,
       }
     },
 
@@ -128,6 +126,11 @@ export default {
         const optionWords = tokenize(this.getLabel(option))
         return terms.every(term => optionWords.some(word => word.startsWith(term)))
       })
+    },
+
+    currentPlaceholder() {
+      if (this.isEmpty) return this.placeholder
+      return ''
     },
 
     displaySelected() {
@@ -209,8 +212,8 @@ export default {
       }
     },
 
-    onInput(text) {
-      this.searchText = text
+    onInput(event) {
+      this.searchText = event.target.value
       this.dropdownActive = true
       this.highlight = 0
       this.updateOptions(400)
@@ -225,11 +228,8 @@ export default {
     },
 
     getLabel(option) {
-      if (option == null) return 'null'
       if (option && option.label) return option.label
-      if (option && option.toString) return option.toString()
-      return ''
-      // console.warn
+      return JSON.stringify(option)
     },
 
     valueIsSelected(value) {

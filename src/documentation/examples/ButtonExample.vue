@@ -51,5 +51,16 @@
         Active
       </mad-button>
     </p>
+    <p>
+      <mad-button class="bg-primary">
+        Notifications &nbsp;<span class="mad-badge bg-white size-xs">2</span>
+      </mad-button>
+      <span class="mad-badge bg-green">
+        Foobar
+        <mad-button class="white">
+          <mad-icon mdi="close" />
+        </mad-button>
+      </span>
+    </p>
   </div>
 </template>
