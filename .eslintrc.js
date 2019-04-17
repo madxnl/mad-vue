@@ -12,7 +12,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     'space-before-function-paren': ['error', 'never'],
-    'comma-dangle': ['error', 'only-multiline'],
+    'comma-dangle': ['error', 'always-multiline'],
     'vue/html-self-closing': ['error', {'html': { 'void': 'never', 'normal': 'never', 'component': 'always' }}],
     'vue/max-attributes-per-line': ['error', {'singleline': 5, 'multiline': {'max': 1}}],
     'vue/no-v-html': ['off'],

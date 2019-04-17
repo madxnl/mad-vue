@@ -7,25 +7,22 @@
       <div class="mad-input">
         <div class="mad-select_content">
           <template v-if="multiple">
-            <div
+            <button
               v-for="(v,i) in selectedValues"
               :key="i"
               class="select_multi-item"
               title="Click to remove from selection"
               @click.stop="toggleValue(v)"
             >
-              <slot v-if="getOption(v)" :option="getOption(v)">
-                {{ getLabel(getOption(v)) }}
-              </slot>
-              <template v-else>{{ v }}</template>
+              <slot v-if="valueHasOption(v)" :option="getValueOption(v)">{{ getOptionLabel(getValueOption(v)) }}</slot>
+              <template v-else>{{ [v] }}</template>
               <mad-icon mdi="close" />
-            </div>
+            </button>
           </template>
           <template v-else>
             <div v-for="(v,i) in selectedValues" v-show="displaySelected" :key="i" class="select_item">
-              <slot v-if="getOption(v)" :option="getOption(v)">
-                {{ getLabel(getOption(v)) }}
-              </slot>
+              <slot v-if="valueHasOption(v)" :option="getValueOption(v)">{{ getOptionLabel(getValueOption(v)) }}</slot>
+              <template v-else>{{ [v] }}</template>
             </div>
           </template>
 
@@ -63,12 +60,14 @@
             :key="i"
             class="mad-menu-item"
             :class="{
-              active: valueIsSelected(getValue(option)),
+              active: valueIsSelected(getOptionValue(option)),
               hover: highlight==i,
             }"
-            @click="toggleValue(getValue(option))"
+            @mousedown="toggleValue(getOptionValue(option))"
           >
-            <slot :option="option">{{ getLabel(option) }}</slot>
+            <slot :option="option">
+              {{ getOptionLabel(option) }}
+            </slot>
           </div>
         </template>
       </div>
@@ -77,6 +76,8 @@
 </template>
 
 <script>
+import { isEqual } from 'lodash'
+
 export default {
   props: {
     options: { type: [Array, Function], required: true },
@@ -84,7 +85,10 @@ export default {
     placeholder: { type: String, default: 'Please select' },
     disabled: Boolean,
     multiple: Boolean,
-    pk: { type: String, default: null },
+    optionLabel: { type: [String, Function], default: null },
+    optionValue: { type: [String, Function], default: null },
+    valueKey: { type: [String, Function], default: null },
+    pk: { default: null, validator: () => console.warn('Select prop "pk" deprecated, use "value-key" instead') },
   },
 
   data: () => ({
@@ -100,19 +104,20 @@ export default {
   computed: {
     classes() {
       return {
-        // '--dropdown-active': this.dropdownActive,
-        // '--input-hide': !this.searchText && !this.isEmpty,
         '--disabled': this.disabled,
         multiple: this.multiple,
       }
+    },
+
+    hasNullOption() {
+      return this.cachedOptions.some(o => this.getOptionValue(o) == null)
     },
 
     isEmpty() {
       if (this.multiple) {
         return this.selectedValues.length === 0
       } else {
-        const hasNullOption = this.cachedOptions.some(o => this.getValue(o) == null)
-        return this.selectedValues[0] == null && !hasNullOption
+        return this.selectedValues[0] == null && !this.hasNullOption
       }
     },
 
@@ -123,7 +128,7 @@ export default {
       const tokenize = s => s.toLowerCase().match(/(\w+|[^\w\s]+)/g)
       const terms = tokenize(this.searchText)
       return options.filter((option, i) => {
-        const optionWords = tokenize(this.getLabel(option))
+        const optionWords = tokenize(this.getOptionLabel(option))
         return terms.every(term => optionWords.some(word => word.startsWith(term)))
       })
     },
@@ -142,13 +147,7 @@ export default {
         ...this.$listeners,
         input: this.onInput,
         focus: this.onFocus,
-        // blur: event => {
-        // if (this.searchText) {
-        //   const value = this.getValue(this.filteredOptions[this.highlight])
-        //   if (value && !this.valueIsSelected(value)) this.toggleValue(value)
-        // }
-        // this.dropdownActive = false
-        // },
+        blur: this.onBlur,
         keydown: this.onKeydown,
       }
     },
@@ -174,8 +173,8 @@ export default {
       immediate: true,
       handler(currentOptions) {
         this.cachedOptions = currentOptions.concat(this.cachedOptions.filter(a => {
-          const value = this.getValue(a)
-          return !currentOptions.some(b => this.valuesEqual(this.getValue(b), value))
+          const value = this.getOptionValue(a)
+          return !currentOptions.some(b => this.valuesEqual(this.getOptionValue(b), value))
         }))
       },
     },
@@ -205,9 +204,13 @@ export default {
         } else if (event.keyCode === 40) { // down
           this.highlight = (this.highlight + 1) % this.filteredOptions.length
         } else if (event.keyCode === 13) { // enter
-          const highlighted = this.filteredOptions[this.highlight]
-          if (highlighted) this.toggleValue(this.getValue(highlighted))
-          event.preventDefault()
+          if (this.highlight !== -1) {
+            const value = this.getOptionValue(this.filteredOptions[this.highlight])
+            if (value !== undefined) {
+              this.toggleValue(value)
+              event.preventDefault()
+            }
+          }
         }
       }
     },
@@ -220,29 +223,63 @@ export default {
     },
 
     onFocus(event) {
+      this.dropdownActive = true
       this.updateOptions(0)
     },
 
-    getOption(value) {
-      return this.cachedOptions.find(o => this.valuesEqual(this.getValue(o), value)) || value
+    onBlur(event) {
+      this.dropdownActive = false
+      if (this.highlight !== -1) {
+        const value = this.getOptionValue(this.filteredOptions[this.highlight])
+        if (value !== undefined && this.isEmpty) {
+          this.toggleValue(value)
+        }
+        this.highlight = -1
+      }
     },
 
-    getLabel(option) {
-      if (option && option.label) return option.label
+    valueHasOption(value) {
+      return this.cachedOptions.some(o => this.valuesEqual(this.getOptionValue(o), value))
+    },
+
+    getValueOption(value) {
+      return this.cachedOptions.find(o => this.valuesEqual(this.getOptionValue(o), value))
+    },
+
+    getOptionLabel(option) {
+      if (typeof this.optionLabel === 'function') return this.optionLabel(option)
+      if (option != null) {
+        if (typeof this.optionLabel === 'string') return option[this.optionLabel]
+        if (option.label !== undefined) return option.label
+      }
       return JSON.stringify(option)
+    },
+
+    getOptionValue(option) {
+      if (typeof this.optionValue === 'function') return this.optionValue(option)
+      if (option != null) {
+        if (typeof this.optionValue === 'string') return option[this.optionValue]
+        if (option.value !== undefined) return option.value
+      }
+      return option
+    },
+
+    getValueKey(value) {
+      if (typeof this.valueKey === 'function') return this.valueKey(value)
+      if (value != null) {
+        if (typeof this.valueKey === 'string') return value[this.valueKey]
+        if (value.id !== undefined) return value.id
+        if (value.key !== undefined) return value.key
+      }
+      return value
+    },
+
+    valuesEqual(a, b) {
+      return isEqual(this.getValueKey(a), this.getValueKey(b))
     },
 
     valueIsSelected(value) {
       return this.selectedValues.some(v => this.valuesEqual(value, v))
-    },
-
-    getValue(option) {
-      return option && option.value !== undefined ? option.value : option
-    },
-
-    valuesEqual(a, b) {
-      if (this.pk && a && b && a[this.pk] == b[this.pk]) return true
-      return a == b || JSON.stringify(a) === JSON.stringify(b)
     },
 
     toggleValue(value) {

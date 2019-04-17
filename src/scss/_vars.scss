@@ -6,6 +6,7 @@ $purple: #7348eb !default;
 $orange: #fb7e5c !default;
 
 $dark: #35495d;
+$gray: #818181;
 
 $white: #ffffff !default;
 
@@ -20,8 +21,9 @@ $colors: (
   red: $red,
   purple: $purple,
   orange: $orange,
-
+  
   white: $white,
+  gray: $gray,
 
   text: $text,
   primary: $primary,
@@ -53,3 +55,13 @@ $margins-sizes: (
   -xl: $margin * 3.00,
   '-0': 0,
 ) !default;
+
+
+
+@function contrast-text-color($color) {
+  @if (lightness($color) > 60) {
+    @return #000000;
+  } @else {
+    @return #ffffff;
+  }
+}

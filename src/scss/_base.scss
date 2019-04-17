@@ -86,7 +86,7 @@ img {
 }
 
 
-input, select, textarea {
+input, select, textarea, button {
   font: inherit;
   // color: inherit;
 }
@@ -101,6 +101,7 @@ input, select, textarea {
   overflow: hidden;
   text-overflow: ellipsis;
   color: $text;
+  cursor: pointer;
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -108,13 +109,8 @@ input, select, textarea {
   &.clickable {
     cursor: pointer;
   }
-  &:hover, &:focus, &.hover {
-    color: white;
-    background: $primary;
-  }
-  &.active {
-    color: white;
-    background: $primary;
+  &:hover, &:focus, &.hover, &.active {
+    background: rgba($primary, 0.2);
   }
   &:last-child {
     margin-bottom: .25rem;
@@ -132,66 +128,3 @@ input, select, textarea {
   white-space: nowrap;
   border-radius: .25em;
 }
-
-//////////////////////////////////// UTILITY ////////////////////////////////////
-
-@function contrast-text-color($color) {
-  @if (lightness($color) > 60) {
-    @return #000000;
-  } @else {
-    @return #ffffff;
-  }
-}
-
-
-@each $name, $color in $colors {
-  .color-#{$name} { color: $color !important; } // Deprecated
-  .bg-#{$name} {
-    background-color: $color !important;
-    color: contrast-text-color($color);
-  }
-  .#{$name} { color: $color !important; }
-  .text-#{$name} { color: $color !important; }
-  .border-#{$name} { border-color: $color !important; }
-}
-
-@each $key, $size in $fontsizes {
-  .size-#{$key} { font-size: $size !important; }
-}
-
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.text-left { text-align: left; }
-
-@each $direction in (row, column, row-reverse, column-reverse) {
-  .#{$direction} {
-    display: flex;
-    flex-flow: $direction;
-  }
-}
-
-.wrap { flex-wrap: wrap; }
-.wrap-reverse { flex-wrap: wrap-reverse; }
-.grow { flex-grow: 1; }
-@each $t in (baseline, center, stretch, flex-start, flex-end) {
-  .align-#{$t} { align-items: $t }
-  .align-self-#{$t} { align-self: $t }
-}
-@each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
-  .justify-#{$t} { justify-content: $t }
-  .justify-self-#{$t} { justify-self: $t }
-}
-
-.faded { opacity: 0.5 }
-
-@each $key, $value in $margins-sizes {
-  .margin#{$key} { margin: $value; }
-  .padding#{$key} { padding: $value; }
-  .h-spacing#{$key} > :not(:last-child) { margin-right: $value; }
-  .v-spacing#{$key} > :not(:last-child) { margin-bottom: $value; }
-}
-
-
-// .cursor-pointer { cursor: pointer; }
-
-// .capitalize::first-letter { text-transform: uppercase }

@@ -1,77 +1,89 @@
 <template>
-  <mad-dropdown class="mad-input-date">
-
-    <mad-input class="mad-input-date_field"
+  <mad-dropdown
+    v-model="dropdownActive"
+    class="mad-input-date"
+  >
+    <mad-input
+      class="mad-input-date_field"
       :value="inputText || displayFormat(value)"
-      v-bind="$attrs" v-on="listeners">
-      <mad-icon mdi="chevron-down" slot="right" />
+      v-bind="$attrs"
+      v-on="listeners"
+    >
+      <mad-icon slot="right" mdi="chevron-down" />
     </mad-input>
 
     <div slot="dropdown" class="mad-input-date_columns">
       <div>
         <div class="mad-input-date_row">
-          <mad-button @click.stop="addMonths(-1)" flat size="small">
+          <mad-button flat size="small" @click.stop="addMonths(-1)">
             <mad-icon mdi="chevron-left" />
           </mad-button>
           <div class="grow text-center">
-            {{calMonthDisplay}}
+            {{ calMonthDisplay }}
           </div>
-          <mad-button @click.stop="addMonths(1)" flat size="small">
+          <mad-button flat size="small" @click.stop="addMonths(1)">
             <mad-icon mdi="chevron-right" />
           </mad-button>
         </div>
         <div class="mad-input-date_grid">
           <p v-for="(day,i) in monthDays.slice(0, 7)" :key="'weekday'+i" class="muted">
-            {{new Date(day).toLocaleString('en', { weekday: 'short' }).slice(0, 2)}}
+            {{ new Date(day).toLocaleString('en', { weekday: 'short' }).slice(0, 2) }}
           </p>
-          <mad-button v-for="(day,i) in monthDays" :key="'date'+i" @click="selectDate(day)"
+          <mad-button
+            v-for="(day,i) in monthDays"
+            :key="'date'+i"
             :flat="!isCurrentDay(day)"
-            :color="isCurrentDay(day) ? 'primary' : isCurrentMonth(day) ? null : 'muted'">
-            {{day.getDate()}}
+            :class="{
+              'bg-primary': isCurrentDay(day),
+              'faded': !isCurrentMonth(day),
+            }"
+            @click="clickDate(day)"
+          >
+            {{ day.getDate() }}
           </mad-button>
         </div>
       </div>
 
       <div v-if="time" class="mad-input-date_time">
         <div class="column spacing-sm">
-          <mad-button @click.stop="addHours(1)" flat size="small">
+          <mad-button flat size="small" @click.stop="addHours(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
           <div>
-            {{localeTimeString.split(':')[0]}}
+            {{ localeTimeString.split(':')[0] }}
           </div>
-          <mad-button @click.stop="addHours(-1)" flat size="small">
+          <mad-button flat size="small" @click.stop="addHours(-1)">
             <mad-icon mdi="chevron-down" />
           </mad-button>
         </div>
         <div>:</div>
         <div class="column spacing-sm">
-          <mad-button @click.stop="addMinutes(1)" flat size="small">
+          <mad-button flat size="small" @click.stop="addMinutes(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
           <div>
-            {{localeTimeString.split(':')[1]}}
+            {{ localeTimeString.split(':')[1] }}
           </div>
-          <mad-button @click.stop="addMinutes(-1)" flat size="small">
+          <mad-button flat size="small" @click.stop="addMinutes(-1)">
             <mad-icon mdi="chevron-down" />
           </mad-button>
         </div>
         <template v-if="seconds">
           <div>:</div>
           <div class="column spacing-sm">
-            <mad-button @click.stop="addSeconds(1)" flat size="small">
+            <mad-button flat size="small" @click.stop="addSeconds(1)">
               <mad-icon mdi="chevron-up" />
             </mad-button>
             <div>
-              {{localeTimeString.split(':')[2].split(' ')[0]}}
+              {{ localeTimeString.split(':')[2].split(' ')[0] }}
             </div>
-            <mad-button @click.stop="addSeconds(-1)" flat size="small">
+            <mad-button flat size="small" @click.stop="addSeconds(-1)">
               <mad-icon mdi="chevron-down" />
             </mad-button>
           </div>
         </template>
         <div v-if="localeTimeString.includes(' ')">
-          {{localeTimeString.split(' ')[1]}}
+          {{ localeTimeString.split(' ')[1] }}
         </div>
       </div>
     </div>
@@ -83,7 +95,7 @@ import * as dateFns from 'date-fns'
 
 export default {
   props: {
-    value: [String, Number, Date],
+    value: { type: [String, Number, Date], default: null },
 
     time: Boolean,
     seconds: Boolean,
@@ -95,6 +107,7 @@ export default {
   data: () => ({
     currentMonth: new Date(),
     inputText: null,
+    dropdownActive: false,
   }),
 
   computed: {
@@ -133,7 +146,7 @@ export default {
     monthDays() {
       const firstOfMonth = dateFns.setDate(this.currentMonth, 1)
       const firstDay = dateFns.setDay(firstOfMonth, 1)
-      return [...Array(6*7).keys()].map(i => dateFns.addDays(firstDay, i))
+      return [...Array(6 * 7).keys()].map(i => dateFns.addDays(firstDay, i))
     },
   },
 
@@ -168,6 +181,11 @@ export default {
 
     onFocus(e) {
       this.$nextTick().then(() => e.target.select())
+    },
+
+    clickDate(date) {
+      this.selectDate(date)
+      this.dropdownActive = false
     },
 
     selectDate(date) {

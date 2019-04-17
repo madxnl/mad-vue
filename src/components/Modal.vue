@@ -1,6 +1,6 @@
 <template>
   <mad-transition>
-    <div class="mad-modal" @click.self="toggle(false)" v-if="active">
+    <div v-if="active" class="mad-modal" @click.self="OnClickOutside">
       <div class="mad-modal_window">
         <slot></slot>
       </div>
@@ -14,7 +14,8 @@ const stack = []
 export default {
   props: {
     value: { type: Boolean, default: false },
-    title: { type: String }
+    title: { type: String, default: null },
+    clickOutsideClose: { type: Boolean, default: true },
   },
 
   data: () => ({
@@ -24,7 +25,7 @@ export default {
 
   computed: {
     visible() {
-      return this.stack[this.stack.length - 1] == this
+      return this.stack[this.stack.length - 1] === this
     },
   },
 
@@ -34,9 +35,19 @@ export default {
     },
   },
 
+  created() {
+    window.document.addEventListener('keyup', this.onKeyup)
+    this.toggle(this.value)
+  },
+
+  beforeDestroy() {
+    window.document.removeEventListener('keyup', this.onKeyup)
+    this.toggle(false)
+  },
+
   methods: {
-    toggle(active=!this.active) {
-      if (active == this.active) return
+    toggle(active = !this.active) {
+      if (active === this.active) return
       this.active = active
       if (this.stack.includes(this)) {
         this.stack.splice(this.stack.indexOf(this), 1)
@@ -53,10 +64,10 @@ export default {
       }
       this.$emit('input', active)
     },
-    
+
     onKeyup(event) {
       // escape press hides modal
-      if (this.active && event.keyCode == 27) {
+      if (this.active && event.keyCode === 27) {
         this.toggle(false)
       }
       // event.stopPropagation();
@@ -71,16 +82,12 @@ export default {
       document.body.removeChild(div)
       return result
     },
-  },
-  
-  created() {
-    window.document.addEventListener('keyup', this.onKeyup)
-    this.toggle(this.value)
-  },
 
-  beforeDestroy() {
-    window.document.removeEventListener('keyup', this.onKeyup)
-    this.toggle(false)
+    OnClickOutside() {
+      if (this.clickOutsideClose) {
+        this.toggle(false)
+      }
+    },
   },
 }
 </script>

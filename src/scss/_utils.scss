@@ -1,0 +1,48 @@
+
+
+@each $name, $color in $colors {
+  .color-#{$name} { color: $color !important; } // Deprecated
+  .bg-#{$name} {
+    background-color: $color !important;
+    color: contrast-text-color($color);
+  }
+  .#{$name} { color: $color !important; }
+  .text-#{$name} { color: $color !important; }
+  .border-#{$name} { border-color: $color !important; }
+}
+
+@each $key, $size in $fontsizes {
+  .size-#{$key} { font-size: $size !important; }
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+@each $direction in (row, column, row-reverse, column-reverse) {
+  .#{$direction} {
+    display: flex;
+    flex-flow: $direction;
+  }
+}
+
+.wrap { flex-wrap: wrap; }
+.wrap-reverse { flex-wrap: wrap-reverse; }
+.grow { flex-grow: 1; }
+@each $t in (baseline, center, stretch, flex-start, flex-end) {
+  .align-#{$t} { align-items: $t }
+  .align-self-#{$t} { align-self: $t }
+}
+@each $t in (space-between, space-around, space-evenly, center, flex-start, flex-end) {
+  .justify-#{$t} { justify-content: $t }
+  .justify-self-#{$t} { justify-self: $t }
+}
+
+.faded { opacity: 0.5 }
+
+@each $key, $value in $margins-sizes {
+  .margin#{$key} { margin: $value; }
+  .padding#{$key} { padding: $value; }
+  .h-spacing#{$key} > :not(:last-child) { margin-right: $value; }
+  .v-spacing#{$key} > :not(:last-child) { margin-bottom: $value; }
+}

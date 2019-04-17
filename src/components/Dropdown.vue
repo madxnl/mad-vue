@@ -1,14 +1,15 @@
 <template>
-  <div class="mad-dropdown"
+  <div
+    class="mad-dropdown"
     :class="classes"
-    @click="toggle()"
-    v-bind="$attrs">
-
+    v-bind="$attrs"
+    @mousedown="!active && toggle()"
+  >
     <slot></slot>
 
-      <div v-if="active" class="mad-dropdown_content">
-        <slot name="dropdown"></slot>
-      </div>
+    <div v-if="active" class="mad-dropdown_content">
+      <slot name="dropdown"></slot>
+    </div>
   </div>
 </template>
 
@@ -41,13 +42,6 @@ export default {
     },
   },
 
-  methods: {
-    toggle(active=!this.active) {
-      this.active = !!active
-      this.$emit('input', this.active)
-    },
-  },
-
   mounted() {
     this.toggle(this.value)
 
@@ -61,6 +55,13 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener('click', this.clickListener)
+  },
+
+  methods: {
+    toggle(active = !this.active) {
+      this.active = !!active
+      this.$emit('input', this.active)
+    },
   },
 }
 </script>

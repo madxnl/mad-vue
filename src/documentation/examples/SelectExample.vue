@@ -11,6 +11,7 @@
           { value: 'a', label: 'Option A' },
           { value: 'b', label: 'Option B' },
           { value: 'c', label: 'Option C' },
+          { value: null, label: 'Option null' },
           { value: 'd', label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' },
         ]"
       />
@@ -32,25 +33,42 @@
       <mad-select
         v-model="selectedMulti"
         multiple
+        :option-value="o => o.foo"
         :options="[
-          { value: 'a', label: 'Option A' },
-          { value: 'b', label: 'Option B' },
-          { value: 'c', label: 'Option C' },
-          { value: 'd', label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' },
+          { foo: 'a', label: 'Option A' },
+          { foo: 'b', label: 'Option B' },
+          { foo: 'c', label: 'Option C' },
+          { foo: 'd', label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' },
+        ]"
+      />
+    </mad-form-item>
+
+    <mad-form-item label="Super select">
+      <mad-select
+        option-value="foo"
+        :options="[
+          { foo: 'a', label: 'Option A' },
+          { foo: null, label: 'Option null' },
+          { foo: 'c', label: 'Option C' },
+          { foo: 'd', label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' },
         ]"
       />
     </mad-form-item>
 
     <mad-form-item label="Objects">
       <mad-select
-        v-model="selectedObjects"
+        v-model="selectedObject"
         multiple
-        pk="name"
+        value-key="name"
         :options="[
           { name: 'Foo' },
           { name: 'Bar' },
         ]"
-      />
+      >
+        <template slot-scope="{option}">
+          {{ option.name }}
+        </template>
+      </mad-select>
     </mad-form-item>
 
     <mad-form-item label="Async search country">
@@ -70,7 +88,7 @@ export default {
   data: () => ({
     selectedValue: null,
     selectedMulti: ['a', 'b'],
-    selectedObjects: { name: 'Foo', __foo: 0.1 },
+    selectedObject: { name: 'Foo', a__foo: 0.1 },
     selectedCountry: null,
   }),
   methods: {
