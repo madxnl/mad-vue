@@ -22,7 +22,7 @@ export default {
   computed: {
     classes() {
       let classes = 'mad-icon'
-      
+
       if (this.flag && !flagsLoaded) this.loadFlags()
 
       if (this.mdi && this.flag) console.warn('mad-icon: set either mdi="" or flag="" not both')

@@ -26,12 +26,12 @@ export default {
       },
       {
         name: 'value',
-        description: 'The value to be validated.'
+        description: 'The value to be validated.',
       },
       {
         name: 'required',
         type: 'Boolean',
-        description: 'Marks the form item as required. If the <code>value</code> prop is falsy when the form-item is validated, an error message is shown after the label.'
+        description: 'Marks the form item as required. If the <code>value</code> prop is falsy when the form-item is validated, an error message is shown after the label.',
       },
       {
         name: 'required-message',
@@ -42,14 +42,14 @@ export default {
       {
         name: 'validator',
         type: 'Function',
-        description: 'Custom validator function. When the form-item is validated, the function is called with the <code>value</code> as parameter and should return an error message string if the value is invalid. Can be async.'
+        description: 'Custom validator function. When the form-item is validated, the function is called with the <code>value</code> as parameter and should return an error message string if the value is invalid. Can be async.',
       },
     ],
     events: null,
     slots: [
       {
         name: 'label',
-        description: 'Named slot can be used instead of <code>label</code> prop if html content is needed inside label.'
+        description: 'Named slot can be used instead of <code>label</code> prop if html content is needed inside label.',
       },
     ],
   }),

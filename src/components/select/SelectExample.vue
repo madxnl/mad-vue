@@ -20,6 +20,7 @@
     <mad-form-item label="Simple select">
       <mad-select
         v-model="selectedValue"
+        :option-label="o => o.label"
         :options="[
           { value: 'a', label: 'Option A' },
           { value: 'b', label: 'Option B' },
@@ -45,7 +46,7 @@
 
     <mad-form-item label="Super select">
       <mad-select
-        option-value="foo"
+        :option-value="o => o.foo"
         :options="[
           { foo: 'a', label: 'Option A' },
           { foo: null, label: 'Option null' },
@@ -59,7 +60,7 @@
       <mad-select
         v-model="selectedObject"
         multiple
-        value-key="name"
+        :values-equal="(a, b) => a.name === b.name"
         :options="[
           { name: 'Foo' },
           { name: 'Bar' },

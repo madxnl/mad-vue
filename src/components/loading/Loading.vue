@@ -1,6 +1,8 @@
 <template>
-  <div class="mad-loading"
-    :class="computedClass">
+  <div
+    class="mad-loading"
+    :class="computedClass"
+  >
     <!-- <div class="mad-loading_inner"></div> -->
   </div>
   <!-- <h1 class="mad-loading text-center"
@@ -17,7 +19,7 @@ export default {
     bar: Boolean,
     fixed: Boolean,
     absolute: Boolean,
-    color: String,
+    color: { type: String, default: null },
   },
 
   computed: {
@@ -30,7 +32,7 @@ export default {
       ]
     },
   },
-  
+
   created() {
     // loadingCount++
     // document.body.style.cursor = 'progress'

@@ -1,27 +1,22 @@
 <template>
   <div class="">
-    <input type="file"
-      ref="fileinput"
-      class="d-block"
+    <input
       :id="_uid"
+      ref="fileinput"
+      type="file"
+      class="d-block"
       :disabled="disabled"
+      v-bind="$attrs"
       @change="onInput"
-      v-bind="$attrs">
+    >
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    value: {},
+    value: { type: [Object, File], default: null },
     disabled: Boolean,
-  },
-  methods: {
-    onInput(event) {
-      // let value = event.target.value
-      const file = event.target.files[0]
-      this.$emit('input', file)
-    },
   },
   watch: {
     value(file) {
@@ -29,6 +24,13 @@ export default {
         // clear file input
         this.$refs.fileinput.value = ''
       }
+    },
+  },
+  methods: {
+    onInput(event) {
+      // let value = event.target.value
+      const file = event.target.files[0]
+      this.$emit('input', file)
     },
   },
 }

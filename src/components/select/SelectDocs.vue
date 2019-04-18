@@ -20,12 +20,13 @@ export default {
       },
       {
         name: 'value',
-        description: 'The current value of the selext.',
+        description: 'The current value of the select.',
       },
       {
         name: 'options',
         type: 'Array|Function',
-        description: 'Array of selectable options, options themselves can be any type. Alternatively, a function that returns a list of options for a given query string, this function can also be async.',
+        description: 'Array of selectable options (any type) or a (async) function returning an array of options for a given query string.',
+        required: true,
       },
       {
         name: 'multiple',
@@ -47,18 +48,19 @@ export default {
       },
       {
         name: 'option-label',
-        type: 'String|Function',
-        description: 'Override the way option labels are derived. By default, select tries to render the "label" or "name" attribute of each option. Set to a string to use that field in each option, or a function that takes an option and returns a label string.',
+        type: 'Function',
+        description: 'Function that returns a label for an option. By default, select uses the the "label" or "name" field of each option or the option itself.',
       },
       {
         name: 'option-value',
-        type: 'String|Function',
-        description: 'By default, select uses the the "value" field of each option, or the entire option itself as a value. Set to a string to use that field in each option, or a function that takes an option and returns a value for that option.',
+        type: 'Function',
+        description: 'Function that returns a value for a given option. By default, select uses the the "value" field of each option or the option itself.',
       },
       {
-        name: 'value-key',
-        type: 'String|Function',
-        description: 'To check if two values are equal, select tries to use the "id" or "key" field of each value, or the entire value itself, and does a deep comparison using lodash.isEqual. Set to a string to use that field as unique key for option, or a function that takes an option and returns a key for that option.',
+        name: 'value-equals',
+        type: 'Function',
+        description: 'Function that returns whether two values are equal.',
+        default: 'lodash.isEqual',
       },
     ],
     events: [

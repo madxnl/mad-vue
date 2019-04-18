@@ -39,10 +39,6 @@ export default {
     validateEmail(email) {
       if (!email.includes('@')) return 'is invalid'
     },
-
-    change(e) {
-      console.log(e)
-    }
   },
 }
 </script>

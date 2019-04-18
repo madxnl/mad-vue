@@ -29,21 +29,29 @@
       <div class="card">
         <template v-if="apiTab === 'Props'">
           <table class="component-api-table">
-            <tr><th>Prop</th><th>Description</th><th>Default</th></tr>
+            <tr>
+              <th width="20%">Prop</th>
+              <th>Description</th>
+            </tr>
             <tr v-for="prop in props" :key="prop.name">
               <td>
                 <code>{{ prop.name }}</code>
                 <br><small class="faded">{{ prop.type }}</small>
               </td>
-              <td v-html="prop.description"></td>
-              <td><code>{{ prop.default }}</code></td>
+              <td>
+                <div v-html="prop.description"></div>
+                <code v-if="prop.default"><small>Default: {{ prop.default }}</small></code>
+              </td>
             </tr>
           </table>
         </template>
 
         <template v-if="apiTab === 'Events'">
           <table class="component-api-table">
-            <tr><th>Event</th><th>Description</th></tr>
+            <tr>
+              <th width="20%">Event</th>
+              <th>Description</th>
+            </tr>
             <tr v-for="event in events" :key="event.name">
               <td>
                 <code>{{ event.name }}</code>
@@ -55,7 +63,10 @@
 
         <template v-if="apiTab === 'Slots'">
           <table class="component-api-table">
-            <tr><th>Slot</th><th>Description</th></tr>
+            <tr>
+              <th width="20%">Slot</th>
+              <th>Description</th>
+            </tr>
             <tr v-for="slot in slots" :key="slot.name">
               <td>
                 <code>{{ slot.name }}</code>

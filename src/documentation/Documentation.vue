@@ -109,7 +109,7 @@ export default {
 <style lang="scss" scoped>
 @import './scss/vars';
 
-$sectionWidth: 800px;
+$sectionWidth: 900px;
 $navWidth: 220px;
 
 .app {

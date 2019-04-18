@@ -85,9 +85,9 @@ export default {
     placeholder: { type: String, default: 'Please select' },
     disabled: Boolean,
     multiple: Boolean,
-    optionLabel: { type: [String, Function], default: null },
-    optionValue: { type: [String, Function], default: null },
-    valueKey: { type: [String, Function], default: null },
+    optionLabel: { type: Function, default: null },
+    optionValue: { type: Function, default: null },
+    valuesEqual: { type: Function, default: isEqual },
     pk: { default: null, validator: () => console.warn('Select prop "pk" deprecated, use "value-key" instead') },
   },
 
@@ -248,34 +248,14 @@ export default {
 
     getOptionLabel(option) {
       if (typeof this.optionLabel === 'function') return this.optionLabel(option)
-      if (option != null) {
-        if (typeof this.optionLabel === 'string') return option[this.optionLabel]
-        if (option.label !== undefined) return option.label
-      }
+      if (option != null && option.label !== undefined) return option.label
       return JSON.stringify(option)
     },
 
     getOptionValue(option) {
       if (typeof this.optionValue === 'function') return this.optionValue(option)
-      if (option != null) {
-        if (typeof this.optionValue === 'string') return option[this.optionValue]
-        if (option.value !== undefined) return option.value
-      }
+      if (option != null && option.value !== undefined) return option.value
       return option
-    },
-
-    getValueKey(value) {
-      if (typeof this.valueKey === 'function') return this.valueKey(value)
-      if (value != null) {
-        if (typeof this.valueKey === 'string') return value[this.valueKey]
-        if (value.id !== undefined) return value.id
-        if (value.key !== undefined) return value.key
-      }
-      return value
-    },
-
-    valuesEqual(a, b) {
-      return isEqual(this.getValueKey(a), this.getValueKey(b))
     },
 
     valueIsSelected(value) {
