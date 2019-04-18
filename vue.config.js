@@ -1,9 +1,4 @@
 module.exports = {
-  // configureWebpack: config => {
-  //   config.output.chunkFilename = '[name].bundle.js'
-  //   config.optimization = { splitChunks: { chunks: 'all' } }
-  // },
-  // whitespace: 'preserve',
   chainWebpack: config => {
     config.module
       .rule('vue')
@@ -22,9 +17,3 @@ module.exports = {
       })
   },
 }
-
-// plugins: [
-//   new webpack.DefinePlugin({
-//     VERSION: JSON.stringify(require('package.json').version)
-//   })
-// ]

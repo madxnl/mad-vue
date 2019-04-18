@@ -2,25 +2,22 @@
   <div>
     <p>
       <mad-button>Button</mad-button>
-      <mad-button class="bg-red">
+      <mad-button class="red">
         Button
       </mad-button>
       <mad-button class="bg-blue">
         Button
       </mad-button>
-      <mad-button class="red">
-        Button
-      </mad-button>
-      <mad-button class="blue">
+      <mad-button class="bg-white">
         Button
       </mad-button>
     </p>
     <p>
-      <mad-button class="size-xs" style="background:rgb(200,200,50)">
-        <mad-icon mdi="star" />
+      <mad-button class="size-sm bg-yellow">
+        <mad-icon mdi="balloon" />
         Button
       </mad-button>
-      <mad-button class="size-sm bg-yellow">
+      <mad-button class="bg-red">
         <mad-icon mdi="balloon" />
         Button
       </mad-button>
@@ -53,14 +50,9 @@
     </p>
     <p>
       <mad-button class="bg-primary">
-        Notifications &nbsp;<span class="mad-badge bg-white size-xs">2</span>
+        Notifications
+        <span class="mad-badge bg-white size-xs">2</span>
       </mad-button>
-      <span class="mad-badge bg-green">
-        Foobar
-        <mad-button class="white">
-          <mad-icon mdi="close" />
-        </mad-button>
-      </span>
     </p>
   </div>
 </template>
