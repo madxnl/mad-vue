@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="code-block">
     <p v-if="filename" class="filename">
       {{ filename }}
     </p>
@@ -24,11 +24,12 @@ export default {
   },
 
   created() {
-    const slot = this.$slots.default[0]
-    const lines = slot.text.split('\n')
-    const firstLine = lines.find(line => line.trim().length > 0)
-    const indent = firstLine.length - firstLine.trimLeft().length
-    slot.text = lines.map(line => line.slice(indent)).join('\n').trim()
+    // const slot = this.$slots.default[0]
+    // console.log('test', slot)
+    // const lines = slot.text.split('\n')
+    // const firstLine = lines.find(line => line.trim().length > 0)
+    // const indent = firstLine.length - firstLine.trimLeft().length
+    // slot.text = lines.map(line => line.slice(indent)).join('\n').trim()
   },
 
   mounted() {
@@ -48,5 +49,8 @@ export default {
 .filename {
   opacity: 0.6;
   font-style: italic;
+}
+.code-block pre {
+  margin-bottom: 0;
 }
 </style>

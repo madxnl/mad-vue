@@ -61,7 +61,7 @@ export default {
       { name: 'input-file', component: loadSection('InputImageDocs'), indent: 1, mono: true },
       { name: 'input-image', component: loadSection('InputImageDocs'), indent: 1, mono: true },
       { name: 'select', component: loadSection('SelectDocs'), indent: 1, mono: true },
-      { name: 'dropdown', component: loadSection('FormDocs'), indent: 1, mono: true },
+      { name: 'dropdown', component: loadSection('DropdownDocs'), indent: 1, mono: true },
       { name: 'modal', component: loadSection('ModalDocs'), indent: 1, mono: true },
       { name: 'tabs', component: loadSection('FormDocs'), indent: 1, mono: true },
       { name: 'loading', component: loadSection('LoadingDocs'), indent: 1, mono: true },

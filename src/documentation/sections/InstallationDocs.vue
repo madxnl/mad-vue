@@ -5,16 +5,18 @@
       Be sure to select CSS pre-processors during the setup because Mad-Vue uses SCSS for styling.
     </p>
     <code-block class="card">
-      npm install @madxnl/mad-vue
+      <pre>
+npm install @madxnl/mad-vue</pre>
     </code-block>
     <p>
       Add the following lines to <code>main.js</code> and you're good to go:
     </p>
     <code-block class="card">
-      import MadVue from '@madxnl/mad-vue'
-      import '@madxnl/mad-vue/src/scss/main.scss'
+      <pre>
+import MadVue from '@madxnl/mad-vue'
+import '@madxnl/mad-vue/src/scss/main.scss'
 
-      Vue.use(MadVue)
+Vue.use(MadVue)</pre>
     </code-block>
   </div>
 </template>

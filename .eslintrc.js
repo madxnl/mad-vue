@@ -3,14 +3,14 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
+  'extends': [
+    // 'plugin:vue/essential',
     'plugin:vue/recommended',
-    '@vue/standard',
+    '@vue/standard'
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-
     'space-before-function-paren': ['error', 'never'],
     'comma-dangle': ['error', 'always-multiline'],
     'vue/html-self-closing': ['error', {'html': { 'void': 'never', 'normal': 'never', 'component': 'always' }}],
@@ -20,6 +20,6 @@ module.exports = {
     'vue/require-prop-types': 'off',
   },
   parserOptions: {
-    parser: 'babel-eslint',
-  },
-};
+    parser: 'babel-eslint'
+  }
+}
