@@ -66,7 +66,7 @@ export default {
       { name: 'messages', component: require('../components/message/MessagesDocs').default, indent: 1, mono: true },
       { name: 'datatable', component: require('../components/datatable/DatatableDocs').default, indent: 1, mono: true },
       { name: 'transition', component: require('../components/transition/TransitionDocs').default, indent: 1, mono: true },
-      { name: 'Styling', component: require('./sections/StylingDocs').default },
+      { name: 'Custom Styling', component: require('./sections/StylingDocs').default },
     ],
     activeSection: null,
   }),

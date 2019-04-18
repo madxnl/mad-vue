@@ -6,29 +6,29 @@
     <p>
       1. Create <code>src/scss/_my-vars.scss</code>:
     </p>
-    <code-block class="card" filename="src/scss/_my-vars.scss">
+    <code-block class="card" filename="./src/scss/_my-vars.scss">
       <pre>
 // Change colors and set primary theme color:
 $red: #d14d14;
 $primary: $red;
 
 // Then import Mad-Vue vars:
-@import '~@madxnl/mad-vue/src/scss/vars.scss';</pre>
+@import '~@madxnl/mad-vue/src/scss/vars';</pre>
     </code-block>
     <p>
       2. Create <code>src/scss/my-app.scss</code>:
     </p>
-    <code-block class="card" language="scss" filename="src/scss/my-app.scss">
+    <code-block class="card" language="scss" filename="./src/scss/my-app.scss">
       <pre>
-@import './my-vars.scss';
-@import '~@madxnl/mad-vue/src/scss/main.scss';
+@import './my-vars';
+@import '~@madxnl/mad-vue/src/scss/main';
 
 // Additional global styling rules and imports go here</pre>
     </code-block>
     <p>
       3. Change the style import in <code>main.js</code> to point to your custom scss:
     </p>
-    <code-block class="card" filename="src/main.js">
+    <code-block class="card" filename="./src/main.js">
       <pre>
 // import '@madxnl/mad-vue/src/scss/main.scss'
 import './scss/my-app.scss'</pre>
@@ -48,7 +48,7 @@ import './scss/my-app.scss'</pre>
 &lt;&#47;style&gt;</pre>
     </code-block>
     <p>
-      See <a href="https://github.com/madxnl/mad-vue/blob/master/src/scss/vars.scss"><code>vars.scss</code></a> for a full list of variables that can be overridden.
+      See <a href="https://github.com/madxnl/mad-vue/blob/master/src/scss/_vars.scss"><code>_vars.scss</code></a> for a full list of variables that can be overridden.
     </p>
   </div>
 </template>

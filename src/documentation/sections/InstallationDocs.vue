@@ -13,7 +13,7 @@ npm install @madxnl/mad-vue</pre>
     <p>
       Add the following lines to <code>main.js</code> and you're good to go:
     </p>
-    <code-block class="card">
+    <code-block class="card" filename="./src/main.js">
       <pre>
 import Vue from 'vue'
 import App from './App.vue'
