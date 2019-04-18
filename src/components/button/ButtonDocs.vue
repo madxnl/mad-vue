@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Customizable button component.</p>
+    <p>Button component. Use CSS classes to customize color and size.</p>
     <component-example path="button/ButtonExample" :props="props" :events="events" />
   </div>
 </template>

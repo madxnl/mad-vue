@@ -85,6 +85,7 @@ export default {
       const n = parseFloat(value)
       if (isNaN(n)) return 'NaN'
       if (this.decimals) return n.toFixed(this.decimals)
+      // todo: .toLocaleString()
       return n.toString()
     },
 
