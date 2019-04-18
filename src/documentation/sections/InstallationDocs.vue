@@ -2,7 +2,9 @@
   <div>
     <p>
       See <a target="_blank" href="https://cli.vuejs.org/guide/installation.html">the Vue CLI documentation</a> for details on how to create a Vue.js project.
-      Be sure to select CSS pre-processors during the setup because Mad-Vue uses SCSS for styling.
+    </p>
+    <p>
+      <em>Be sure to select CSS pre-processors during the setup because Mad-Vue uses SCSS for styling.</em>
     </p>
     <code-block class="card">
       <pre>
@@ -11,12 +13,21 @@ npm install @madxnl/mad-vue</pre>
     <p>
       Add the following lines to <code>main.js</code> and you're good to go:
     </p>
-    <code-block class="card">
+    <code-block class="card" filename="./src/main.js">
       <pre>
-import MadVue from '@madxnl/mad-vue'
-import '@madxnl/mad-vue/src/scss/main.scss'
+import Vue from 'vue'
+import App from './App.vue'
+import MadVue from '@madxnl/mad-vue' // Import mad-vue
+import '@madxnl/mad-vue/src/scss/main.scss' // Import styling
 
-Vue.use(MadVue)</pre>
+Vue.config.productionTip = false
+
+Vue.use(MadVue) // Load plugin, must be before Vue.use
+
+new Vue({
+  render: h => h(App)
+}).$mount('#app')
+</pre>
     </code-block>
   </div>
 </template>
