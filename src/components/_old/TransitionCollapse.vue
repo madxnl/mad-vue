@@ -1,8 +1,12 @@
 <template>
-  <transition name="transition-collapse"
+  <transition
+    name="transition-collapse"
     :appear="appear"
-    @enter="enter" @afterEnter="afterEnter"
-    @leave="leave" @afterLeave="afterLeave">
+    @enter="enter"
+    @afterEnter="afterEnter"
+    @leave="leave"
+    @afterLeave="afterLeave"
+  >
     <slot></slot>
   </transition>
 </template>
@@ -15,7 +19,7 @@ export default {
   methods: {
     leave(el) {
       el.style.height = el.offsetHeight + 'px'
-      el.offsetHeight // trigger transition
+      // el.offsetHeight // trigger transition
       el.style.height = 0
     },
     afterLeave(el) {
@@ -33,7 +37,7 @@ export default {
 
       // perform transition
       el.style.height = curHeight + 'px'
-      el.offsetHeight // trigger transition
+      // el.offsetHeight // trigger transition
       el.style.height = fullHeight + 'px'
     },
     afterEnter(el) {

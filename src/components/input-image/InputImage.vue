@@ -1,70 +1,91 @@
 <template>
-  <div :class="classes"
+  <div
+    :class="classes"
+    class="v-spacing-xs"
     @drop.prevent="drop"
     @dragover.prevent="dragover"
     @dragleave.prevent="dragleave"
-    class="v-spacing-xs">
-
+  >
     <p v-if="allowedResolutions" class="small">
-      Allowed resolutions: {{allowedResolutions.map(r => r.join('x')).join(', ')}}
+      Allowed resolutions: {{ allowedResolutions.map(r => r.join('x')).join(', ') }}
     </p>
 
-    <input type="file"
+    <input
       v-show="false"
-      ref="fileinput"
       :id="_uid"
-      @change="onInput">
-    
+      ref="fileinput"
+      type="file"
+      @change="onInput"
+    >
+
     <div v-if="value" class="mad-input-image_preview">
-      <img ref="image" :src="imageSrc" @load="onImgLoad" v-show="!previewSrc">
+      <img v-show="!previewSrc" ref="image" :src="imageSrc" @load="onImgLoad">
       <img v-if="previewSrc" ref="preview" :src="previewSrc">
       <div class="small text-center">
-        {{imageName}}
-        <template v-if="previewRes"><br>{{previewRes.join('x')}} pixels</template>
+        {{ imageName }}
+        <template v-if="previewRes"><br>{{ previewRes.join('x') }} pixels</template>
       </div>
       <!-- <p v-if="">
         Image is too big/small, click resize
       </p> -->
     </div>
     <p>
-      <mad-button @click="openEditor" flat v-if="value">
+      <mad-button v-if="value" flat @click="openEditor">
         Resize image
       </mad-button>
-      <mad-button @click="clickBrowse" flat>
-        Choose {{value ? 'new image' : 'image'}}
+      <mad-button flat @click="clickBrowse">
+        Choose {{ value ? 'new image' : 'image' }}
       </mad-button>
     </p>
 
     <mad-modal v-model="modalShown">
-      
       <p class="mad-input-image_canvasdiv">
-        <canvas ref="canvas"
+        <canvas
+          ref="canvas"
           @mousemove="canvasEvent"
           @mousedown="canvasEvent"
           @mouseup="canvasEvent"
-          @mouseleave="canvasEvent"></canvas>
+          @mouseleave="canvasEvent"
+        ></canvas>
       </p>
 
       <p class="row h-spacing-sm align-center">
         <span>Zoom crop area:</span>
-        <input type="range" min="0" max="100"
-          :value="cropZoom" @input.stop="e=>cropZoom=e.target.value">
-        <span>{{cropZoomInPct}}%</span>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          :value="cropZoom"
+          @input.stop="e=>cropZoom=e.target.value"
+        >
+        <span>{{ cropZoomInPct }}%</span>
       </p>
 
       <p v-if="allowedResolutions">
         <label v-for="res in allowedResolutions" :key="res.join('x')">
           <input type="radio" name="crop-resolutions" :value="res">
-          {{res.join('x')}}
+          {{ res.join('x') }}
         </label>
       </p>
       <p v-else class="row h-spacing-sm align-center">
         <span>New dimensions:</span>
-        <mad-input type="number" v-model="targetWidth" placeholder="width" min="0" max="10000"
-          :disabled="allowedResolutions"/>
+        <mad-input
+          v-model="targetWidth"
+          type="number"
+          placeholder="width"
+          min="0"
+          max="10000"
+          :disabled="allowedResolutions"
+        />
         <span>x</span>
-        <mad-input type="number" v-model="targetHeight" placeholder="height" min="0" max="10000"
-          :disabled="allowedResolutions"/>
+        <mad-input
+          v-model="targetHeight"
+          type="number"
+          placeholder="height"
+          min="0"
+          max="10000"
+          :disabled="allowedResolutions"
+        />
         <span>pixels</span>
       </p>
       <br>
@@ -74,11 +95,10 @@
           Cancel
         </mad-button>
         <div class="grow"></div>
-        <mad-button @click="applyCrop" color="primary">
+        <mad-button color="primary" @click="applyCrop">
           Resize image
         </mad-button>
       </div>
-
     </mad-modal>
   </div>
 </template>
@@ -92,9 +112,9 @@
 
 export default {
   props: {
-    value: [String, File],
-    disabled: Boolean,
-    allowedResolutions: Array,
+    value: { type: [String, File], default: null },
+    disabled: { type: Boolean },
+    allowedResolutions: { type: Array, default: null },
   },
 
   data: () => ({
@@ -135,7 +155,7 @@ export default {
           this.$refs.fileinput.value = ''
           this.imageName = null
         }
-        if (typeof value == 'string') {
+        if (typeof value === 'string') {
           this.imageSrc = value
           this.previewSrc = null
           const parts = value.split('/')
@@ -143,10 +163,10 @@ export default {
         }
         if (value instanceof File) {
           this.imageName = value.name
-          if (value != this.editedFile) {
+          if (value !== this.editedFile) {
             this.previewSrc = null
             const reader = new FileReader()
-            reader.onload = e => this.imageSrc = e.target.result
+            reader.onload = e => { this.imageSrc = e.target.result }
             reader.readAsDataURL(value)
           }
         }
@@ -164,7 +184,7 @@ export default {
     },
 
     onImgLoad(event) {
-      if (this.value == this.editedFile) return
+      if (this.value === this.editedFile) return
       const img = event.target
       this.imageElem = img
       this.originalRes = [img.naturalWidth, img.naturalHeight]
@@ -248,12 +268,12 @@ export default {
       const ctx = canvas.getContext('2d')
       const cropRect = this.getCropRect()
       ctx.drawImage(this.imageElem, ...cropRect, 0, 0, canvas.width, canvas.height)
-      const imageQuality = 0.8;
+      const imageQuality = 0.8
       const dataURI = canvas.toDataURL('image/jpeg', imageQuality)
       const mimeType = dataURI.match(/data:(.+);/)[1]
       const binary = atob(dataURI.split(',')[1])
       const bytes = []
-      for(let i = 0; i < binary.length; i++) bytes.push(binary.charCodeAt(i))
+      for (let i = 0; i < binary.length; i++) bytes.push(binary.charCodeAt(i))
       const blob = new Blob([new Uint8Array(bytes)], { type: mimeType })
       const formData = new FormData()
       formData.set('file', blob, this.imageName, { lastModified: new Date().getTime() })
@@ -294,16 +314,16 @@ export default {
       const scaling = this.getEditorScaling(canvas)
       const cropRect = this.getCropRect()
       const scaledRect = cropRect.map(x => x * scaling)
-      const isOverCropArea = 
+      const isOverCropArea =
         mouseX >= scaledRect[0] && mouseX < scaledRect[0] + scaledRect[2] &&
         mouseY >= scaledRect[1] && mouseY < scaledRect[1] + scaledRect[3]
-      if (event.type == 'mousemove') {
+      if (event.type === 'mousemove') {
         canvas.style.cursor = isOverCropArea ? 'grab' : 'crosshair'
         if (this.dragginCropArea) {
           this.cropX += event.movementX / canvas.width
           this.cropY += event.movementY / canvas.height
         }
-      } else if (event.type == 'mousedown') {
+      } else if (event.type === 'mousedown') {
         if (!isOverCropArea) {
           this.cropX = mouseX / canvas.width
           this.cropY = mouseY / canvas.height

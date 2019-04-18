@@ -1,20 +1,28 @@
 <template>
   <div class="mad-transition">
-    <transition-group v-if="group"
+    <transition-group
+      v-if="group"
       name="mad-transition"
       :appear="appear"
       :duration="duration"
-      @before-enter="beforeEnter" @after-enter="afterEnter"
-      @before-leave="beforeLeave" @after-leave="afterLeave">
+      @before-enter="beforeEnter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @after-leave="afterLeave"
+    >
       <slot></slot>
     </transition-group>
-    <transition v-else
+    <transition
+      v-else
       mode="out-in"
       name="mad-transition"
       :appear="appear"
       :duration="duration"
-      @before-enter="beforeEnter" @after-enter="afterEnter"
-      @before-leave="beforeLeave" @after-leave="afterLeave">
+      @before-enter="beforeEnter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @after-leave="afterLeave"
+    >
       <slot></slot>
     </transition>
   </div>
@@ -28,11 +36,8 @@ export default {
     duration: { type: Number, default: 100 },
   },
 
-
   methods: {
     async beforeEnter(el) {
-
-
       // this.$el.style.transition = `all ${this.duration}ms linear`
       //   this.$el.style.height = height + 'px'
 
@@ -72,11 +77,11 @@ export default {
     },
 
     async beforeLeave(el) {
-      const height = el.offsetHeight
+      // const height = el.offsetHeight
       // el.style.transition = `all ${this.duration}ms linear`
       // el.style.overflow = 'hidden'
       // // el.style.height = height + 'px'
-      
+
       // // this.$el.style.transition = `all ${this.duration}ms linear`
 
       if (!this.group) {
@@ -99,16 +104,16 @@ export default {
       //   // this.$el.style.transition = `all ${this.duration}ms linear`
       //   // this.$el.style.height = height + 'px'
       // }
-      
+
       // await new Promise(requestAnimationFrame)
 
       // el.style.height = 0
 
-        // if (!this.group) {
-        //   this.$el.style.height = 0
-        // }
+      // if (!this.group) {
+      //   this.$el.style.height = 0
+      // }
       // fading outs are absolutely positioned so they dont affect layout
-      
+
       // el.style.width = el.offsetWidth + 'px'
       // el.style.height = el.offsetHeight + 'px'
       // el.style.top = el.offsetTop + 'px'
@@ -139,7 +144,6 @@ export default {
 //   }
 //   // transition: height 0.5s linear;
 // }
-
 
 .mad-transition-enter-active,
 .mad-transition-leave-active,

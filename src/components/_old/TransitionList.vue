@@ -8,7 +8,7 @@
 export default {
   props: {
     // loading: {default: false},
-    appear: {type: Boolean, default: false},
+    appear: { type: Boolean, default: false },
   },
   methods: {
   },
