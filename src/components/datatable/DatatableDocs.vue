@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Interactive datatables allow users to navigate and sort data. Currently supports column sorting, pagination, and row selection.</p>
-    <component-example name="DatatableExample">
+    <component-example path="datatable/DatatableExample">
       <template slot="api">
         <h4><code>mad-datatable</code></h4>
 

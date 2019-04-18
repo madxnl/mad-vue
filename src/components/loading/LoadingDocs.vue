@@ -1,6 +1,6 @@
 <template>
   <div>
     <p>todo.</p>
-    <component-example name="LoadingExample" />
+    <component-example path="loading/LoadingExample" />
   </div>
 </template>

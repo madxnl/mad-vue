@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Customizable button component.</p>
-    <component-example name="ButtonExample" :props="props" :events="events" />
+    <component-example path="button/ButtonExample" :props="props" :events="events" />
   </div>
 </template>
 

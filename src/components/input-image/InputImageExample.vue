@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ElephantJPG from '../assets/elephant.jpg'
+import ElephantJPG from '@/assets/elephant.jpg'
 
 export default {
   data: () => ({

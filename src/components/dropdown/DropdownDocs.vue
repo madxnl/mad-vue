@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Todo</p>
-    <component-example name="ModalExample" />
+    <component-example path="modal/ModalExample" />
   </div>
 </template>
 

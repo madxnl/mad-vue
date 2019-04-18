@@ -20,7 +20,7 @@ module.exports = {
         definitions[0]['process.env']['PACKAGE_VERSION'] = JSON.stringify(require('./package.json').version)
         return definitions
       })
-  }
+  },
 }
 
 // plugins: [

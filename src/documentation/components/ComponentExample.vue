@@ -72,7 +72,7 @@
 <script>
 export default {
   props: {
-    name: { type: String, required: true },
+    path: { type: String, required: true },
     props: { type: Array, default: null },
     events: { type: Array, default: null },
     slots: { type: Array, default: null },
@@ -87,8 +87,9 @@ export default {
   }),
 
   async mounted() {
-    this.component = require(`../examples/${this.name}.vue`).default
-    this.source = require(`!raw-loader!../examples/${this.name}.vue`).default
+    if (!this.path) return
+    this.component = require(`@/components/${this.path}.vue`).default
+    this.source = require(`!raw-loader!@/components/${this.path}.vue`).default
   },
 }
 </script>

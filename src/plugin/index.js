@@ -3,33 +3,27 @@ import Messages from './Messages'
 
 export default {
   install(Vue, config) {
-    const components = [
-      'Button',
-      'Checkbox',
-      'Datatable',
-      'Dropdown',
-      'Form',
-      'FormItem',
-      'Icon',
-      'Input',
-      'InputNumber',
-      'InputDate',
-      'InputFile',
-      'InputImage',
-      'Loading',
-      'Message',
-      'Modal',
-      'Select',
-      'Tabs',
-      'Transition',
-    ]
+    Vue.component(`MadButton`, require('@/components/button/Button.vue').default)
+    Vue.component(`MadCheckbox`, require('@/components/checkbox/Checkbox.vue').default)
+    Vue.component(`MadDatatable`, require('@/components/datatable/Datatable.vue').default)
+    Vue.component(`MadDropdown`, require('@/components/dropdown/Dropdown.vue').default)
+    Vue.component(`MadForm`, require('@/components/form/Form.vue').default)
+    Vue.component(`MadFormItem`, require('@/components/form-item/FormItem.vue').default)
+    Vue.component(`MadIcon`, require('@/components/icon/Icon.vue').default)
+    Vue.component(`MadInput`, require('@/components/input/Input.vue').default)
+    Vue.component(`MadInputNumber`, require('@/components/input-number/InputNumber.vue').default)
+    Vue.component(`MadInputDate`, require('@/components/input-date/InputDate.vue').default)
+    Vue.component(`MadInputFile`, require('@/components/input-file/InputFile.vue').default)
+    Vue.component(`MadInputImage`, require('@/components/input-image/InputImage.vue').default)
+    Vue.component(`MadLoading`, require('@/components/loading/Loading.vue').default)
+    Vue.component(`MadMessage`, require('@/components/message/Message.vue').default)
+    Vue.component(`MadModal`, require('@/components/modal/Modal.vue').default)
+    Vue.component(`MadSelect`, require('@/components/select/Select.vue').default)
+    Vue.component(`MadTabs`, require('@/components/tabs/Tabs.vue').default)
+    Vue.component(`MadTransition`, require('@/components/transition/Transition.vue').default)
 
     for (let name in filters) {
       Vue.filter(name, filters[name])
-    }
-
-    for (let component of components) {
-      Vue.component(`Mad${component}`, require(`../components/${component}`).default)
     }
 
     Vue.$mad = Vue.prototype.$mad = {

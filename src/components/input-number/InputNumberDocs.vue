@@ -4,7 +4,7 @@
       Number input field. Auto-correct input type, format and decimal separator, configurable min/max values and number of decimals.
     </p>
     <component-example
-      name="InputNumberExample"
+      path="input-number/InputNumberExample"
       :props="props"
       :events="events"
       :slots="slots"

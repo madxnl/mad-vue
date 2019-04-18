@@ -3,7 +3,7 @@
     <p>
       The <code>&lt;mad-icon&gt;</code> component supports the 2400+ icons from the <a href="https://materialdesignicons.com/">Material Design Icons' collection</a>, as well as country flag icons using <a href="https://github.com/lipis/flag-icon-css"><code>flag-icon-css</code></a>.
     </p>
-    <component-example name="IconExample" :props="props" :events="events" />
+    <component-example path="icon/IconExample" :props="props" :events="events" />
   </div>
 </template>
 

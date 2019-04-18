@@ -5,7 +5,7 @@
       When the submit event is triggered inside a form (for example by clicking a button with <code>type="submit"</code>), all form-item components will be validated.
       The form will emit the "submit" event only if all form-items are valid.
     </p>
-    <component-example name="FormExample" :props="props" :events="events" />
+    <component-example path="form/FormExample" :props="props" :events="events" />
   </div>
 </template>
 

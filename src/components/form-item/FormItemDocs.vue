@@ -6,7 +6,7 @@
       The form will emit the "submit" event only if all form-items are valid.
     </p>
     <component-example
-      name="FormItemExample"
+      path="form-item/FormItemExample"
       :props="props"
       :events="events"
       :slots="slots"
