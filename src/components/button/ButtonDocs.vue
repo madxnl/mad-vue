@@ -11,7 +11,7 @@ export default {
     props: [
       {
         name: 'type',
-        type: 'String',
+        type: '"submit"|"button"',
         description: 'Set to <code>"submit"</code> to trigger form submit event on click.',
         default: '"button"',
       },
