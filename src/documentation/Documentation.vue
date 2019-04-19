@@ -42,8 +42,6 @@
 </template>
 
 <script>
-import './scss/main.scss'
-
 export default {
   data: () => ({
     sections: [
@@ -106,8 +104,37 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import './scss/vars';
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+html {
+  font-family: 'Lato', sans-serif;
+}
+
+code, .code {
+  font-family: monospace;
+  font-size: 90%;
+  // background: rgba(black, 0.05);
+  // line-height: 0.8;
+}
+
+.container {
+  padding: 1rem;
+  & > :last-child { margin-bottom: 0; }
+}
+
+@import '~highlight.js/styles/github.css';
+
+.hljs {
+  background: none !important;
+  padding: 0 !important;
+}
+
+.card {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(black, 0.05);
+}
 
 $sectionWidth: 900px;
 $navWidth: 220px;
@@ -136,7 +163,8 @@ $navWidth: 220px;
   left: 0; bottom: 0; top: 0;
   width: $navWidth;
   overflow-y: auto;
-  background: rgba($text, 0.15);
+  background: rgba(black, 0.05);
+  border-right: 1px solid rgba(black, 0.2);
 }
 .nav-brand {
   text-align: center;
@@ -151,18 +179,18 @@ $navWidth: 220px;
 }
 .nav-link {
   // font-weight: bold;
-  color: $text;
+  color: black;
   display: block;
   text-decoration: none;
   padding: 3px 20px;
   font-size: 110%;
   transition: all .2s;
   &:hover {
-    background: rgba($text, 0.1);
+    background: rgba(black, 0.1);
   }
   &.-active {
     font-weight: bold;
-    background: rgba($text, 0.1);
+    background: rgba(black, 0.1);
   }
 }
 </style>

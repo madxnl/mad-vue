@@ -109,7 +109,7 @@ export default {
 @import '~@/scss/vars';
 
 // .-top {
-//   // background: rgba($text, 0.75);
+//   // background: rgba($textcolor, 0.75);
 //   // color: white;
 //   padding: .5em .5em 0;
 //   text-align: right;

@@ -74,10 +74,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.mad-tabs {
-  background: var(--primary) !important;
-}
-
-</style>

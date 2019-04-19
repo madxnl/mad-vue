@@ -138,7 +138,7 @@ $navWidth: 220px;
   left: 0; bottom: 0; top: 0;
   width: $navWidth;
   overflow-y: auto;
-  background: rgba($text, 0.15);
+  background: rgba($textcolor, 0.15);
 }
 .nav-brand {
   text-align: center;
@@ -153,18 +153,18 @@ $navWidth: 220px;
 }
 .nav-link {
   // font-weight: bold;
-  color: $text;
+  color: $textcolor;
   display: block;
   text-decoration: none;
   padding: 3px 20px;
   font-size: 110%;
   transition: all .2s;
   &:hover {
-    background: rgba($text, 0.1);
+    background: rgba($textcolor, 0.1);
   }
   &.-active {
     font-weight: bold;
-    background: rgba($text, 0.1);
+    background: rgba($textcolor, 0.1);
   }
 }
 </style>

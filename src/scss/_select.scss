@@ -45,18 +45,28 @@
   // }
 }
 .select_multi-item {
-  display: flex;
-  align-items: center;
   flex-shrink: 1;
   overflow: hidden;
   text-align: left;
   white-space: nowrap;
   // overflow: hidden;
-  background: rgba($primary, 0.5);
+  // background: $primary;
   margin: .25em;
-  border-radius: 999px;
-  padding: 0 .5em;
+  border-radius: .25em;
+  padding: .3em .5em .4em;
+  line-height: 1;
   cursor: pointer;
+  position: relative;
+  background: transparent;
+  color: $primary;
+  border: 1px solid $primary;
+  &::before {
+    content: '';
+    top: 0; left: 0; right: 0; bottom: 0;
+    position: absolute;
+    opacity: 0.15;
+    background: $primary;
+  }
 }
 .select_item {
   white-space: nowrap;

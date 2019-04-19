@@ -6,7 +6,7 @@
     cursor: pointer;
     transition: background .1s;
     &:hover {
-      background: rgba($text, .1);
+      background: $light;
     }
   }
   td {

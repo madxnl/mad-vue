@@ -1,8 +1,12 @@
 import * as filters from './filters'
 import Messages from './Messages'
+import Theme from './Theme'
+import '@/scss/main.scss'
 
 export default {
-  install(Vue, config) {
+  install(Vue, config = {}) {
+    // require('@/scss/main.scss')
+
     Vue.component(`MadButton`, require('@/components/button/Button.vue').default)
     Vue.component(`MadCheckbox`, require('@/components/checkbox/Checkbox.vue').default)
     Vue.component(`MadDatatable`, require('@/components/datatable/Datatable.vue').default)
@@ -26,9 +30,16 @@ export default {
       Vue.filter(name, filters[name])
     }
 
-    Vue.$mad = Vue.prototype.$mad = {
+    const theme = new Vue(Theme)
+
+    window.$mad = Vue.$mad = Vue.prototype.$mad = {
       message: new Vue(Messages),
+      theme,
       filters,
+    }
+
+    if (config.theme) {
+      theme.applyTheme(config.theme)
     }
 
     Vue.config.errorHandler = Vue.config.errorHandler || (err => {

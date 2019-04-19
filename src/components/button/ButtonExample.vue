@@ -13,6 +13,10 @@
       </mad-button>
     </p>
     <p>
+      <mad-button class="size-xs bg-red">
+        <mad-icon mdi="balloon" />
+        Button
+      </mad-button>
       <mad-button class="size-sm bg-yellow">
         <mad-icon mdi="balloon" />
         Button
@@ -29,7 +33,7 @@
         <mad-icon mdi="creation" />
         Button
       </mad-button>
-      <mad-button class="bg-red" style="font-size:200%">
+      <mad-button class="size-xxl bg-red">
         <mad-icon mdi="rocket" />
         Button
       </mad-button>

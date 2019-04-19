@@ -1,5 +1,4 @@
 <template>
-  <!-- @click="onClick" -->
   <button
     :type="type"
     :disabled="disabled"
@@ -33,3 +32,6 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+</style>

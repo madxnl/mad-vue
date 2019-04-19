@@ -9,7 +9,11 @@ import CodeBlock from './documentation/components/CodeBlock'
 
 Vue.config.productionTip = false
 
-Vue.use(MadVue)
+Vue.use(MadVue, {
+  theme: {
+    primary: 'green',
+  },
+})
 
 Vue.component('ComponentExample', ComponentExample)
 Vue.component('CodeBlock', CodeBlock)

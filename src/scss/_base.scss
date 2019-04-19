@@ -13,8 +13,8 @@
 :focus, .focus {
   outline: 0;
   .show-focus-outline & {
-    // outline: 2px solid rgba($primary, 0.5);
-    box-shadow: 0 0 0 3px rgba($primary, 0.5);
+    // outline: 2px solid $primary;
+    box-shadow: 0 0 0 3px $primary;
   }
 }
 
@@ -33,7 +33,7 @@ html {
   font-family: Tahoma, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.4;
-  color: $text;
+  color: $dark;
 }
 
 .strong { font-weight: bold; }
@@ -66,7 +66,7 @@ table {
   }
   tr:not(:last-child) {
     td, th {
-      border-bottom: 1px solid rgba($text, 0.1);
+      border-bottom: 1px solid $light;
     }
   }
   th {
@@ -77,7 +77,7 @@ table {
 }
 
 hr {
-  border-bottom: 1px solid rgba($text, 0.3);
+  border-bottom: 1px solid $gray;
 }
 
 img {
@@ -100,7 +100,7 @@ input, select, textarea, button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: $text;
+  color: $dark;
   cursor: pointer;
   &.disabled {
     opacity: 0.5;
@@ -110,7 +110,8 @@ input, select, textarea, button {
     cursor: pointer;
   }
   &:hover, &:focus, &.hover, &.active {
-    background: rgba($primary, 0.2);
+    background: $light;
+    color: $black;
   }
   &:last-child {
     margin-bottom: .25rem;

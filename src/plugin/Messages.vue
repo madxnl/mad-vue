@@ -1,20 +1,23 @@
 <template>
   <transition-group name="_transition" class="mad-messages" tag="div">
-
-
     <template v-for="msg in messages">
-      <mad-message :key="msg.id" :color="msg.color"
-        @close="close(msg)">
-        {{msg.text}}
+      <mad-message
+        :key="msg.id"
+        :color="msg.color"
+        @close="close(msg)"
+      >
+        {{ msg.text }}
       </mad-message>
     </template>
 
-    <div v-for="comp in customMessages" :key="comp._uid"
+    <div
+      v-for="comp in customMessages"
+      :key="comp._uid"
       class="mad-message"
+      @close="comp.close"
       v-html="getCustomHtml(comp)"
-      @close="comp.close">
+    >
     </div>
-
   </transition-group>
 </template>
 
@@ -29,6 +32,10 @@ export default {
     messages: [],
     customMessages: [],
   }),
+
+  beforeDestroy() {
+    this.customMessages.forEach(c => this.removeMessageComponent(c))
+  },
 
   methods: {
     info(message, options = {}) {
@@ -63,7 +70,7 @@ export default {
     },
 
     close(message) {
-      this.messages = this.messages.filter(m => m != message && m.message != message)
+      this.messages = this.messages.filter(m => m !== message && m.message !== message)
     },
 
     appendMessageComponent(component) {
@@ -77,10 +84,6 @@ export default {
       // this.$el.removeChild(component.$el)
       // component.$off('close')
     },
-  },
-
-  beforeDestroy() {
-    this.customMessages.forEach(c => this.removeMessageComponent(c))
   },
 }
 </script>

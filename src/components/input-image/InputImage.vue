@@ -49,7 +49,7 @@
         ></canvas>
       </p>
 
-      <p class="row h-spacing-sm align-center">
+      <p class="row h-spacing-2 align-center">
         <span>Zoom crop area:</span>
         <input
           type="range"
@@ -67,7 +67,7 @@
           {{ res.join('x') }}
         </label>
       </p>
-      <p v-else class="row h-spacing-sm align-center">
+      <p v-else class="row h-spacing-2 align-center">
         <span>New dimensions:</span>
         <mad-input
           v-model="targetWidth"

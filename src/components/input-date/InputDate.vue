@@ -15,13 +15,13 @@
     <div slot="dropdown" class="mad-input-date_columns">
       <div>
         <div class="mad-input-date_row">
-          <mad-button flat size="small" @click.stop="addMonths(-1)">
+          <mad-button class="size-sm" @click.stop="addMonths(-1)">
             <mad-icon mdi="chevron-left" />
           </mad-button>
           <div class="grow text-center">
             {{ calMonthDisplay }}
           </div>
-          <mad-button flat size="small" @click.stop="addMonths(1)">
+          <mad-button class="size-sm" @click.stop="addMonths(1)">
             <mad-icon mdi="chevron-right" />
           </mad-button>
         </div>
@@ -45,39 +45,39 @@
       </div>
 
       <div v-if="time" class="mad-input-date_time">
-        <div class="column spacing-sm">
-          <mad-button flat size="small" @click.stop="addHours(1)">
+        <div class="column spacing-2">
+          <mad-button class="size-sm" @click.stop="addHours(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
           <div>
             {{ localeTimeString.split(':')[0] }}
           </div>
-          <mad-button flat size="small" @click.stop="addHours(-1)">
+          <mad-button class="size-sm" @click.stop="addHours(-1)">
             <mad-icon mdi="chevron-down" />
           </mad-button>
         </div>
         <div>:</div>
-        <div class="column spacing-sm">
-          <mad-button flat size="small" @click.stop="addMinutes(1)">
+        <div class="column spacing-2">
+          <mad-button class="size-sm" @click.stop="addMinutes(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
           <div>
             {{ localeTimeString.split(':')[1] }}
           </div>
-          <mad-button flat size="small" @click.stop="addMinutes(-1)">
+          <mad-button class="size-sm" @click.stop="addMinutes(-1)">
             <mad-icon mdi="chevron-down" />
           </mad-button>
         </div>
         <template v-if="seconds">
           <div>:</div>
-          <div class="column spacing-sm">
-            <mad-button flat size="small" @click.stop="addSeconds(1)">
+          <div class="column spacing-2">
+            <mad-button class="size-sm" @click.stop="addSeconds(1)">
               <mad-icon mdi="chevron-up" />
             </mad-button>
             <div>
               {{ localeTimeString.split(':')[2].split(' ')[0] }}
             </div>
-            <mad-button flat size="small" @click.stop="addSeconds(-1)">
+            <mad-button class="size-sm" @click.stop="addSeconds(-1)">
               <mad-icon mdi="chevron-down" />
             </mad-button>
           </div>

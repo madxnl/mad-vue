@@ -1,67 +1,81 @@
-$yellow: #e4b600 !default;
-$blue: #4296e6 !default;
-$green: #3bb983 !default;
-$red: #e43f3f !default;
-$purple: #7348eb !default;
-$orange: #fb7e5c !default;
+$red: var(--red) !default;
+$pink: var(--pink) !default;
+$purple: var(--purple) !default;
+$deeppurple: var(--deeppurple) !default;
+$indigo: var(--indigo) !default;
+$blue: var(--blue) !default;
+$lightblue: var(--lightblue) !default;
+$cyan: var(--cyan) !default;
+$teal: var(--teal) !default;
+$green: var(--green) !default;
+$lightgreen: var(--lightgreen) !default;
+$lime: var(--lime) !default;
+$yellow: var(--yellow) !default;
+$amber: var(--amber) !default;
+$orange: var(--orange) !default;
+$deeporange: var(--deeporange) !default;
+$brown: var(--brown) !default;
+$bluegray: var(--bluegray) !default;
 
-$dark: #35495d;
-$gray: #818181;
+$black: var(--black) !default;
+$dark: var(--dark) !default;
+$gray: var(--gray) !default;
+$light: var(--light) !default;
+$white: var(--white) !default;
 
-$white: #ffffff !default;
+$primary: var(--primary) !default;
+$accent: var(--accent) !default;
 
-$text: $dark !default;
-$primary: $blue !default;
-
-
-$colors: (
-  yellow: $yellow,
-  blue: $blue,
-  green: $green,
-  red: $red,
-  purple: $purple,
-  orange: $orange,
-  
-  white: $white,
-  gray: $gray,
-
-  text: $text,
-  primary: $primary,
+$darkcolors: (
+  "red": $red,
+  "purple": $purple,
+  "deeppurple": $deeppurple,
+  "indigo": $indigo,
+  "blue": $blue,
+  "green": $green,
+  "deeporange": $deeporange,
+  "brown": $brown,
+  "bluegray": $bluegray,
+  "black": $black,
+  "dark": $dark,
+  "primary": $primary,
+  "accent": $accent,
 ) !default;
 
+$lightcolors: (
+  "pink": $pink,
+  "lightblue": $lightblue,
+  "cyan": $cyan,
+  "teal": $teal,
+  "lightgreen": $lightgreen,
+  "lime": $lime,
+  "yellow": $yellow,
+  "amber": $amber,
+  "orange": $orange,
+  "gray": $gray,
+  "light": $light,
+  "white": $white,
+) !default;
+
+$allcolors: join($darkcolors, $lightcolors);
 
 $fontsizes: (
   xs: 0.75em,
   sm: 0.9em,
   md: 1em,
-  lg: 1.35em,
-  xl: 1.8em,
-  tiny: 0.75em,
-  small: 0.9em,
-  medium: 1em,
-  large: 1.35em,
-  huge: 1.8em,
+  lg: 1.25em,
+  xl: 1.5em,
+  xxl: 1.75em,
 ) !default;
 
+$spacing: 0.25rem !default;
 
-
-$margin: 1.5rem !default;
-
-$margins-sizes: (
-  '': $margin,
-  -xs: $margin * 0.25,
-  -sm: $margin * 0.50,
-  -lg: $margin * 1.50,
-  -xl: $margin * 3.00,
+$distances: (
   '-0': 0,
+  '-1': $spacing,
+  '-2': $spacing * 2,
+  '-3': $spacing * 3,
+  '-4': $spacing * 4,
+  '-5': $spacing * 5,
+  '-6': $spacing * 6,
 ) !default;
-
-
-
-@function contrast-text-color($color) {
-  @if (lightness($color) > 60) {
-    @return #000000;
-  } @else {
-    @return #ffffff;
-  }
-}
