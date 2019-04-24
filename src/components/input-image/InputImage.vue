@@ -342,3 +342,27 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import '../../scss/vars';
+
+.mad-input-image {
+  &.-draggingFile {
+    background: red;
+  }
+}
+.mad-input-image_preview {
+  display: inline-block;
+  img {
+    max-width: 100%;
+    max-height: 300px;
+    height: auto;
+    width: auto;
+    pointer-events: none;
+  }
+}
+.mad-input-image_canvasdiv {
+  width: 100%;
+  height: 400px;
+}
+</style>

@@ -295,3 +295,81 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+@import '../../scss/vars';
+
+.mad-select {
+  & > .mad-dropdown {
+    width: 100%;
+  }
+  // @extend .mad-input;
+  // position: relative;
+  &.--disabled {
+    & > .mad-input {
+      background: rgba(0, 0, 0, 0.05);
+      color: rgba(0, 0, 0, 0.8);
+    }
+    pointer-events: none;
+  }
+  &:not(.multiple) {
+    .mad-select_input {
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      width: 100%;
+    }
+  }
+}
+.mad-select_input {
+  flex-grow: 1;
+  background: transparent;
+}
+.mad-select_content {
+  flex: 1 1 0;
+  align-self: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  // justify-self: stretch;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  // display: flex;
+  // flex-wrap: wrap;
+  // // padding: .25rem 0;
+  // margin: .25em;
+  // & > * {
+  //   margin: .25em;
+  //   flex-shrink: 1;
+  // }
+}
+.select_multi-item {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-align: left;
+  white-space: nowrap;
+  // overflow: hidden;
+  // background: $primary;
+  margin: .25em;
+  border-radius: .25em;
+  padding: .3em .5em .4em;
+  line-height: 1;
+  cursor: pointer;
+  position: relative;
+  background: transparent;
+  color: $primary;
+  border: 1px solid $primary;
+  &::before {
+    content: '';
+    top: 0; left: 0; right: 0; bottom: 0;
+    position: absolute;
+    opacity: 0.15;
+    background: $primary;
+  }
+}
+.select_item {
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+}
+
+</style>

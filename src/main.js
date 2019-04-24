@@ -2,10 +2,10 @@ import Vue from 'vue'
 // import router from './router'
 
 import MadVue from './plugin'
-import Documentation from './documentation/Documentation'
 
 import ComponentExample from './documentation/components/ComponentExample'
 import CodeBlock from './documentation/components/CodeBlock'
+import Documentation from './documentation/Documentation'
 
 Vue.config.productionTip = false
 

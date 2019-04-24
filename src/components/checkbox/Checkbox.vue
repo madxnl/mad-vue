@@ -87,3 +87,30 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import '../../scss/vars';
+
+.mad-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  & > input[type=checkbox] {
+    position: absolute;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .mad-checkbox_icon {
+    font-size: 24px;
+    line-height: 1;
+    opacity: 0.75;
+  }
+  &.checked, &.intermediate, &:hover {
+    & > .mad-checkbox_icon {
+      opacity: 1;
+      color: $primary;
+    }
+  }
+}
+</style>

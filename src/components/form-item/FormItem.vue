@@ -82,3 +82,25 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import '../../scss/vars';
+
+.mad-form-item {
+  margin-bottom: 1rem;
+  display: block;
+  &.-haserror {
+    color: $red;
+  }
+}
+.mad-form-item_label {
+  display: block;
+  margin-bottom: 0.25em;
+  font-weight: bold;
+  font-size: 90%;
+  .-required &::after {
+    content: '*';
+    color: $red;
+  }
+}
+</style>

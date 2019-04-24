@@ -1,7 +1,6 @@
 import * as dateFns from 'date-fns'
 
-
-export function debounce(callback, duration=500) {
+export function debounce(callback, duration = 500) {
   let timeout
   return () => {
     clearTimeout(timeout)
@@ -27,19 +26,19 @@ export function localeNumber(number, decimals = 0) {
   })
 }
 
-export function relativeTime(date, compareTo = new Date) {
+export function relativeTime(date, compareTo = new Date()) {
   if (!date) return date
   return dateFns.distanceInWordsStrict(date, compareTo)
 }
 
 export function capitalize(str) {
-  if (typeof str != 'string') return str
+  if (typeof str !== 'string') return str
   str = str.trim()
   return str.slice(0, 1).toUpperCase() + str.slice(1)
 }
 
 export function truncate(str, length = 15, ellipsis = '…') {
-  if (typeof str != 'string') return str
+  if (typeof str !== 'string') return str
   if (str.length <= length) return str
   const words = str.trim().split(' ')
   let result = words.shift()

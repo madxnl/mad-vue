@@ -168,3 +168,27 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+@import '../../scss/vars';
+
+.mad-datatable {
+  width: 100%;
+  th.-sortable {
+    cursor: pointer;
+    transition: background .1s;
+    &:hover {
+      background: $light;
+    }
+  }
+  td {
+    position: relative;
+    transition: background .1s;
+  }
+  .-clickable-row:hover {
+    box-shadow: 0 2px 5px rgba(black, 0.2);
+    background: rgba(white, 0.5);
+    cursor: pointer;
+  }
+}
+</style>

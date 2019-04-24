@@ -1,5 +1,5 @@
 <template>
-  <transition-group name="_transition" class="mad-messages" tag="div">
+  <transition-group name="mad-messages" class="mad-messages" tag="div">
     <template v-for="msg in messages">
       <mad-message
         :key="msg.id"
@@ -88,16 +88,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../scss/vars';
 
-._transition-move,
-._transition-enter-active,
-._transition-leave-active {
+.mad-messages-move,
+.mad-messages-enter-active,
+.mad-messages-leave-active {
   transition: all .5s;
 }
-._transition-enter,
-._transition-leave-to {
+.mad-messages-enter,
+.mad-messages-leave-to {
   opacity: 0;
   max-height: 0;
   padding-top: 0;
@@ -106,7 +106,15 @@ export default {
   margin-bottom: 0;
   // transform: translateY(20px);
 }
-// ._transition-leave-active {
+// .mad-messages-leave-active {
   // position: absolute;
 // }
+
+.mad-messages {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
 </style>

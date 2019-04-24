@@ -44,13 +44,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
-.filename {
-  opacity: 0.6;
-  font-style: italic;
-}
-.code-block pre {
-  margin-bottom: 0;
+.code-block {
+  .filename {
+    opacity: 0.6;
+    font-style: italic;
+  }
+  .code-block pre {
+    margin-bottom: 0;
+  }
 }
 </style>

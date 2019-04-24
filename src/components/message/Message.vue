@@ -44,3 +44,29 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import '../../scss/vars';
+
+.mad-message {
+  max-width: 600px;
+  margin: 0 auto .5rem auto;
+  max-height: 200px;
+  z-index: 80;
+  pointer-events: auto;
+  background: white;
+  box-shadow: 0 2px 5px rgba(black, 0.3);
+  cursor: default;
+  border-radius: 2px;
+  font-weight: bold;
+  overflow: hidden;
+  display: flex;
+  // align-items: flex;
+  justify-content: space-between;
+
+  .mad-messages_text {
+    padding: .5rem;
+    padding-left: 1rem;
+  }
+}
+</style>
