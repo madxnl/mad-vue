@@ -3,24 +3,24 @@ require('../scss/main.scss')
 
 const filters = require('./filters')
 
-const Button = require('../components/button/Button.vue').default
-const Checkbox = require('../components/checkbox/Checkbox.vue').default
-const Datatable = require('../components/datatable/Datatable.vue').default
-const Dropdown = require('../components/dropdown/Dropdown.vue').default
-const Form = require('../components/form/Form.vue').default
-const FormItem = require('../components/form-item/FormItem.vue').default
-const Icon = require('../components/icon/Icon.vue').default
-const Input = require('../components/input/Input.vue').default
-const InputNumber = require('../components/input-number/InputNumber.vue').default
-const InputDate = require('../components/input-date/InputDate.vue').default
-const InputFile = require('../components/input-file/InputFile.vue').default
-const InputImage = require('../components/input-image/InputImage.vue').default
-const Loading = require('../components/loading/Loading.vue').default
-const Message = require('../components/message/Message.vue').default
-const Modal = require('../components/modal/Modal.vue').default
-const Select = require('../components/select/Select.vue').default
-const Tabs = require('../components/tabs/Tabs.vue').default
-const Transition = require('../components/transition/Transition.vue').default
+const Button = require('../components/Button').default
+const Checkbox = require('../components/Checkbox').default
+const Datatable = require('../components/Datatable').default
+const Dropdown = require('../components/Dropdown').default
+const Form = require('../components/Form').default
+const FormItem = require('../components/FormItem').default
+const Icon = require('../components/Icon').default
+const Input = require('../components/Input').default
+const InputNumber = require('../components/InputNumber').default
+const InputDate = require('../components/InputDate').default
+const InputFile = require('../components/InputFile').default
+const InputImage = require('../components/InputImage').default
+const Loading = require('../components/Loading').default
+const Message = require('../components/Message').default
+const Modal = require('../components/Modal').default
+const Select = require('../components/Select').default
+const Tabs = require('../components/Tabs').default
+const Transition = require('../components/Transition').default
 
 const Messages = require('./Messages').default
 const Theme = require('./Theme').default

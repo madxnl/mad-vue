@@ -51,7 +51,7 @@ export default {
     opacity: 0.6;
     font-style: italic;
   }
-  .code-block pre {
+  pre {
     margin-bottom: 0;
   }
 }

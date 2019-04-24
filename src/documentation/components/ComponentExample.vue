@@ -99,8 +99,8 @@ export default {
 
   async mounted() {
     if (!this.path) return
-    this.component = require(`@/components/${this.path}.vue`).default
-    this.source = require(`!raw-loader!@/components/${this.path}.vue`).default
+    this.component = require(`./${this.path}.vue`).default
+    this.source = require(`!raw-loader!./${this.path}.vue`).default
   },
 }
 </script>

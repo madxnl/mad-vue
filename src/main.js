@@ -11,7 +11,6 @@ Vue.config.productionTip = false
 
 Vue.use(MadVue, {
   theme: {
-    primary: 'green',
   },
 })
 
