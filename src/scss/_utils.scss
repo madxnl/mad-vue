@@ -41,9 +41,47 @@
 
 .faded { opacity: 0.5 }
 
-@each $key, $value in $distances {
-  .margin#{$key} { margin: $value; }
-  .padding#{$key} { padding: $value; }
-  .h-spacing#{$key} > :not(:last-child) { margin-right: $value; }
-  .v-spacing#{$key} > :not(:last-child) { margin-bottom: $value; }
+@each $code, $value in $distances {
+  .m#{$code} { margin: $value !important; }
+  .mx#{$code} { margin-left: $value !important; margin-right: $value !important; }
+  .my#{$code} { margin-top: $value !important; margin-bottom: $value !important; }
+  .mt#{$code} { margin-top: $value !important; }
+  .mr#{$code} { margin-right: $value !important; }
+  .mb#{$code} { margin-bottom: $value !important; }
+  .ml#{$code} { margin-left: $value !important; }
+
+  .p#{$code} { padding: $value !important; }
+  .px#{$code} { padding-left: $value !important; padding-right: $value !important; }
+  .py#{$code} { padding-top: $value !important; padding-bottom: $value !important; }
+  .pt#{$code} { padding-top: $value !important; }
+  .pr#{$code} { padding-right: $value !important; }
+  .pb#{$code} { padding-bottom: $value !important; }
+  .pl#{$code} { padding-left: $value !important; }
+
+  .h-spacing#{$code} > :not(:last-child) { margin-right: $value; }
+  .v-spacing#{$code} > :not(:last-child) { margin-bottom: $value; }
+}
+
+// todo: margin-auto
+// todo: col-auto
+// todo: wrap rows?
+
+.col {
+  flex: 1 1 0;
+  max-width: 100%;
+}
+@each $code, $width in $breakpoints {
+  @media all and (min-width: $width) {
+    .col-auto {
+      flex: 0 0 auto;
+      width: auto;
+      max-width: none;
+    }
+    @for $i from 1 through 12 {
+      .col#{$code}-#{$i} {
+        flex: 0 0 percentage($i / 12);
+        max-width: percentage($i / 12);
+      }
+    }
+  }
 }

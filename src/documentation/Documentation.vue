@@ -46,7 +46,7 @@ export default {
   data: () => ({
     sections: [
       { name: 'Installation', component: require('./components/InstallationDocs').default },
-      { name: 'Theme', component: require('./components/StylingDocs').default },
+      { name: 'Theme', component: require('./components/ThemeDocs').default },
       { name: 'Typography', component: require('./components/StylingDocs').default },
       { name: 'Layout', component: require('./components/StylingDocs').default },
       { name: 'Components', component: require('./components/StylingDocs').default },

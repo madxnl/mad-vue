@@ -27,8 +27,10 @@ $primary: var(--primary) !default;
 $accent: var(--accent) !default;
 
 $darkcolors: (
+  "pink": $pink,
   "red": $red,
   "purple": $purple,
+  "teal": $teal,
   "deeppurple": $deeppurple,
   "indigo": $indigo,
   "blue": $blue,
@@ -38,21 +40,19 @@ $darkcolors: (
   "bluegray": $bluegray,
   "black": $black,
   "dark": $dark,
+  "gray": $gray,
   "primary": $primary,
   "accent": $accent,
 ) !default;
 
 $lightcolors: (
-  "pink": $pink,
   "lightblue": $lightblue,
   "cyan": $cyan,
-  "teal": $teal,
   "lightgreen": $lightgreen,
   "lime": $lime,
   "yellow": $yellow,
   "amber": $amber,
   "orange": $orange,
-  "gray": $gray,
   "light": $light,
   "white": $white,
 ) !default;
@@ -68,14 +68,23 @@ $fontsizes: (
   xxl: 1.75em,
 ) !default;
 
-$spacing: 0.25rem !default;
-
 $distances: (
   '-0': 0,
-  '-1': $spacing,
-  '-2': $spacing * 2,
-  '-3': $spacing * 3,
-  '-4': $spacing * 4,
-  '-5': $spacing * 5,
-  '-6': $spacing * 6,
+  '-xxs': 0.125rem,
+  '-xs': 0.25rem,
+  '-sm': 0.5rem,
+  '': 1rem,
+  '-md': 1rem,
+  '-lg': 1.5rem,
+  '-xl': 2rem,
+  '-xxl': 3rem,
+) !default;
+
+$breakpoints: (
+  '': 0,
+  '-xs': 0,
+  '-sm': 600px,
+  '-md': 960px,
+  '-lg': 1264px,
+  '-xl': 1904px,
 ) !default;

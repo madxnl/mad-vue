@@ -45,7 +45,7 @@
       </div>
 
       <div v-if="time" class="mad-input-date_time">
-        <div class="column spacing-2">
+        <div class="column spacing-sm">
           <mad-button class="size-sm" @click.stop="addHours(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
@@ -57,7 +57,7 @@
           </mad-button>
         </div>
         <div>:</div>
-        <div class="column spacing-2">
+        <div class="column spacing-sm">
           <mad-button class="size-sm" @click.stop="addMinutes(1)">
             <mad-icon mdi="chevron-up" />
           </mad-button>
@@ -70,7 +70,7 @@
         </div>
         <template v-if="seconds">
           <div>:</div>
-          <div class="column spacing-2">
+          <div class="column spacing-sm">
             <mad-button class="size-sm" @click.stop="addSeconds(1)">
               <mad-icon mdi="chevron-up" />
             </mad-button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="v-spacing-2">
+  <div class="v-spacing-sm">
     <mad-form-item label="Message">
       <mad-input v-model="message" placeholder="Enter message here" />
     </mad-form-item>
