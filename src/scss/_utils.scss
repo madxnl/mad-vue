@@ -1,4 +1,17 @@
 
+// FONT
+
+.faded { opacity: 0.5 }
+
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-left { text-align: left !important; }
+
+@each $key, $size in $fontsizes {
+  .size-#{$key} { font-size: $size !important; }
+}
+
+// COLORS
 
 @each $name, $color in $allcolors {
   .#{$name} { color: $color !important; }
@@ -12,24 +25,23 @@
   .bg-#{$name} { color: $black; }
 }
 
-@each $key, $size in $fontsizes {
-  .size-#{$key} { font-size: $size !important; }
+// FLEX
+
+.grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
 }
-
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.text-left { text-align: left; }
-
 @each $direction in (row, column, row-reverse, column-reverse) {
   .#{$direction} {
-    display: flex;
-    flex-flow: $direction;
+    display: flex !important;
+    flex-flow: $direction !important;
   }
 }
 
-.wrap { flex-wrap: wrap; }
-.wrap-reverse { flex-wrap: wrap-reverse; }
-.grow { flex-grow: 1; }
+.wrap { flex-wrap: wrap !important; }
+.wrap-reverse { flex-wrap: wrap-reverse !important; }
+.grow { flex-grow: 1 !important; }
+
 @each $t in (baseline, center, stretch, flex-start, flex-end) {
   .align-#{$t} { align-items: $t }
   .align-self-#{$t} { align-self: $t }
@@ -39,9 +51,28 @@
   .justify-self-#{$t} { justify-self: $t }
 }
 
-.faded { opacity: 0.5 }
 
-@each $code, $value in $distances {
+// SPACING
+
+
+
+
+@each $code, $value in $margins {
+  .sx#{$code} {
+    margin-left: -($value)/2 !important;
+    margin-right: -($value)/2 !important;
+    &>* { margin-left: ($value)/2; margin-right: ($value)/2; }
+  }
+  .sy#{$code} {
+    margin-top: -($value)/2 !important;
+    margin-bottom: -($value)/2 !important;
+    &>* { margin-top: ($value)/2; margin-bottom: ($value)/2; }
+  }
+  .s#{$code} {
+    margin: -($value)/2 !important;
+    &>* { margin: ($value)/2; }
+  }
+
   .m#{$code} { margin: $value !important; }
   .mx#{$code} { margin-left: $value !important; margin-right: $value !important; }
   .my#{$code} { margin-top: $value !important; margin-bottom: $value !important; }
