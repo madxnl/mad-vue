@@ -47,9 +47,9 @@ export default {
     sections: [
       { name: 'Installation', component: require('./components/InstallationDocs').default },
       { name: 'Theme', component: require('./components/ThemeDocs').default },
-      { name: 'Typography', component: require('./components/StylingDocs').default },
-      { name: 'Layout', component: require('./components/StylingDocs').default },
-      { name: 'Components', component: require('./components/StylingDocs').default },
+      { name: 'Typography', component: require('./components/TypographyDocs').default },
+      { name: 'Layout', component: require('./components/LayoutDocs').default },
+      { name: 'Components', component: require('./components/ComponentsDocs').default },
       // { name: 'Components', component: require('./components/StylingDocs').default },
       { name: 'button', component: require('./components/ButtonDocs').default, indent: 1, mono: true },
       { name: 'icon', component: require('./components/IconDocs').default, indent: 1, mono: true },

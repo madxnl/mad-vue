@@ -101,7 +101,7 @@ export default {
   &:hover::after {
     opacity: 0.15;
   }
-  &.-active, &:active {
+  // &.-active, &:active {
     // top: 1px;
     // box-shadow: inset 0 1px 2px rgba(black, 0.35);
     // &::after {
@@ -109,7 +109,7 @@ export default {
     //   opacity: 0.25;
     //   // color: black;
     // }
-  }
+  // }
 }
 .mad-tabs {
   display: flex;

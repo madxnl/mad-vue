@@ -54,23 +54,20 @@
 
 // SPACING
 
-
-
-
 @each $code, $value in $margins {
-  .sx#{$code} {
+  .g#{$code} {
+    margin: -($value)/2 !important;
+    &>* { padding: ($value)/2; }
+  }
+  .gx#{$code} {
     margin-left: -($value)/2 !important;
     margin-right: -($value)/2 !important;
-    &>* { margin-left: ($value)/2; margin-right: ($value)/2; }
+    &>* { padding-left: ($value)/2; padding-right: ($value)/2; }
   }
-  .sy#{$code} {
+  .gy#{$code} {
     margin-top: -($value)/2 !important;
     margin-bottom: -($value)/2 !important;
-    &>* { margin-top: ($value)/2; margin-bottom: ($value)/2; }
-  }
-  .s#{$code} {
-    margin: -($value)/2 !important;
-    &>* { margin: ($value)/2; }
+    &>* { padding-top: ($value)/2; padding-bottom: ($value)/2; }
   }
 
   .m#{$code} { margin: $value !important; }
@@ -89,13 +86,11 @@
   .pb#{$code} { padding-bottom: $value !important; }
   .pl#{$code} { padding-left: $value !important; }
 
-  .h-spacing#{$code} > :not(:last-child) { margin-right: $value; }
-  .v-spacing#{$code} > :not(:last-child) { margin-bottom: $value; }
+  .sx#{$code} > :not(:last-child) { margin-right: $value; }
+  .sy#{$code} > :not(:last-child) { margin-bottom: $value; }
 }
 
-// todo: margin-auto
-// todo: col-auto
-// todo: wrap rows?
+// todo: container
 
 .col {
   flex: 1 1 0;

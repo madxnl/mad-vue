@@ -1,5 +1,5 @@
 <template>
-  <mad-form class="v-spacing-sm" @submit="onSubmit">
+  <mad-form class="sy-sm" @submit="onSubmit">
     <mad-form-item label="Message" :value="message" required>
       <mad-input v-model="message" />
     </mad-form-item>

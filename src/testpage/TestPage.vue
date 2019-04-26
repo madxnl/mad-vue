@@ -44,31 +44,31 @@
 <script>
 import './scss/main.scss'
 
-const loadSection = path => require(`./sections/${path}`).default
+// const loadSection = path => require(`./sections/${path}`).default
 
 export default {
   data: () => ({
     sections: [
-      { name: 'Installation', component: loadSection('InstallationDocs') },
-      { name: 'Components', component: loadSection('StylingDocs') },
-      { name: 'button', component: loadSection('ButtonDocs'), indent: 1, mono: true },
-      { name: 'icon', component: loadSection('IconDocs'), indent: 1, mono: true },
-      { name: 'form', component: loadSection('FormDocs'), indent: 1, mono: true },
-      { name: 'form-item', component: loadSection('FormItemDocs'), indent: 1, mono: true },
-      { name: 'input', component: loadSection('InputDocs'), indent: 1, mono: true },
-      { name: 'input-date', component: loadSection('InputDateDocs'), indent: 1, mono: true },
-      { name: 'input-number', component: loadSection('InputNumberDocs'), indent: 1, mono: true },
-      { name: 'input-file', component: loadSection('InputImageDocs'), indent: 1, mono: true },
-      { name: 'input-image', component: loadSection('InputImageDocs'), indent: 1, mono: true },
-      { name: 'select', component: loadSection('SelectDocs'), indent: 1, mono: true },
-      { name: 'dropdown', component: loadSection('DropdownDocs'), indent: 1, mono: true },
-      { name: 'modal', component: loadSection('ModalDocs'), indent: 1, mono: true },
-      { name: 'tabs', component: loadSection('FormDocs'), indent: 1, mono: true },
-      { name: 'loading', component: loadSection('LoadingDocs'), indent: 1, mono: true },
-      { name: 'messages', component: loadSection('MessagesDocs'), indent: 1, mono: true },
-      { name: 'datatable', component: loadSection('DatatableDocs'), indent: 1, mono: true },
-      { name: 'transition', component: loadSection('FormDocs'), indent: 1, mono: true },
-      { name: 'Styling', component: loadSection('StylingDocs') },
+      // { name: 'Installation', component: loadSection('InstallationDocs') },
+      // { name: 'Components', component: loadSection('StylingDocs') },
+      // { name: 'button', component: loadSection('ButtonDocs'), indent: 1, mono: true },
+      // { name: 'icon', component: loadSection('IconDocs'), indent: 1, mono: true },
+      // { name: 'form', component: loadSection('FormDocs'), indent: 1, mono: true },
+      // { name: 'form-item', component: loadSection('FormItemDocs'), indent: 1, mono: true },
+      // { name: 'input', component: loadSection('InputDocs'), indent: 1, mono: true },
+      // { name: 'input-date', component: loadSection('InputDateDocs'), indent: 1, mono: true },
+      // { name: 'input-number', component: loadSection('InputNumberDocs'), indent: 1, mono: true },
+      // { name: 'input-file', component: loadSection('InputImageDocs'), indent: 1, mono: true },
+      // { name: 'input-image', component: loadSection('InputImageDocs'), indent: 1, mono: true },
+      // { name: 'select', component: loadSection('SelectDocs'), indent: 1, mono: true },
+      // { name: 'dropdown', component: loadSection('DropdownDocs'), indent: 1, mono: true },
+      // { name: 'modal', component: loadSection('ModalDocs'), indent: 1, mono: true },
+      // { name: 'tabs', component: loadSection('FormDocs'), indent: 1, mono: true },
+      // { name: 'loading', component: loadSection('LoadingDocs'), indent: 1, mono: true },
+      // { name: 'messages', component: loadSection('MessagesDocs'), indent: 1, mono: true },
+      // { name: 'datatable', component: loadSection('DatatableDocs'), indent: 1, mono: true },
+      // { name: 'transition', component: loadSection('FormDocs'), indent: 1, mono: true },
+      // { name: 'Styling', component: loadSection('StylingDocs') },
     ],
     activeSection: null,
   }),
