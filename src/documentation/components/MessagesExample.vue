@@ -7,7 +7,7 @@
       <mad-button class="bg-blue" @click="showInfo">
         Info
       </mad-button>
-      <mad-button class="bg-yellow" @click="showWarn">
+      <mad-button class="bg-orange" @click="showWarn">
         Warn
       </mad-button>
       <mad-button class="bg-red" @click="showError">

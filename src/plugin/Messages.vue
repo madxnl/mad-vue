@@ -49,7 +49,7 @@ export default {
     },
 
     warn(message, options = {}) {
-      options.color = 'yellow'
+      options.color = 'orange'
       return this.message(message, options)
     },
 

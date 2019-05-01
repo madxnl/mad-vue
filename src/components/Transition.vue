@@ -29,7 +29,7 @@ export default {
   props: {
     group: Boolean,
     appear: Boolean,
-    duration: { type: Number, default: 500 },
+    duration: { type: Number, default: 350 },
     variant: { type: String, default: 'fade' },
     slideDist: { type: String, default: '30px' },
     mode: { type: String, default: 'out-in' },
