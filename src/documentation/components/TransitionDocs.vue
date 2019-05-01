@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p>Todo.</p>
+    <p>Enhance your application with animated transitions.</p>
+    <component-example path="TransitionExample" />
   </div>
 </template>
 
