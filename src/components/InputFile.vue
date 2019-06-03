@@ -5,7 +5,8 @@
       class="d-block"
       :id="_uid"
       :disabled="disabled"
-      @change="onInput">
+      @change="onInput"
+      v-bind="$attrs">
   </div>
 </template>
 

@@ -8,19 +8,19 @@
       <mad-button variant="flat" color="blue">Button</mad-button>
     </p>
     <p>
-      <mad-button size="tiny" color="rgb(100,100,50)">
+      <mad-button size="xs" color="rgb(100,100,50)">
         <mad-icon mdi="star"/>
         Button
       </mad-button>
-      <mad-button size="small" color="#ddaa00">
+      <mad-button size="sm" color="#ddaa00">
         <mad-icon mdi="balloon"/>
         Button
       </mad-button>
-      <mad-button size="large" color="primary">
+      <mad-button size="lg" color="primary">
         <mad-icon mdi="cube"/>
         Button
       </mad-button>
-      <mad-button size="huge" color="green">
+      <mad-button size="xl" color="green">
         <mad-icon mdi="creation"/>
         Button
       </mad-button>

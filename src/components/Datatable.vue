@@ -1,54 +1,53 @@
 <template>
   <div>
-    <table class="mad-datatable"
-      :class="{
-        '-clickable': rowLink || rowClick,
-      }">
-      <tr>
-        <th v-if="value">
-          <input type="checkbox" :checked="value.length == items.length"
-            @click="selectAll">
-        </th>
-        <th v-for="(col,i) in validColumns" :key="i"
-          :class="{
-            '-sortable': col.sort,
-            '-sorted': col.key == sortKey,
-          }"
-          @click="toggleSort(col)"
-          :align="col.align">
-          <div class="row align-center">
-            <div class="grow capitalize">
-              <slot :name="col.key+'-label'" :column="col">
-                {{col.label || keyToLabel(col.key)}}
-              </slot>
+    <table class="mad-datatable">
+      <thead>
+        <tr>
+          <th v-if="value">
+            <input type="checkbox" :checked="value.length == rows.length"
+              @click="selectAll">
+          </th>
+          <th v-for="(col,i) in validColumns" :key="i"
+            :class="{
+              '-sortable': col.sort,
+            }"
+            @click="toggleSort(col)"
+            :align="col.align">
+            <div class="row align-center">
+              <div class="capitalize">
+                <slot :name="col.key+'-label'" :column="col">
+                  {{col.label || keyToLabel(col.key)}}
+                </slot>
+              </div>
+              <div v-if="col.sort">
+                &nbsp;
+                <mad-icon
+                  :class="sortKey == col.key ? '' : 'faded'"
+                  size="xs"
+                  :mdi="sortKey == col.key ? sortDir > 0 ? 'sort-descending' : 'sort-ascending' : 'sort'"/>
+              </div>
             </div>
-            <div v-if="col.sort">
-              &nbsp;
-              <mad-icon
-                :class="sortKey == col.key ? '' : 'faded'"
-                :mdi="sortKey == col.key ? sortDir > 0 ? 'sort-descending' : 'sort-ascending' : 'sort'"/>
-            </div>
-          </div>
-        </th>
-      </tr>
-      <tr v-for="(item,i) in currentItems" :key="i"
-        :class="rowClass ? rowClass(item) : ''">
-        <td v-if="value" width="20" @click="selectItem(item)">
-          <input type="checkbox" :checked="value.includes(item)">
-        </td>
-        <td v-for="(col,i) in validColumns" :key="i"
-          :align="col.align">
-          <component class="mad-datatable_td-fill"
-            :is="rowLink && rowLink(item) ? 'a' : 'div'" :href="rowLink && rowLink(item)"
-            @click.prevent="onItemClick(item)">
-            <slot :name="col.key" :item="item">{{item[col.key]}}</slot>
-          </component>
-        </td>
-      </tr>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row,i) in currentRows" :key="i"
+          :class="getRowClasses(row)">
+          <td v-if="value" width="20" @click="selectRow(row)">
+            <input type="checkbox" :checked="value.includes(row)">
+          </td>
+          <td v-for="(col,i) in validColumns" :key="i"
+            :align="col.align"
+            @click.left="e=>onItemClick(row, e)"
+            @click.middle="e=>onItemClick(row, e)">
+            <slot :name="col.key" :row="row">{{row[col.key]}}</slot>
+          </td>
+        </tr>
+      </tbody>
     </table>
     <p v-if="perPage" class="row align-center">
       <span class="grow">
-        {{page*perPage+1}} &ndash; {{Math.min(items.length, (page+1)*perPage)}} of {{items.length}}
+        {{page*perPage+1}} &ndash; {{Math.min(rows.length, (page+1)*perPage)}} of {{rows.length}}
       </span>
       <mad-button flat :disabled="page<=0" @click="page--">
         <mad-icon mdi="chevron-left"/>
@@ -63,14 +62,10 @@
 <script>
 export default {
   props: {
-    items: { type: Array, required: true },
+    rows: { type: Array, required: true },
     columns: { type: Array, required: true },
     perPage: Number,
     value: Array,
-    clickItem: { type: [String, Function] },
-    rowLink: Function,
-    rowClick: Function,
-    rowClass: Function,
   },
 
   data: () => ({
@@ -80,22 +75,24 @@ export default {
   }),
 
   computed: {
-    currentItems() {
-      let items = this.items.slice(0)
+    currentRows() {
+      let rows = this.rows.slice(0)
       const sortCol = this.sortKey && this.columns.find(c => c && c.key == this.sortKey)
       if (sortCol && sortCol.sort) {
-        items = items.sort((a, b) => {
-          const valueA = a[sortCol.key], valueB = b[sortCol.key]
+        let getSortVal = sortCol.sort
+        if (typeof sortCol.sort === 'string') getSortVal = row => row[sortCol.sort]
+        if (sortCol.sort === true) getSortVal = row => row[sortCol.key]
+        rows = rows.sort((a, b) => {
+          const valueA = getSortVal(a), valueB = getSortVal(b)
           let diff = valueB - valueA
-          if (typeof sortCol.sort == 'function') diff = sortCol.sort(b) - sortCol.sort(a)
-          else if (isNaN(diff) && typeof valueB == 'string') diff = valueB.localeCompare(valueA)
+          if (isNaN(diff) && typeof valueB == 'string') diff = valueB.localeCompare(valueA)
           return this.sortDir * diff
         })
       }
       if (this.perPage) {
-        items = items.slice(this.perPage * this.page, this.perPage * (this.page + 1))
+        rows = rows.slice(this.perPage * this.page, this.perPage * (this.page + 1))
       }
-      return items
+      return rows
     },
 
     validColumns() {
@@ -104,22 +101,13 @@ export default {
 
     totalPages() {
       if (!this.perPage) return 1
-      return Math.ceil(this.items.length / this.perPage)
+      return Math.ceil(this.rows.length / this.perPage)
     },
   },
 
   methods: {
-    itemIsClickable(item) {
-      return this.rowClick || (this.rowLink && this.rowLink(item))
-    },
-
-    onItemClick(item) {
-      if (this.rowClick) {
-        this.rowClick(item)
-      } else if (this.rowLink) {
-        if (this.$router) this.$router.push(this.rowLink(item))
-        else window.location.href = this.rowLink(item)
-      }
+    onItemClick(item, event) {
+      if (item.click) item.click(event)
     },
 
     toggleSort(col) {
@@ -137,25 +125,32 @@ export default {
     },
 
     selectAll() {
-      if (this.value.length == this.items.length) {
+      if (this.value.length == this.rows.length) {
         this.$emit('input', [])
       } else {
-        this.$emit('input', this.items.slice(0))
+        this.$emit('input', this.rows.slice(0))
       }
     },
 
-    selectItem(item) {
-      if (this.value.includes(item)) {
-        this.$emit('input', this.value.filter(x => x != item))
+    selectRow(row) {
+      if (this.value.includes(row)) {
+        this.$emit('input', this.value.filter(x => x != row))
       } else {
-        this.$emit('input', this.value.concat(item))
+        this.$emit('input', this.value.concat(row))
       }
     },
 
     keyToLabel(key) {
       let s = key.replace(/([A-Z]+)/g, ' $1').replace(/([A-Z][a-z])/g, ' $1')
       return s.slice(0, 1).toUpperCase() + s.slice(1)
-    }
+    },
+
+    getRowClasses(row) {
+      return {
+        '-clickable-row': !!row.click,
+      }
+    },
+    
   },
 
 }

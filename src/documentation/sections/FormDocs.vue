@@ -24,6 +24,7 @@
           <template slot="events">
             <tr>
               <td>submit</td>
+              <td></td>
               <td>Emitted when submit event is triggered inside form and all form-items are validated succesfully</td>
             </tr>
           </template>

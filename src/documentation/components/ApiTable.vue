@@ -14,6 +14,7 @@
     <table class="component-api-table" v-if="$slots.events">
       <tr>
         <th>Event</th>
+        <th>Type</th>
         <th>Description</th>
       </tr>
       <slot name="events"></slot>

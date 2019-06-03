@@ -1,14 +1,14 @@
 <template>
   <div>
-    <mad-datatable :items="countries"
-      :columns="columns" v-model="selection"
-      :row-link="item => `https://restcountries.eu/rest/v2/name/${item.name}`"
+    <mad-datatable
+      :rows="rows" :columns="columns"
+      v-model="selectedRows"
       :per-page="10">
       <template slot="flag-label">
         Flag
       </template>
-      <template slot="flag" slot-scope="{item}">
-        <mad-icon :flag="item.alpha2Code"/>
+      <template slot="flag" slot-scope="{row}">
+        <mad-icon :flag="row.alpha2Code"/>
       </template>
     </mad-datatable>
   </div>
@@ -19,20 +19,25 @@ import fetch from 'unfetch'
 
 export default {
   data: () => ({
-    selection: [],
+    selectedRows: [],
     countries: [],
     columns: [
-      { key: 'name', sort: true },
-      { key: 'capital', sort: true },
-      { key: 'region', sort: true },
-      { key: 'population', sort: item => item.population },
+      { key: 'name', sort: 'name' },
+      { key: 'capital', sort: row => row.capital },
+      { key: 'region', sort: row => row.region },
+      { key: 'population', sort: row => row.population },
       { key: 'flag' },
     ],
   }),
 
-  methods: {
-    clickRow(country) {
-
+  computed: {
+    rows() {
+      return this.countries.map(country => ({
+        ...country,
+        click(e) {
+          alert(country.name)
+        },
+      }))
     },
   },
 
